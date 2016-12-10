@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/btnCartCount"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:minWidth="15dp"
+    android:minHeight="15dp"
+    android:background="@drawable/badge_shape"
+    android:text="0"
+    android:textSize="@dimen/txt_8"
+    android:textColor="@android:color/white"
+    android:gravity="right"
+    android:paddingLeft="8dp"
+    android:paddingRight="4dp"
+    android:paddingBottom="3dp"
+    android:paddingTop="1dp"
+    android:maxLines="1"
+    android:inputType="text"
+    >
+</Button>

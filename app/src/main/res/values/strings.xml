@@ -1,0 +1,51 @@
+<resources>
+    <string name="app_name">SportCity</string>
+    <string name="title_activity_home"></string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_1"><u>Αθλήματα Τοπικά</u></string>
+    <string name="menu_2">ΕΝΗΜΈΡΩΣΗ</string>
+    <string name="menu_3">ΓΝΏΜΕΣ</string>
+    <string name="menu_4">ΥΓΕΊΑ-ΔΙΑΤΡΟΦΉ-FITNESS</string>
+    <string name="menu_5">ΣΧΕΤΙΚΆ</string>
+    <string name="menu_6">ΕΠΙΚΟΙΝΩΝΊΑ</string>
+    <string name="menu1Sub2">Μπάσκετ</string>
+    <string name="menu1Sub1">Ποδόσφαιρο</string>
+    <string name="menu1Sub3">Βόλεϊ</string>
+    <string name="menu1Sub4">Άλλα Αθλήματα</string>
+    <string name="menu2Sub1">Ρεπορτάζ</string>
+    <string name="menu2Sub2">Ειδήσεις</string>
+    <string name="menu2Sub3">Τοπικές Ειδήσεις</string>
+    <string name="menu2Sub4">Σύντομες Ειδήσεις</string>
+    <string name="menu2Sub5">Συνεντεύξεις</string>
+    <string name="menu2Sub6">Events</string>
+    <string name="menu2Sub7">Aνακοινώσεις</string>
+    <string name="menu2Sub8">Δελτία τύπου</string>
+    <string name="menu3Sub1">Αρθρογραφία</string>
+    <string name="menu3Sub2">Σχόλια</string>
+    <string name="username">Username</string>
+    <string name="pwd">Password</string>
+    <string name="fb">facebook</string>
+    <string name="google">google</string>
+    <string name="twtr">twitter</string>
+    <string name="signIn">Sign In</string>
+    <string name="forgotPwd"><u>Forgot your password?</u></string>
+    <string name="register">Registration</string>
+    <string name="reset_pwd">Reset Password</string>
+    <string name="email">Email</string>
+    <string name="getStarted">Get Started</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="action_cart">Cart</string>
+    <string name="action_search">Search</string>
+    <string name="action_cloud">Cloud</string>
+    <string name="title_activity_categories">Categories</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_category_news_list">CategoryNewsList</string>
+
+</resources>

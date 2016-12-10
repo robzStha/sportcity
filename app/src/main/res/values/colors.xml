@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#c73427</color>
+    <color name="colorPrimaryDark">#c73427</color>
+    <color name="colorAccent">#c73427</color>
+    <color name="darkGrey">#333333</color>
+    <color name="darkGrey282828">#282828</color>
+    <color name="lightGrey">#dddddd</color>
+    <color name="lightGrey888888">#888888</color>
+    <color name="fb">#3c5899</color>
+    <color name="google">#dd4d40</color>
+    <color name="twtr">#55acee</color>
+    <color name="teal669999">#669999</color>
+    <color name="lightGreye1e1e1">#e1e1e1</color>
+</resources>
