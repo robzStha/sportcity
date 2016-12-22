@@ -1,6 +1,7 @@
 package com.app.sportcity.activities;
 
 import android.content.Context;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,6 +27,7 @@ import com.app.sportcity.fragments.PlaceholderFragment;
 import com.app.sportcity.objects.Category;
 import com.app.sportcity.objects.NewsList;
 import com.app.sportcity.utils.DataFeeder;
+import com.app.sportcity.utils.FabInitializer;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -70,6 +74,7 @@ public class CategoryNewsList extends AppCompatActivity {
             Category category = (Category) bundle.getSerializable("category");
             setPageTitle(category.getCatTitle());
         }
+        new FabInitializer(this);
 
         Gson gson = new Gson();
         newsLists = gson.fromJson(DataFeeder.Categories.getNewsList(), new TypeToken<List<NewsList>>() {
@@ -160,46 +165,6 @@ public class CategoryNewsList extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-//    /**
-//     * A placeholder fragment containing a simple view.
-//     */
-//    public static class PlaceholderFragment extends Fragment {
-//        RecyclerView rvNewsList;
-//
-//        /**
-//         * The fragment argument representing the section number for this
-//         * fragment.
-//         */
-//        private static final String ARG_SECTION_NUMBER = "section_number";
-//
-//        public PlaceholderFragment() {
-//        }
-//
-//        /**
-//         * Returns a new instance of this fragment for the given section
-//         * number.
-//         */
-//        public static PlaceholderFragment newInstance(int sectionNumber) {
-//            PlaceholderFragment fragment = new PlaceholderFragment();
-//            Bundle args = new Bundle();
-//            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-//            fragment.setArguments(args);
-//            return fragment;
-//        }
-//
-//        @Override
-//        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                                 Bundle savedInstanceState) {
-//            View rootView = inflater.inflate(R.layout.fragment_category_news_list, container, false);
-//            rvNewsList = (RecyclerView) rootView.findViewById(R.id.rv_cats);
-//            rvNewsList.setLayoutManager(new LinearLayoutManager(getActivity()));
-//            rvNewsList.setAdapter(new NewsListAdapter());
-////            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-////            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-//            return rootView;
-//        }
-//    }
-
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
@@ -219,29 +184,12 @@ public class CategoryNewsList extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
             return categories.size();
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             return categories.get(position).getCatTitle();
-//            switch (position) {
-//                case 0:
-//                    return "Category one";
-//                case 1:
-//                    return "SECTION 2";
-//                case 2:
-//                    return "Games";
-//                case 3:
-//                    return "Entertainment";
-//                case 4:
-//                    return "Fun";
-//                case 5:
-//                    return "SECTION 6";
-//                default:
-//                    return "random";
-//            }
         }
     }
 
@@ -260,9 +208,4 @@ public class CategoryNewsList extends AppCompatActivity {
             }
         }
     }
-
-
-
-
-
 }

@@ -47,5 +47,7 @@
     <string name="title_activity_categories">Categories</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_category_news_list">CategoryNewsList</string>
+    <string name="buy_img">Buy Images</string>
+    <string name="buy_img_desc">You can also buy these images online.</string>
 
 </resources>

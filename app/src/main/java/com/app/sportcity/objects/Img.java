@@ -3,7 +3,9 @@ package com.app.sportcity.objects;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Img {
+import java.io.Serializable;
+
+public class Img implements Serializable{
 
     @SerializedName("img_url")
     @Expose

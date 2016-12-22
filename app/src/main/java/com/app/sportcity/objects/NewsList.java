@@ -3,9 +3,10 @@ package com.app.sportcity.objects;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class NewsList {
+public class NewsList implements Serializable {
 
     @SerializedName("cat_id")
     @Expose
@@ -19,6 +20,12 @@ public class NewsList {
     @SerializedName("feat_img_url")
     @Expose
     private String featImgUrl;
+    @SerializedName("published_date")
+    @Expose
+    private String publishedDate;
+    @SerializedName("cat_name")
+    @Expose
+    private String catName;
     @SerializedName("news_desc")
     @Expose
     private String newsDesc;
@@ -55,6 +62,22 @@ public class NewsList {
      */
     public void setNewsId(Integer newsId) {
         this.newsId = newsId;
+    }
+
+    public String getPublishedDate() {
+        return publishedDate;
+    }
+
+    public void setPublishedDate(String publishedDate) {
+        this.publishedDate = publishedDate;
+    }
+
+    public String getCatName() {
+        return catName;
+    }
+
+    public void setCatName(String catName) {
+        this.catName = catName;
     }
 
     /**

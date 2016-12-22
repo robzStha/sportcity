@@ -1,75 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_register"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="@dimen/space_33"
     android:background="@android:color/white"
     android:gravity="center"
+    android:padding="@dimen/space_33"
     tools:context="com.app.sportcity.activities.RegisterActivity">
 
-    <EditText
+
+    <FrameLayout
+        android:id="@+id/fl_registration"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:maxLines="1"
-        android:inputType="text"
-        android:id="@+id/et_email"
-        android:textSize="@dimen/txt_15"
-        android:textColorHint="@color/lightGrey888888"
-        android:background="@drawable/border_text_bottom"
-        android:drawableLeft="@drawable/ic_local_post_office_black_24dp"
-        android:gravity="center_vertical"
-        android:drawablePadding="@dimen/space_16"
-        android:hint="@string/email" />
+        android:layout_height="match_parent">
 
-    <EditText
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_text_bottom"
+                android:drawableLeft="@drawable/ic_local_post_office_black_24dp"
+                android:drawablePadding="@dimen/space_16"
+                android:gravity="center_vertical"
+                android:hint="@string/email"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColorHint="@color/lightGrey888888"
+                android:textSize="@dimen/txt_15" />
+
+            <EditText
+                android:id="@+id/et_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_33"
+                android:background="@drawable/border_text_bottom"
+                android:drawableLeft="@drawable/ic_person_black_48dp"
+                android:drawablePadding="@dimen/space_16"
+                android:gravity="center_vertical"
+                android:hint="@string/username"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:textColorHint="@color/lightGrey888888"
+                android:textSize="@dimen/txt_15" />
+
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_33"
+                android:background="@drawable/border_text_bottom"
+                android:drawableLeft="@drawable/ic_lock_black_48dp"
+                android:drawablePadding="@dimen/space_16"
+                android:gravity="center_vertical"
+                android:hint="@string/pwd"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:textColorHint="@color/lightGrey888888"
+                android:textSize="@dimen/txt_15" />
+
+
+            <ImageButton
+                android:id="@+id/ibtnCapturePhoto"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:layout_marginTop="@dimen/space_33"
+                android:background="@android:color/transparent"
+                android:src="@drawable/insert_your_photo" />
+
+            <Button
+                android:id="@+id/btn_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_33"
+                android:background="@drawable/btn_primary"
+                android:text="@string/getStarted"
+                android:textColor="@android:color/white" />
+
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_img_cropper"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:id="@+id/et_username"
-        android:maxLines="1"
-        android:textSize="@dimen/txt_15"
-        android:textColorHint="@color/lightGrey888888"
-        android:gravity="center_vertical"
-        android:layout_marginTop="@dimen/space_33"
-        android:background="@drawable/border_text_bottom"
-        android:drawableLeft="@drawable/ic_person_black_48dp"
-        android:drawablePadding="@dimen/space_16"
-        android:hint="@string/username" />
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
-    <EditText
-        android:maxLines="1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:id="@+id/et_password"
-        android:textSize="@dimen/txt_15"
-        android:textColorHint="@color/lightGrey888888"
-        android:layout_marginTop="@dimen/space_33"
-        android:gravity="center_vertical"
-        android:background="@drawable/border_text_bottom"
-        android:drawableLeft="@drawable/ic_lock_black_48dp"
-        android:drawablePadding="@dimen/space_16"
-        android:hint="@string/pwd" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
+            <com.edmodo.cropper.CropImageView
+                android:layout_above="@+id/btn_crop"
+                android:id="@+id/iv_img_cropper"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
-    <ImageButton
-        android:id="@+id/ibtnCapturePhoto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_33"
-        android:background="@android:color/transparent"
-        android:src="@drawable/insert_your_photo"/>
+            <Button
+                android:layout_alignParentBottom="true"
+                android:id="@+id/btn_crop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_primary"
+                android:textColor="@android:color/white"
+                android:onClick="onCropImageClick"
+                android:text="Crop" />
+        </RelativeLayout>
 
-    <Button
-        android:text="@string/getStarted"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_register"
-        android:layout_marginTop="@dimen/space_33"
-        android:background="@drawable/btn_primary"
-        android:textColor="@android:color/white" />
-
-</LinearLayout>
+    </FrameLayout>
+</RelativeLayout>

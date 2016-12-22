@@ -14,7 +14,10 @@ public class DataFeeder {
                     "      \"news_title\": \"this is title\"," +
                     "      \"news_desc\": \"description of the news and having fun with this news section and this is it so lets chat next time and you are drunk with everybody else. Goodluck having so\"," +
                     "      \"cat_id\": \"1\"," +
+                    "      \"cat_name\": \"Ramos\"," +
                     "      \"news_id\": \"2\"," +
+                    "      \"is_fav\": \"0\"," +
+                    "      \"published_date\": \"JAN 06\"," +
                     "      \"feat_img_url\": \"this/is/feat.img\"," +
                     "      \"img\": [" +
                     "        {" +
@@ -43,8 +46,11 @@ public class DataFeeder {
                     "    {" +
                     "      \"news_title\": \"this is title\"," +
                     "      \"news_desc\": \"description of the news and having fun with this news section and this is it so lets chat next time and you are drunk with everybody else. Goodluck having so\"," +
-                    "      \"cat_id\": \"1\"," +
+                    "      \"cat_id\": \"2\"," +
+                    "      \"cat_name\": \"Teresa\"," +
                     "      \"news_id\": \"5\"," +
+                    "      \"is_fav\": \"0\"," +
+                    "      \"published_date\": \"JAN 06\"," +
                     "      \"feat_img_url\": \"this/is/feat.img\"," +
                     "      \"img\": [" +
                     "        {" +
@@ -74,7 +80,43 @@ public class DataFeeder {
                     "      \"news_title\": \"this is title\"," +
                     "      \"news_desc\": \"description of the news and having fun with this news section and this is it so lets chat next time and you are drunk with everybody else. Goodluck having so\"," +
                     "      \"cat_id\": \"1\"," +
+                    "      \"cat_name\": \"Ramos\"," +
                     "      \"news_id\": \"5\"," +
+                    "      \"is_fav\": \"0\"," +
+                    "      \"published_date\": \"JAN 06\"," +
+                    "      \"feat_img_url\": \"this/is/feat.img\"," +
+                    "      \"img\": [" +
+                    "        {" +
+                    "          \"img_url\": \"this/is/sale.img\"," +
+                    "          \"img_price\": \"100\"," +
+                    "          \"img_id\": \"10\"" +
+                    "        }," +
+                    "        {" +
+                    "          \"img_url\": \"this/is/test.img\"," +
+                    "          \"img_price\": \"100\"," +
+                    "          \"img_id\": \"11\"" +
+                    "        }," +
+                    "        {" +
+                    "          \"img_url\": \"this/is/sale.img\"," +
+                    "          \"img_price\": \"100\"," +
+                    "          \"img_id\": \"10\"" +
+                    "        }," +
+                    "        {" +
+                    "          \"img_url\": \"this/is/test.img\"," +
+                    "          \"img_price\": \"100\"," +
+                    "          \"img_id\": \"11\"" +
+                    "        }" +
+                    "      ]," +
+                    "      \"is_fav\": \"true\"" +
+                    "    }," +
+                    "    {" +
+                    "      \"news_title\": \"this is the longest title ever to see in this field by any one of you\"," +
+                    "      \"news_desc\": \"description of the news and having fun with this news section and this is it so lets chat next time and you are drunk with everybody else. Goodluck having so\"," +
+                    "      \"cat_id\": \"1\"," +
+                    "      \"cat_name\": \"Sheena\"," +
+                    "      \"news_id\": \"2\"," +
+                    "      \"is_fav\": \"1\"," +
+                    "      \"published_date\": \"JAN 06\"," +
                     "      \"feat_img_url\": \"this/is/feat.img\"," +
                     "      \"img\": [" +
                     "        {" +
@@ -104,7 +146,175 @@ public class DataFeeder {
                     "      \"news_title\": \"this is title\"," +
                     "      \"news_desc\": \"description of the news and having fun with this news section and this is it so lets chat next time and you are drunk with everybody else. Goodluck having so\"," +
                     "      \"cat_id\": \"1\"," +
+                    "      \"cat_name\": \"Atkinson\"," +
+                    "      \"news_id\": \"5\"," +
+                    "      \"is_fav\": \"0\"," +
+                    "      \"published_date\": \"JAN 06\"," +
+                    "      \"feat_img_url\": \"this/is/feat.img\"," +
+                    "      \"img\": [" +
+                    "        {" +
+                    "          \"img_url\": \"this/is/sale.img\"," +
+                    "          \"img_price\": \"100\"," +
+                    "          \"img_id\": \"10\"" +
+                    "        }," +
+                    "        {" +
+                    "          \"img_url\": \"this/is/test.img\"," +
+                    "          \"img_price\": \"100\"," +
+                    "          \"img_id\": \"11\"" +
+                    "        }," +
+                    "        {" +
+                    "          \"img_url\": \"this/is/sale.img\"," +
+                    "          \"img_price\": \"100\"," +
+                    "          \"img_id\": \"10\"" +
+                    "        }," +
+                    "        {" +
+                    "          \"img_url\": \"this/is/test.img\"," +
+                    "          \"img_price\": \"100\"," +
+                    "          \"img_id\": \"11\"" +
+                    "        }" +
+                    "      ]," +
+                    "      \"is_fav\": \"true\"" +
+                    "    }," +
+                    "    {" +
+                    "      \"news_title\": \"this is title\"," +
+                    "      \"news_desc\": \"description of the news and having fun with this news section and this is it so lets chat next time and you are drunk with everybody else. Goodluck having so\"," +
+                    "      \"cat_id\": \"4\"," +
+                    "      \"cat_name\": \"Miles\"," +
+                    "      \"news_id\": \"5\"," +
+                    "      \"is_fav\": \"0\"," +
+                    "      \"published_date\": \"JAN 06\"," +
+                    "      \"feat_img_url\": \"this/is/feat.img\"," +
+                    "      \"img\": [" +
+                    "        {" +
+                    "          \"img_url\": \"this/is/sale.img\"," +
+                    "          \"img_price\": \"100\"," +
+                    "          \"img_id\": \"10\"" +
+                    "        }," +
+                    "        {" +
+                    "          \"img_url\": \"this/is/test.img\"," +
+                    "          \"img_price\": \"100\"," +
+                    "          \"img_id\": \"11\"" +
+                    "        }," +
+                    "        {" +
+                    "          \"img_url\": \"this/is/sale.img\"," +
+                    "          \"img_price\": \"100\"," +
+                    "          \"img_id\": \"10\"" +
+                    "        }," +
+                    "        {" +
+                    "          \"img_url\": \"this/is/test.img\"," +
+                    "          \"img_price\": \"100\"," +
+                    "          \"img_id\": \"11\"" +
+                    "        }" +
+                    "      ]," +
+                    "      \"is_fav\": \"true\"" +
+                    "    }," +
+                    "    {" +
+                    "      \"news_title\": \"this is title\"," +
+                    "      \"news_desc\": \"description of the news and having fun with this news section and this is it so lets chat next time and you are drunk with everybody else. Goodluck having so\"," +
+                    "      \"cat_id\": \"5\"," +
+                    "      \"cat_name\": \"Harrel\"," +
+                    "      \"news_id\": \"2\"," +
+                    "      \"is_fav\": \"1\"," +
+                    "      \"published_date\": \"JAN 06\"," +
+                    "      \"feat_img_url\": \"this/is/feat.img\"," +
+                    "      \"img\": [" +
+                    "        {" +
+                    "          \"img_url\": \"this/is/sale.img\"," +
+                    "          \"img_price\": \"100\"," +
+                    "          \"img_id\": \"10\"" +
+                    "        }," +
+                    "        {" +
+                    "          \"img_url\": \"this/is/test.img\"," +
+                    "          \"img_price\": \"100\"," +
+                    "          \"img_id\": \"11\"" +
+                    "        }," +
+                    "        {" +
+                    "          \"img_url\": \"this/is/sale.img\"," +
+                    "          \"img_price\": \"100\"," +
+                    "          \"img_id\": \"10\"" +
+                    "        }," +
+                    "        {" +
+                    "          \"img_url\": \"this/is/test.img\"," +
+                    "          \"img_price\": \"100\"," +
+                    "          \"img_id\": \"11\"" +
+                    "        }" +
+                    "      ]," +
+                    "      \"is_fav\": \"true\"" +
+                    "    }," +
+                    "    {" +
+                    "      \"news_title\": \"this is title\"," +
+                    "      \"news_desc\": \"description of the news and having fun with this news section and this is it so lets chat next time and you are drunk with everybody else. Goodluck having sodescription of the news and having fun with this news section and this is it so lets chat next time and you are drunk with everybody else. Goodluck having sodescription of the news and having fun with this news section and this is it so lets chat next time and you are drunk with everybody else. Goodluck having sodescription of the news and having fun with this news section and this is it so lets chat next time and you are drunk with everybody else. Goodluck having so\"," +
+                    "      \"cat_id\": \"1\"," +
+                    "      \"cat_name\": \"Ramos\"," +
+                    "      \"news_id\": \"5\"," +
+                    "      \"is_fav\": \"0\"," +
+                    "      \"published_date\": \"JAN 06\"," +
+                    "      \"feat_img_url\": \"this/is/feat.img\"," +
+                    "      \"img\": [" +
+                    "        {" +
+                    "          \"img_url\": \"this/is/sale.img\"," +
+                    "          \"img_price\": \"100\"," +
+                    "          \"img_id\": \"10\"" +
+                    "        }," +
+                    "        {" +
+                    "          \"img_url\": \"this/is/test.img\"," +
+                    "          \"img_price\": \"100\"," +
+                    "          \"img_id\": \"11\"" +
+                    "        }," +
+                    "        {" +
+                    "          \"img_url\": \"this/is/sale.img\"," +
+                    "          \"img_price\": \"100\"," +
+                    "          \"img_id\": \"10\"" +
+                    "        }," +
+                    "        {" +
+                    "          \"img_url\": \"this/is/test.img\"," +
+                    "          \"img_price\": \"100\"," +
+                    "          \"img_id\": \"11\"" +
+                    "        }" +
+                    "      ]," +
+                    "      \"is_fav\": \"true\"" +
+                    "    }," +
+                    "    {" +
+                    "      \"news_title\": \"this is title\"," +
+                    "      \"news_desc\": \"description of the news and having fun with this news section and this is it so lets chat next time and you are drunk with everybody else. Goodluck having so\"," +
+                    "      \"cat_id\": \"6\"," +
+                    "      \"cat_name\": \"Doyle\"," +
+                    "      \"news_id\": \"5\"," +
+                    "      \"is_fav\": \"0\"," +
+                    "      \"published_date\": \"JAN 06\"," +
+                    "      \"feat_img_url\": \"this/is/feat.img\"," +
+                    "      \"img\": [" +
+                    "        {" +
+                    "          \"img_url\": \"this/is/sale.img\"," +
+                    "          \"img_price\": \"100\"," +
+                    "          \"img_id\": \"10\"" +
+                    "        }," +
+                    "        {" +
+                    "          \"img_url\": \"this/is/test.img\"," +
+                    "          \"img_price\": \"100\"," +
+                    "          \"img_id\": \"11\"" +
+                    "        }," +
+                    "        {" +
+                    "          \"img_url\": \"this/is/sale.img\"," +
+                    "          \"img_price\": \"100\"," +
+                    "          \"img_id\": \"10\"" +
+                    "        }," +
+                    "        {" +
+                    "          \"img_url\": \"this/is/test.img\"," +
+                    "          \"img_price\": \"100\"," +
+                    "          \"img_id\": \"11\"" +
+                    "        }" +
+                    "      ]," +
+                    "      \"is_fav\": \"true\"" +
+                    "    }," +
+                    "    {" +
+                    "      \"news_title\": \"this is title\"," +
+                    "      \"news_desc\": \"description of the news and having fun with this news section and this is it so lets chat next time and you are drunk with everybody else. Goodluck having so\"," +
+                    "      \"cat_id\": \"3\"," +
+                    "      \"cat_name\": \"Sheena\"," +
                     "      \"news_id\": \"4\"," +
+                    "      \"is_fav\": \"0\"," +
+                    "      \"published_date\": \"JAN 06\"," +
                     "      \"feat_img_url\": \"this/is/feat.img\"," +
                     "      \"img\": [" +
                     "        {" +

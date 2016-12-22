@@ -54,8 +54,6 @@ public class PlaceholderFragment extends Fragment {
         rvNewsList = (RecyclerView) rootView.findViewById(R.id.rv_cats);
         rvNewsList.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvNewsList.setAdapter(new NewsListAdapter(mContext, newsLists));
-//            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-//            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
         return rootView;
     }
 

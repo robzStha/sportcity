@@ -12,4 +12,6 @@
     <color name="twtr">#55acee</color>
     <color name="teal669999">#669999</color>
     <color name="lightGreye1e1e1">#e1e1e1</color>
+    <color name="txt_dark_grey_444444">#444444</color>
+    <color name="txt_color_666666">#666666</color>
 </resources>

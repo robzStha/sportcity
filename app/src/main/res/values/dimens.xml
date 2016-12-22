@@ -25,4 +25,5 @@
     <dimen name="space_10">10dp</dimen>
     <dimen name="txt_10">10sp</dimen>
     <dimen name="space_30">30dp</dimen>
+    <dimen name="space_20">20dp</dimen>
 </resources>

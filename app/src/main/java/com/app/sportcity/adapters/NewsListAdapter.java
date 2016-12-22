@@ -1,5 +1,6 @@
 package com.app.sportcity.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import com.app.sportcity.R;
 import com.app.sportcity.activities.CategoryNewsList;
 import com.app.sportcity.objects.NewsList;
+import com.app.sportcity.utils.Opener;
 
 import java.util.List;
 
@@ -41,7 +43,8 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "Clicked on news: " + newsLists.get(position), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Clicked on news: " + newsLists.get(position).getNewsTile(), Toast.LENGTH_SHORT).show();
+                Opener.NewsDetails((Activity)mContext, newsLists.get(position));
             }
         });
     }
