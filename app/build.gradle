@@ -39,6 +39,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:1.0.4'
     compile 'com.edmodo:cropper:1.0.1'
+    compile 'com.pixplicity.multiviewpager:library:1.0'
 //    compile 'com.github.hotchemi:permissionsdispatcher:2.3.0'
 //    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.3.0'
 

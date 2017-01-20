@@ -1,5 +1,9 @@
 package com.app.sportcity.utils;
 
+import com.app.sportcity.objects.Img;
+
+import java.util.ArrayList;
+
 /**
  * Created by bugatti on 09/12/16.
  */
@@ -389,6 +393,23 @@ public class DataFeeder {
                     "  }" +
                     "]";
         }
+    }
+
+    public static class ImageFeeder{
+
+        public static ArrayList<Img> getImages(){
+
+            ArrayList<Img> imgs = new ArrayList<>();
+            for(int i=0; i<8; i++) {
+                Img img = new Img();
+                img.setImgId((i+1)+"");
+                img.setImgPrice("$10");
+                img.setImgUrl("http://imaginationcpl.com/developer/sportscity/images/"+(i+1)+".jpg");
+                imgs.add(img);
+            }
+            return imgs;
+        }
+
     }
 
 }

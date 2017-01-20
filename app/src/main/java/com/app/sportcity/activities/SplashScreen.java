@@ -38,7 +38,7 @@ public class SplashScreen extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-                Opener.LoginActivity(SplashScreen.this);
+                Opener.BaseActivity(SplashScreen.this);
                 finish();
             }
         }).start();

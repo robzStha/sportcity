@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="150dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="150dp">
+
+    <RelativeLayout
+        android:id="@+id/vg_cover"
+        android:layout_width="150dp"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        tools:ignore="UselessParent">
+
+        <!--<android.support.v7.widget.AppCompatButton-->
+            <!--android:id="@+id/bt_item"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_marginLeft="16dp"-->
+            <!--android:layout_marginRight="16dp"-->
+            <!--android:gravity="center"-->
+            <!--android:padding="24dp"-->
+            <!--tools:text="Page ##"/>-->
+
+        <!--<View-->
+            <!--android:id="@+id/v_center"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="32dp"-->
+            <!--android:layout_centerInParent="true"/>-->
+
+        <ImageView
+            android:id="@+id/iv_pager_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/ic_fb"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

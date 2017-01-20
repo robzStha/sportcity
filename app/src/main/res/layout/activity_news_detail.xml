@@ -155,12 +155,19 @@
                 android:textSize="@dimen/txt_8"
                 android:textColor="@color/txt_color_666666"
                 android:text="@string/buy_img_desc"/>
-
+            
             <android.support.v7.widget.RecyclerView
-                android:layout_marginTop="@dimen/space_20"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"></android.support.v7.widget.RecyclerView>
 
+            <com.pixplicity.multiviewpager.MultiViewPager
+                android:id="@+id/pager"
+                android:layout_marginTop="@dimen/space_20"
+                android:layout_width="match_parent"
+                app:matchChildWidth="@+id/vg_cover"
+                android:background="#cccccc"
+                android:layout_height="150dp">
+            </com.pixplicity.multiviewpager.MultiViewPager>
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
