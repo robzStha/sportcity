@@ -390,4 +390,11 @@ public class CommonMethods {
         }
         return rotate;
     }
+
+    public static int getRatioHeight(int newWidth, int oldWidth, int oldHeight){
+
+        return (int)(((float)oldHeight/oldWidth)*newWidth);
+
+    }
+
 }

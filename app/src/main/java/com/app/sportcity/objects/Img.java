@@ -16,6 +16,9 @@ public class Img implements Serializable{
     @SerializedName("img_id")
     @Expose
     private String imgId;
+    @SerializedName("is_fav")
+    @Expose
+    private String isFav;
 
     /**
      * @return The imgUrl
@@ -59,4 +62,11 @@ public class Img implements Serializable{
         this.imgId = imgId;
     }
 
+    public String getIsFav() {
+        return isFav;
+    }
+
+    public void setIsFav(String isFav) {
+        this.isFav = isFav;
+    }
 }

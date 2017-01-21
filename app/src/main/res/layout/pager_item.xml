@@ -1,19 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="150dp"
-    android:layout_height="150dp"
-    android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/transparent">
 
-    <FrameLayout
+    <RelativeLayout
         android:id="@+id/vg_cover"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true">
 
+        <Button
+            android:textColor="@android:color/white"
+            android:id="@+id/btn_cross"
+            android:background="@android:color/transparent"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:text="x"/>
+
         <ImageView
+            android:layout_below="@+id/btn_cross"
             android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </FrameLayout>
+            android:layout_height="wrap_content"
+            android:src="@drawable/images"/>
+
+        <Button
+            android:layout_below="@+id/imageView"
+            android:id="@+id/btn_buy"
+            android:background="@color/colorPrimary"
+            android:textColor="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Buy"
+            android:layout_centerInParent="true"
+            />
+    </RelativeLayout>
 
 </LinearLayout>

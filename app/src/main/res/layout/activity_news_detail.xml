@@ -133,41 +133,46 @@
                 android:id="@+id/tv_news_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="descriptions"
                 android:textColor="@color/txt_color_666666"
-                android:textSize="@dimen/txt_10"
-                android:text="descriptions"/>
+                android:textSize="@dimen/txt_10" />
 
             <TextView
-                android:layout_marginTop="@dimen/space_20"
                 android:id="@+id/tv_buy_imgs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textSize="@dimen/txt_15"
+                android:layout_marginTop="@dimen/space_20"
+                android:text="@string/buy_img"
                 android:textColor="@color/colorPrimary"
-                android:text="@string/buy_img"/>
+                android:textSize="@dimen/txt_15" />
+
             <TextView
-                android:layout_marginTop="@dimen/space_4"
                 android:id="@+id/tv_buy_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textSize="@dimen/txt_8"
+                android:layout_marginTop="@dimen/space_4"
+                android:text="@string/buy_img_desc"
                 android:textColor="@color/txt_color_666666"
-                android:text="@string/buy_img_desc"/>
-            
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="150dp"></android.support.v7.widget.RecyclerView>
+                android:textSize="@dimen/txt_8" />
 
-            <com.pixplicity.multiviewpager.MultiViewPager
-                android:id="@+id/pager"
-                android:layout_marginTop="@dimen/space_20"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_images"
                 android:layout_width="match_parent"
-                app:matchChildWidth="@+id/vg_cover"
-                android:background="#cccccc"
-                android:layout_height="150dp">
-            </com.pixplicity.multiviewpager.MultiViewPager>
+                android:layout_height="150dp"
+                android:layout_marginTop="@dimen/space_20">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <!--<com.pixplicity.multiviewpager.MultiViewPager-->
+            <!--android:id="@+id/pager"-->
+            <!--android:layout_marginTop="@dimen/space_20"-->
+            <!--android:layout_width="match_parent"-->
+            <!--app:matchChildWidth="@+id/vg_cover"-->
+            <!--android:background="#cccccc"-->
+            <!--android:layout_height="150dp">-->
+            <!--</com.pixplicity.multiviewpager.MultiViewPager>-->
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
