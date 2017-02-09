@@ -1,5 +1,9 @@
 package com.app.sportcity.server_protocols;
 
+import com.app.sportcity.objects.Category;
+
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -25,5 +29,8 @@ public interface ApiCalls {
 //
 //    @GET("category/{id}")
 //    Call<MenuCategory> getCategoriesNewsById(@Path("id") long id);
+
+    @GET("categories?parent=0")
+    Call<List<Category>> getCategories();
 
 }

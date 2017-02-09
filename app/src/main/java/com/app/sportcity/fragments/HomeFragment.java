@@ -5,7 +5,6 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.app.sportcity.R;
 import com.app.sportcity.adapters.CatAdapter;
-import com.app.sportcity.objects.Category;
+import com.app.sportcity.objects.CategorySer;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,7 +25,7 @@ import java.util.ArrayList;
  */
 public class HomeFragment extends Fragment {
 
-    private ArrayList<Category> categories;
+    private ArrayList<CategorySer> categories;
     String test;
     JSONArray jaTest;
 
@@ -81,11 +80,11 @@ public class HomeFragment extends Fragment {
             jaTest = new JSONArray(test);
             for(int i = 0; i<=jaTest.length(); i++){
                 JSONObject joTest = jaTest.getJSONObject(i);
-                Category category = new Category();
-                category.setCatId(joTest.getString("catId"));
-                category.setIsActive(joTest.getBoolean("isActive"));
-                category.setCatTitle(joTest.getString("catTitle"));
-                categories.add(category);
+                CategorySer categorySer = new CategorySer();
+                categorySer.setCatId(joTest.getString("catId"));
+                categorySer.setIsActive(joTest.getBoolean("isActive"));
+                categorySer.setCatTitle(joTest.getString("catTitle"));
+                categories.add(categorySer);
             }
 
         } catch (JSONException e) {

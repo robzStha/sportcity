@@ -16,12 +16,14 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.sportcity.R;
 import com.app.sportcity.fragments.MyDialogFragment;
+import com.app.sportcity.objects.Img;
 import com.app.sportcity.objects.NewsList;
 import com.app.sportcity.utils.CommonMethods;
 import com.app.sportcity.utils.DataFeeder;
@@ -30,6 +32,8 @@ import com.bumptech.glide.Glide;
 
 import java.io.IOException;
 import java.net.URL;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class NewsDetail extends AppCompatActivity {
 
@@ -150,18 +154,8 @@ public class NewsDetail extends AppCompatActivity {
 //        Bitmap image = null;
 
         @Override
-        public void onBindViewHolder(ImageViewHolder holder, int position) {
-//
-//            new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    try {
-//                        URL url = new URL(DataFeeder.ImageFeeder.getImages().get(position).getImgUrl());
-//                        image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-//                    } catch (IOException e) {
-//                        System.out.println(e);
-//                    }
-//                    if (image != null) {
+        public void onBindViewHolder(ImageViewHolder holder, final int position) {
+
             Glide.with(NewsDetail.this)
                     .load(DataFeeder.ImageFeeder.getImages().get(position).getImgUrl())
                     .centerCrop()
@@ -169,13 +163,10 @@ public class NewsDetail extends AppCompatActivity {
                             (int) CommonMethods.pxFromDp(NewsDetail.this, 150))
                     .placeholder(R.drawable.ic_history_black_24dp)
                     .into(holder.ivItem);
-//                    }
-//                }
-//            }).start();
             holder.ivItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    showDialog();
+                    showDialog(DataFeeder.ImageFeeder.getImages().get(position));
                 }
             });
         }
@@ -186,63 +177,15 @@ public class NewsDetail extends AppCompatActivity {
         }
     }
 
-//    private class PageFragment extends Fragment {
-//
-//        private static final String ARG_PAGE_NUMBER = "pageNumber";
-//
-//        public PageFragment create(int pageNumber) {
-//            PageFragment fragment = new PageFragment();
-//            Bundle bundle = new Bundle();
-//            bundle.putInt(ARG_PAGE_NUMBER, pageNumber);
-//            fragment.setArguments(bundle);
-//            return fragment;
-//        }
-//
-//        @Override
-//        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-//                                 @Nullable Bundle savedInstanceState) {
-//            View rootView = inflater.inflate(R.layout.fragment_page, container, false);
-//            final Bundle arguments = getArguments();
-//            if (arguments != null) {
-//                ImageView imageView = (ImageView) rootView.findViewById(R.id.iv_pager_img);
-//                Glide.with(NewsDetail.this).
-//                        load(DataFeeder.ImageFeeder.getImages().get(arguments.getInt(ARG_PAGE_NUMBER)).getImgUrl()).
-//                        centerCrop().
-//                        into(imageView);
-//            }
-//
-////            Button btItem = (Button) rootView.findViewById(R.id.bt_item);
-////            final Bundle arguments = getArguments();
-////            if (arguments != null) {
-////                btItem.setText(
-////                        getString(R.string.page_number_1d,
-////                                arguments.getInt(ARG_PAGE_NUMBER) + 1));
-////                btItem.setOnClickListener(new View.OnClickListener() {
-////                    @Override
-////                    public void onClick(View v) {
-////                        new AlertDialog.Builder(getActivity())
-////                                .setMessage(getString(R.string.page_number_1d,
-////                                        arguments.getInt(ARG_PAGE_NUMBER) + 1))
-////                                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-////                                    @Override
-////                                    public void onClick(DialogInterface dialog, int which) {
-////                                        dialog.dismiss();
-////                                    }
-////                                })
-////                                .show();
-////                    }
-////                });
-////            } else {
-////                btItem.setVisibility(View.GONE);
-////            }
-//            return rootView;
-//        }
-
-
-    //    }
-    void showDialog() {
+    void showDialog(Img img) {
         // Create the fragment and show it as a dialog.
-        DialogFragment newFragment = MyDialogFragment.newInstance();
+        DialogFragment newFragment = MyDialogFragment.newInstance(img);
         newFragment.show(getSupportFragmentManager(), "dialog");
     }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
 }

@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.app.sportcity.R;
-import com.app.sportcity.objects.Category;
+import com.app.sportcity.objects.CategorySer;
 import com.app.sportcity.utils.Opener;
 import com.app.sportcity.view_holder.CategoryViewHolder;
 
@@ -20,10 +20,10 @@ import java.util.ArrayList;
 
 public class CatAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
 
-    ArrayList<Category> categories = new ArrayList<>();
+    ArrayList<CategorySer> categories = new ArrayList<>();
     Context mContext;
 
-    public CatAdapter(ArrayList<Category> categories, Context mContext) {
+    public CatAdapter(ArrayList<CategorySer> categories, Context mContext) {
         this.categories = categories;
         this.mContext = mContext;
     }
@@ -38,12 +38,12 @@ public class CatAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
     @Override
     public void onBindViewHolder(CategoryViewHolder holder, int position) {
 
-        final Category category = categories.get(position);
-        holder.tvCatTitle.setText(category.getCatTitle());
+        final CategorySer categorySer = categories.get(position);
+        holder.tvCatTitle.setText(categorySer.getCatTitle());
         holder.tvCatTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Opener.CategoryNewsListing((Activity) mContext, category);
+                Opener.CategoryNewsListing((Activity) mContext, categorySer);
             }
         });
 

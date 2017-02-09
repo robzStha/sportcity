@@ -20,6 +20,18 @@ public class Img implements Serializable{
     @Expose
     private String isFav;
 
+    public String getIsPurchased() {
+        return isPurchased;
+    }
+
+    public void setIsPurchased(String isPurchased) {
+        this.isPurchased = isPurchased;
+    }
+
+    @SerializedName("is_purchased")
+    @Expose
+    private String isPurchased;
+
     /**
      * @return The imgUrl
      */

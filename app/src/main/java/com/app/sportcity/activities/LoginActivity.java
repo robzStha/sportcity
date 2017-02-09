@@ -9,10 +9,16 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.app.sportcity.objects.Category;
+import com.app.sportcity.server_protocols.ApiCalls;
+import com.app.sportcity.server_protocols.RetrofitSingleton;
 import com.app.sportcity.utils.Opener;
 import com.app.sportcity.R;
 import com.app.sportcity.utils.CommonMethods;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
@@ -35,6 +41,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         tvForgotPwd = (TextView) findViewById(R.id.tv_forgotPwd);
         tvForgotPwd.setOnClickListener(this);
         CommonMethods.setupUI(rlParent, LoginActivity.this);
+
     }
     @Override
     protected void attachBaseContext(Context newBase) {

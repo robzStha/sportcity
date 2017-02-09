@@ -49,5 +49,6 @@
     <string name="title_activity_category_news_list">CategoryNewsList</string>
     <string name="buy_img">Buy Images</string>
     <string name="buy_img_desc">You can also buy these images online.</string>
+    <string name="add_to_cart">Add to cart</string>
 
 </resources>

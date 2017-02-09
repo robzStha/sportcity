@@ -10,7 +10,7 @@ import com.app.sportcity.activities.BaseActivity;
 import com.app.sportcity.activities.ForgotPasswordActivity;
 import com.app.sportcity.activities.LoginActivity;
 import com.app.sportcity.activities.RegisterActivity;
-import com.app.sportcity.objects.Category;
+import com.app.sportcity.objects.CategorySer;
 import com.app.sportcity.objects.NewsList;
 
 /**
@@ -54,12 +54,12 @@ public class Opener {
         startActivity(activity, ForgotPasswordActivity.class);
     }
 
-    public static void CategoryNewsListing(Activity activity, Category category) {
+    public static void CategoryNewsListing(Activity activity, CategorySer categorySer) {
         i = new Intent(activity, CategoryNewsList.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        i.putExtra("category", category);
+        i.putExtra("categorySer", categorySer);
         activity.startActivity(i);
     }
 

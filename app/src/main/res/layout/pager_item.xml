@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@android:color/transparent">
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/vg_cover"
@@ -11,32 +11,79 @@
         android:layout_height="match_parent"
         android:layout_centerInParent="true">
 
-        <Button
-            android:textColor="@android:color/white"
-            android:id="@+id/btn_cross"
-            android:background="@android:color/transparent"
+        <ImageButton
+            android:id="@+id/ibtn_cross"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_alignParentRight="true"
-            android:text="x"/>
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_cross"
+            android:textColor="@android:color/white" />
 
-        <ImageView
-            android:layout_below="@+id/btn_cross"
-            android:id="@+id/imageView"
+        <FrameLayout
+            android:id="@+id/fl_img_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/images"/>
+            android:layout_marginTop="@dimen/space_20">
 
-        <Button
-            android:layout_below="@+id/imageView"
-            android:id="@+id/btn_buy"
-            android:background="@color/colorPrimary"
-            android:textColor="@android:color/white"
+            <ImageView
+                android:layout_gravity="center"
+                android:id="@+id/iv_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ibtn_cross"
+                android:minHeight="150dp"/>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </FrameLayout>
+
+        <RelativeLayout
+            android:id="@+id/ll_price_holder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Buy"
+            android:layout_below="@+id/fl_img_holder"
+            android:layout_marginTop="@dimen/space_20"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Price: $10"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/txt_20" />
+
+            <ImageButton
+                android:id="@+id/ibtn_fav"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/transparent"
+                android:layout_marginRight="@dimen/space_7"/>
+
+        </RelativeLayout>
+
+
+        <Button
+            android:id="@+id/btn_buy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_price_holder"
             android:layout_centerInParent="true"
-            />
+            android:layout_marginTop="@dimen/space_20"
+            android:background="@drawable/btn_primary"
+            android:drawableLeft="@drawable/ic_add_shopping_cart_white_24dp"
+            android:drawablePadding="@dimen/space_10"
+            android:paddingLeft="@dimen/space_20"
+            android:paddingRight="@dimen/space_20"
+            android:text="@string/add_to_cart"
+            android:textColor="@android:color/white" />
     </RelativeLayout>
 
 </LinearLayout>

@@ -10,6 +10,8 @@ import android.content.pm.ResolveInfo;
 import android.content.pm.Signature;
 import android.graphics.Point;
 import android.media.ExifInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Parcelable;
@@ -31,6 +33,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.net.InetAddress;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -229,6 +232,7 @@ public class CommonMethods {
     public static float pxFromDp(final Activity activity, final int dp) {
         return dp * activity.getResources().getDisplayMetrics().density;
     }
+
     public static float pxFromDp(final Context activity, final int dp) {
         return dp * activity.getResources().getDisplayMetrics().density;
     }
@@ -272,7 +276,7 @@ public class CommonMethods {
         context.startActivity(Intent.createChooser(emailIntent, "Send mail..."));
     }
 
-    public static void getDeviceDensity(Context context){
+    public static void getDeviceDensity(Context context) {
         switch (context.getResources().getDisplayMetrics().densityDpi) {
             case DisplayMetrics.DENSITY_LOW:
                 System.out.println("Device density: DENSITY_LOW");
@@ -303,7 +307,7 @@ public class CommonMethods {
         }
     }
 
-    public static class PasswordObj{
+    public static class PasswordObj {
         boolean isValid;
         String msg;
     }
@@ -314,7 +318,7 @@ public class CommonMethods {
     }
 
     public static void setFadeOut(Interpolator interpolator, int duration, View view) {
-        AlphaAnimation fadeOut = new AlphaAnimation(1,0);
+        AlphaAnimation fadeOut = new AlphaAnimation(1, 0);
         fadeOut.setInterpolator(interpolator); // add this
         fadeOut.setDuration(duration);
         view.setAnimation(fadeOut);
@@ -327,7 +331,7 @@ public class CommonMethods {
         view.setAnimation(fadeIn);
     }
 
-    public static ArrayList<View> getViewsByTag(ViewGroup root, String tag){
+    public static ArrayList<View> getViewsByTag(ViewGroup root, String tag) {
         ArrayList<View> views = new ArrayList<View>();
         final int childCount = root.getChildCount();
         for (int i = 0; i < childCount; i++) {
@@ -348,7 +352,8 @@ public class CommonMethods {
     public class UrlHelper {
 
 
-        public static final String BASE_URL = "http://imaginationcpl.com/developer/sportscity/public/api/v1/";
+        public static final String BASE_URL = "http://imaginationcpl.com/developer/icpl_newsportal/wp-json/wp/v2/";
+//        public static final String BASE_URL = "http://imaginationcpl.com/developer/sportscity/public/api/v1/";
     }
 
     public static boolean hasPermissions(Context context, String... permissions) {
@@ -362,7 +367,7 @@ public class CommonMethods {
         return true;
     }
 
-    public static int getCameraPhotoOrientation(Context context, Uri imageUri, String imagePath){
+    public static int getCameraPhotoOrientation(Context context, Uri imageUri, String imagePath) {
         int rotate = 0;
         try {
             context.getContentResolver().notifyChange(imageUri, null);
@@ -391,9 +396,34 @@ public class CommonMethods {
         return rotate;
     }
 
-    public static int getRatioHeight(int newWidth, int oldWidth, int oldHeight){
+    public static int getRatioHeight(int newWidth, int oldWidth, int oldHeight) {
 
-        return (int)(((float)oldHeight/oldWidth)*newWidth);
+        return (int) (((float) oldHeight / oldWidth) * newWidth);
+
+    }
+
+    public static boolean hasConnection(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+
+        if (networkInfo != null && networkInfo.isConnected()) {
+            if (isInternetAvailable()) {
+                return true;
+            } else return false;
+        } else return false;
+
+//        return cm.getActiveNetworkInfo() != null && cm.isConnected()? isInternetAvailable() : false;
+//        return cm.getActiveNetworkInfo() != null;
+    }
+
+    public static boolean isInternetAvailable() {
+        try {
+            InetAddress ipAddr = InetAddress.getByName("google.com"); //You can replace it with your name
+            return !ipAddr.equals("");
+
+        } catch (Exception e) {
+            return false;
+        }
 
     }
 

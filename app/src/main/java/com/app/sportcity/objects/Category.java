@@ -1,68 +1,121 @@
 package com.app.sportcity.objects;
 
-import java.io.Serializable;
+import java.util.List;
 
-public class Category implements Serializable {
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-    private String catId;
-    private Boolean isActive;
-    private String imgUrl;
-    private String catTitle;
+public class Category {
 
-    /**
-     * @return The catId
-     */
-    public String getCatId() {
-        return catId;
+    @SerializedName("id")
+    @Expose
+    private Integer id;
+    @SerializedName("count")
+    @Expose
+    private Integer count;
+    @SerializedName("description")
+    @Expose
+    private String description;
+    @SerializedName("link")
+    @Expose
+    private String link;
+    @SerializedName("name")
+    @Expose
+    private String name;
+    @SerializedName("slug")
+    @Expose
+    private String slug;
+    @SerializedName("taxonomy")
+    @Expose
+    private String taxonomy;
+    @SerializedName("parent")
+    @Expose
+    private Integer parent;
+    @SerializedName("meta")
+    @Expose
+    private List<Object> meta = null;
+    @SerializedName("_links")
+    @Expose
+    private Links links;
+
+    public Integer getId() {
+        return id;
     }
 
-    /**
-     * @param catId The catId
-     */
-    public void setCatId(String catId) {
-        this.catId = catId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    /**
-     * @return The isActive
-     */
-    public Boolean getIsActive() {
-        return isActive;
+    public Integer getCount() {
+        return count;
     }
 
-    /**
-     * @param isActive The isActive
-     */
-    public void setIsActive(Boolean isActive) {
-        this.isActive = isActive;
+    public void setCount(Integer count) {
+        this.count = count;
     }
 
-    /**
-     * @return The imgUrl
-     */
-    public String getImgUrl() {
-        return imgUrl;
+    public String getDescription() {
+        return description;
     }
 
-    /**
-     * @param imgUrl The imgUrl
-     */
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    /**
-     * @return The catTitle
-     */
-    public String getCatTitle() {
-        return catTitle;
+    public String getLink() {
+        return link;
     }
 
-    /**
-     * @param catTitle The catTitle
-     */
-    public void setCatTitle(String catTitle) {
-        this.catTitle = catTitle;
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    public String getTaxonomy() {
+        return taxonomy;
+    }
+
+    public void setTaxonomy(String taxonomy) {
+        this.taxonomy = taxonomy;
+    }
+
+    public Integer getParent() {
+        return parent;
+    }
+
+    public void setParent(Integer parent) {
+        this.parent = parent;
+    }
+
+    public List<Object> getMeta() {
+        return meta;
+    }
+
+    public void setMeta(List<Object> meta) {
+        this.meta = meta;
+    }
+
+    public Links getLinks() {
+        return links;
+    }
+
+    public void setLinks(Links links) {
+        this.links = links;
     }
 
 }

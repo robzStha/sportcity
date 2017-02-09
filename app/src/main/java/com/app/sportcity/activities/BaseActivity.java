@@ -20,7 +20,15 @@ import android.widget.LinearLayout;
 
 import com.app.sportcity.R;
 import com.app.sportcity.fragments.HomeFragment;
+import com.app.sportcity.objects.Category;
+import com.app.sportcity.server_protocols.ApiCalls;
+import com.app.sportcity.server_protocols.RetrofitSingleton;
 
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class BaseActivity extends AppCompatActivity
@@ -62,6 +70,19 @@ public class BaseActivity extends AppCompatActivity
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(llContentBase.getId(), mFragment).commit();
 
+        ApiCalls apiCalls = RetrofitSingleton.getApiCalls();
+        Call<List<Category>> categoryCall = apiCalls.getCategories();
+        categoryCall.enqueue(new Callback<List<Category>>() {
+            @Override
+            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+                System.out.println("Response size:" + response.body().size());
+            }
+
+            @Override
+            public void onFailure(Call<List<Category>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
     }
 
     @Override
@@ -82,7 +103,7 @@ public class BaseActivity extends AppCompatActivity
         MenuItem item = menu.findItem(R.id.action_cart);
         MenuItemCompat.setActionView(item, R.layout.cart_badge_count);
         View view = MenuItemCompat.getActionView(item);
-        btnCartCount = (Button)view.findViewById(R.id.btnCartCount);
+        btnCartCount = (Button) view.findViewById(R.id.btnCartCount);
         btnCartCount.setText(String.valueOf(cartCount));
         return true;
     }
@@ -132,7 +153,7 @@ public class BaseActivity extends AppCompatActivity
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
-    private void setNotifCount(int count){
+    private void setNotifCount(int count) {
         cartCount = count;
         invalidateOptionsMenu();
     }

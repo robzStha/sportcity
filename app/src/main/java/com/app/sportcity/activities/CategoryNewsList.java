@@ -1,7 +1,6 @@
 package com.app.sportcity.activities;
 
 import android.content.Context;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
@@ -17,14 +16,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.app.sportcity.R;
 import com.app.sportcity.fragments.PlaceholderFragment;
-import com.app.sportcity.objects.Category;
+import com.app.sportcity.objects.CategorySer;
 import com.app.sportcity.objects.NewsList;
 import com.app.sportcity.utils.DataFeeder;
 import com.app.sportcity.utils.FabInitializer;
@@ -59,7 +56,7 @@ public class CategoryNewsList extends AppCompatActivity {
      */
     private ViewPager mViewPager;
     private List<NewsList> newsLists;
-    private List<Category> categories;
+    private List<CategorySer> categories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +68,8 @@ public class CategoryNewsList extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            Category category = (Category) bundle.getSerializable("category");
-            setPageTitle(category.getCatTitle());
+            CategorySer categorySer = (CategorySer) bundle.getSerializable("categorySer");
+            setPageTitle(categorySer.getCatTitle());
         }
         new FabInitializer(this);
 
@@ -80,18 +77,18 @@ public class CategoryNewsList extends AppCompatActivity {
         newsLists = gson.fromJson(DataFeeder.Categories.getNewsList(), new TypeToken<List<NewsList>>() {
         }.getType());
 
-//        categories = gson.fromJson(DataFeeder.Categories.getCategories(), new TypeToken<List<Category>>(){}.getType());
+//        categories = gson.fromJson(DataFeeder.Categories.getCategories(), new TypeToken<List<CategorySer>>(){}.getType());
         try {
             categories = new ArrayList<>();
             JSONArray jaTest = new JSONArray(DataFeeder.Categories.getCategories());
             for(int i = 0; i<=jaTest.length(); i++){
                 JSONObject joTest = jaTest.getJSONObject(i);
-                Category category = new Category();
-                category.setCatId(joTest.getString("catId"));
-                category.setIsActive(joTest.getBoolean("isActive"));
-                category.setCatTitle(joTest.getString("catTitle"));
-                category.setImgUrl(joTest.getString("imgUrl"));
-                categories.add(category);
+                CategorySer categorySer = new CategorySer();
+                categorySer.setCatId(joTest.getString("catId"));
+                categorySer.setIsActive(joTest.getBoolean("isActive"));
+                categorySer.setCatTitle(joTest.getString("catTitle"));
+                categorySer.setImgUrl(joTest.getString("imgUrl"));
+                categories.add(categorySer);
             }
 
         } catch (JSONException e) {
