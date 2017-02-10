@@ -12,22 +12,32 @@ import android.view.ViewGroup;
 
 import com.app.sportcity.R;
 import com.app.sportcity.adapters.CatAdapter;
+import com.app.sportcity.objects.Category;
 import com.app.sportcity.objects.CategorySer;
+import com.app.sportcity.server_protocols.ApiCalls;
+import com.app.sportcity.server_protocols.RetrofitSingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
 
-    private ArrayList<CategorySer> categories;
+    private ArrayList<CategorySer> categories_temp;
+    private ArrayList<Category> categories;
     String test;
     JSONArray jaTest;
+    private ApiCalls apiCalls;
 
     public HomeFragment() {
         test = "[" +
@@ -76,7 +86,7 @@ public class HomeFragment extends Fragment {
                 "]";
 
         try {
-            categories = new ArrayList<>();
+            categories_temp = new ArrayList<>();
             jaTest = new JSONArray(test);
             for(int i = 0; i<=jaTest.length(); i++){
                 JSONObject joTest = jaTest.getJSONObject(i);
@@ -84,7 +94,7 @@ public class HomeFragment extends Fragment {
                 categorySer.setCatId(joTest.getString("catId"));
                 categorySer.setIsActive(joTest.getBoolean("isActive"));
                 categorySer.setCatTitle(joTest.getString("catTitle"));
-                categories.add(categorySer);
+                categories_temp.add(categorySer);
             }
 
         } catch (JSONException e) {
@@ -97,7 +107,31 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        apiCalls = RetrofitSingleton.getApiCalls();
+        getCategories(view);
+        return view;
+    }
 
+    private void getCategories(final View view) {
+        Call<List<Category>> categoryCall = apiCalls.getCategories();
+        categoryCall.enqueue(new Callback<List<Category>>() {
+            @Override
+            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+                System.out.println("Response size:" + response.body().size());
+                populateCategories(response.body(), view);
+            }
+
+            @Override
+            public void onFailure(Call<List<Category>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+    private void populateCategories(List<Category> categories, View view) {
+        for (Category category : categories) {
+            System.out.println("Category Name:- " + category.getName()+" -- category id:- "+category.getId());
+        }
         CatAdapter catAdapter = new CatAdapter(categories, getContext());
         RecyclerView rvCats = (RecyclerView) view.findViewById(R.id.rv_cats);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 3);
@@ -106,8 +140,8 @@ public class HomeFragment extends Fragment {
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing);
         rvCats.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
         rvCats.setAdapter(catAdapter);
-        return view;
     }
+
 
     public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
         private int space;

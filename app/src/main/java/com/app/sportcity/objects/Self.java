@@ -3,7 +3,9 @@ package com.app.sportcity.objects;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Self {
+import java.io.Serializable;
+
+public class Self implements Serializable {
 
     @SerializedName("href")
     @Expose

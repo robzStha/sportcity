@@ -1,9 +1,14 @@
 package com.app.sportcity.objects;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
-public class About implements Serializable{
+public class VersionHistory implements Serializable{
 
+    @SerializedName("href")
+    @Expose
     private String href;
 
     public String getHref() {

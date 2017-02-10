@@ -1,11 +1,12 @@
 package com.app.sportcity.objects;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Category {
+public class Category implements Serializable{
 
     @SerializedName("id")
     @Expose
@@ -36,7 +37,7 @@ public class Category {
     private List<Object> meta = null;
     @SerializedName("_links")
     @Expose
-    private Links links;
+    private LinksCategory linksCategory;
 
     public Integer getId() {
         return id;
@@ -110,12 +111,12 @@ public class Category {
         this.meta = meta;
     }
 
-    public Links getLinks() {
-        return links;
+    public LinksCategory getLinksCategory() {
+        return linksCategory;
     }
 
-    public void setLinks(Links links) {
-        this.links = links;
+    public void setLinksCategory(LinksCategory linksCategory) {
+        this.linksCategory = linksCategory;
     }
 
 }

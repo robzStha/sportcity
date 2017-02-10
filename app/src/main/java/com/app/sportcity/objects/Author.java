@@ -5,11 +5,22 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class Collection implements Serializable {
+public class Author implements Serializable{
 
+    @SerializedName("embeddable")
+    @Expose
+    private Boolean embeddable;
     @SerializedName("href")
     @Expose
     private String href;
+
+    public Boolean getEmbeddable() {
+        return embeddable;
+    }
+
+    public void setEmbeddable(Boolean embeddable) {
+        this.embeddable = embeddable;
+    }
 
     public String getHref() {
         return href;

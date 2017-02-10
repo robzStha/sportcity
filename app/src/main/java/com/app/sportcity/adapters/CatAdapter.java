@@ -8,11 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.app.sportcity.R;
+import com.app.sportcity.objects.Category;
 import com.app.sportcity.objects.CategorySer;
 import com.app.sportcity.utils.Opener;
 import com.app.sportcity.view_holder.CategoryViewHolder;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by bugatti on 18/11/16.
@@ -20,10 +22,10 @@ import java.util.ArrayList;
 
 public class CatAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
 
-    ArrayList<CategorySer> categories = new ArrayList<>();
+    List<Category> categories = new ArrayList<>();
     Context mContext;
 
-    public CatAdapter(ArrayList<CategorySer> categories, Context mContext) {
+    public CatAdapter(List<Category> categories, Context mContext) {
         this.categories = categories;
         this.mContext = mContext;
     }
@@ -36,14 +38,14 @@ public class CatAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(CategoryViewHolder holder, int position) {
+    public void onBindViewHolder(CategoryViewHolder holder, final int position) {
 
-        final CategorySer categorySer = categories.get(position);
-        holder.tvCatTitle.setText(categorySer.getCatTitle());
+        final Category category = categories.get(position);
+        holder.tvCatTitle.setText(category.getName());
         holder.tvCatTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Opener.CategoryNewsListing((Activity) mContext, categorySer);
+                Opener.CategoryNewsListing((Activity) mContext, position);
             }
         });
 

@@ -70,19 +70,19 @@ public class BaseActivity extends AppCompatActivity
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(llContentBase.getId(), mFragment).commit();
 
-        ApiCalls apiCalls = RetrofitSingleton.getApiCalls();
-        Call<List<Category>> categoryCall = apiCalls.getCategories();
-        categoryCall.enqueue(new Callback<List<Category>>() {
-            @Override
-            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
-                System.out.println("Response size:" + response.body().size());
-            }
-
-            @Override
-            public void onFailure(Call<List<Category>> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
+//        ApiCalls apiCalls = RetrofitSingleton.getApiCalls();
+//        Call<List<Category>> categoryCall = apiCalls.getCategories();
+//        categoryCall.enqueue(new Callback<List<Category>>() {
+//            @Override
+//            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+//                System.out.println("Response size:" + response.body().size());
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Category>> call, Throwable t) {
+//                t.printStackTrace();
+//            }
+//        });
     }
 
     @Override

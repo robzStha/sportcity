@@ -3,7 +3,9 @@ package com.app.sportcity.objects;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class LoginResponse {
+import java.io.Serializable;
+
+public class LoginResponse implements Serializable {
 
     @SerializedName("name")
     @Expose

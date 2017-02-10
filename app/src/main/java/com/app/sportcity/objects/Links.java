@@ -1,11 +1,12 @@
 package com.app.sportcity.objects;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Links {
+public class Links implements Serializable{
 
     @SerializedName("self")
     @Expose
@@ -16,12 +17,21 @@ public class Links {
     @SerializedName("about")
     @Expose
     private List<About> about = null;
-    @SerializedName("up")
+    @SerializedName("author")
     @Expose
-    private List<Up> up = null;
-    @SerializedName("wp:post_type")
+    private List<Author> author = null;
+    @SerializedName("replies")
     @Expose
-    private List<WpPostType> wpPostType = null;
+    private List<Reply> replies = null;
+    @SerializedName("version-history")
+    @Expose
+    private List<VersionHistory> versionHistory = null;
+    @SerializedName("wp:attachment")
+    @Expose
+    private List<WpAttachment> wpAttachment = null;
+    @SerializedName("wp:term")
+    @Expose
+    private List<WpTerm> wpTerm = null;
     @SerializedName("curies")
     @Expose
     private List<Cury> curies = null;
@@ -50,20 +60,44 @@ public class Links {
         this.about = about;
     }
 
-    public List<Up> getUp() {
-        return up;
+    public List<Author> getAuthor() {
+        return author;
     }
 
-    public void setUp(List<Up> up) {
-        this.up = up;
+    public void setAuthor(List<Author> author) {
+        this.author = author;
     }
 
-    public List<WpPostType> getWpPostType() {
-        return wpPostType;
+    public List<Reply> getReplies() {
+        return replies;
     }
 
-    public void setWpPostType(List<WpPostType> wpPostType) {
-        this.wpPostType = wpPostType;
+    public void setReplies(List<Reply> replies) {
+        this.replies = replies;
+    }
+
+    public List<VersionHistory> getVersionHistory() {
+        return versionHistory;
+    }
+
+    public void setVersionHistory(List<VersionHistory> versionHistory) {
+        this.versionHistory = versionHistory;
+    }
+
+    public List<WpAttachment> getWpAttachment() {
+        return wpAttachment;
+    }
+
+    public void setWpAttachment(List<WpAttachment> wpAttachment) {
+        this.wpAttachment = wpAttachment;
+    }
+
+    public List<WpTerm> getWpTerm() {
+        return wpTerm;
+    }
+
+    public void setWpTerm(List<WpTerm> wpTerm) {
+        this.wpTerm = wpTerm;
     }
 
     public List<Cury> getCuries() {

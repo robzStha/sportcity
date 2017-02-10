@@ -21,8 +21,11 @@ import android.widget.TextView;
 
 import com.app.sportcity.R;
 import com.app.sportcity.fragments.PlaceholderFragment;
+import com.app.sportcity.objects.Category;
 import com.app.sportcity.objects.CategorySer;
 import com.app.sportcity.objects.NewsList;
+import com.app.sportcity.server_protocols.ApiCalls;
+import com.app.sportcity.server_protocols.RetrofitSingleton;
 import com.app.sportcity.utils.DataFeeder;
 import com.app.sportcity.utils.FabInitializer;
 import com.bumptech.glide.Glide;
@@ -36,6 +39,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 import uk.co.chrisjenx.calligraphy.CalligraphyUtils;
 
@@ -56,7 +62,10 @@ public class CategoryNewsList extends AppCompatActivity {
      */
     private ViewPager mViewPager;
     private List<NewsList> newsLists;
-    private List<CategorySer> categories;
+    private List<CategorySer> categories_temp;
+    private List<Category> categories;
+    private ApiCalls apiCalls;
+    private int selectedPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,57 +74,69 @@ public class CategoryNewsList extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            CategorySer categorySer = (CategorySer) bundle.getSerializable("categorySer");
-            setPageTitle(categorySer.getCatTitle());
-        }
         new FabInitializer(this);
+
+        apiCalls = RetrofitSingleton.getApiCalls();
 
         Gson gson = new Gson();
         newsLists = gson.fromJson(DataFeeder.Categories.getNewsList(), new TypeToken<List<NewsList>>() {
         }.getType());
 
-//        categories = gson.fromJson(DataFeeder.Categories.getCategories(), new TypeToken<List<CategorySer>>(){}.getType());
+        categories_temp = new ArrayList<>();
+        categories_temp = gson.fromJson(DataFeeder.Categories.getCategories(), new TypeToken<List<CategorySer>>() {
+        }.getType());
         try {
-            categories = new ArrayList<>();
             JSONArray jaTest = new JSONArray(DataFeeder.Categories.getCategories());
-            for(int i = 0; i<=jaTest.length(); i++){
+            for (int i = 0; i <= jaTest.length(); i++) {
                 JSONObject joTest = jaTest.getJSONObject(i);
                 CategorySer categorySer = new CategorySer();
                 categorySer.setCatId(joTest.getString("catId"));
                 categorySer.setIsActive(joTest.getBoolean("isActive"));
                 categorySer.setCatTitle(joTest.getString("catTitle"));
                 categorySer.setImgUrl(joTest.getString("imgUrl"));
-                categories.add(categorySer);
+                categories_temp.add(categorySer);
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        getCategories();
 
+    }
+
+    private void setTabLayout() {
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
+        int pos = 0;
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            pos = bundle.getInt("pos");
+//                    Category category = (Category) bundle.getSerializable("category");
+            setPageTitle(categories.get(pos).getName());
+        }
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         NestedScrollView scrollView = (NestedScrollView) findViewById(R.id.nest_scrollview);
         scrollView.setFillViewport(true);
 
+
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setCurrentItem(pos);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
                 ImageView ivCatFeatImg = (ImageView) findViewById(R.id.iv_banner);
-                String imgUrl = categories.get(position).getImgUrl();
+                String imgUrl = categories_temp.get(position).getImgUrl();
                 Glide.with(getApplicationContext())
                         .load(imgUrl)
                         .centerCrop()
                         .crossFade()
                         .placeholder(R.drawable.images)
                         .into(ivCatFeatImg);
-                setPageTitle(categories.get(position).getCatTitle());
+                setPageTitle(categories.get(position).getName());
+                selectedPage = position;
             }
 
             @Override
@@ -133,6 +154,24 @@ public class CategoryNewsList extends AppCompatActivity {
         tabLayout.setupWithViewPager(mViewPager);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         changeFontInViewGroup(tabLayout, "fonts/nsr.ttf");
+    }
+
+    private void getCategories() {
+
+        Call<List<Category>> categoryCall = apiCalls.getCategories();
+        categoryCall.enqueue(new Callback<List<Category>>() {
+            @Override
+            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+                System.out.println("Response size:" + response.body().size());
+                categories = response.body();
+                setTabLayout();
+            }
+
+            @Override
+            public void onFailure(Call<List<Category>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
     }
 
     public void setPageTitle(String pageTitle) {
@@ -167,6 +206,7 @@ public class CategoryNewsList extends AppCompatActivity {
      * one of the sections/tabs/pages.
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
+        int id;
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -174,9 +214,11 @@ public class CategoryNewsList extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
+            id = categories.get(selectedPage).getId();
+            System.out.println("Current page = "+selectedPage+" -- id "+id);
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            return PlaceholderFragment.newInstance(id);
         }
 
         @Override
@@ -186,7 +228,7 @@ public class CategoryNewsList extends AppCompatActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return categories.get(position).getCatTitle();
+            return categories.get(position).getName();
         }
     }
 
