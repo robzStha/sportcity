@@ -156,6 +156,10 @@ public class CategoryNewsList extends AppCompatActivity {
         changeFontInViewGroup(tabLayout, "fonts/nsr.ttf");
     }
 
+    private int getCurrentPager(){
+        return mViewPager.getCurrentItem();
+    }
+
     private void getCategories() {
 
         Call<List<Category>> categoryCall = apiCalls.getCategories();
@@ -214,7 +218,8 @@ public class CategoryNewsList extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            id = categories.get(selectedPage).getId();
+            id = categories.get(getCurrentPager()).getId();
+//            id = categories.get(selectedPage).getId();
             System.out.println("Current page = "+selectedPage+" -- id "+id);
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
