@@ -2,6 +2,7 @@ package com.app.sportcity.server_protocols;
 
 import com.app.sportcity.objects.ActiveMenuList;
 import com.app.sportcity.objects.Category;
+import com.app.sportcity.objects.Media;
 import com.app.sportcity.objects.Menu;
 import com.app.sportcity.objects.Post;
 import com.app.sportcity.utils.CommonMethods;
@@ -46,5 +47,8 @@ public interface ApiCalls {
 
     @GET(CommonMethods.UrlHelper.MENU+"menus/{id}")
     Call<ActiveMenuList> getActiveMenuList(@Path("id") int id);
+
+    @GET(CommonMethods.UrlHelper.DATA+"media/{id}")
+    Call<Media> getMedia(@Path("id") int id);
 
 }

@@ -43,6 +43,11 @@ public class PlaceholderFragment extends Fragment {
         }.getType());
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+    }
+
     /**
      * Returns a new instance of this fragment for the given section
      * number.

@@ -124,6 +124,7 @@ public class CategoryNewsList extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setCurrentItem(pos);
+        mViewPager.setOffscreenPageLimit(6);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -147,7 +148,7 @@ public class CategoryNewsList extends AppCompatActivity {
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
+                Toast.makeText(getApplicationContext(), "Current page: "+getCurrentPager(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -161,28 +162,9 @@ public class CategoryNewsList extends AppCompatActivity {
         return mViewPager.getCurrentItem();
     }
 
-//    private void getCategories() {
-//
-//        Call<List<Category>> categoryCall = apiCalls.getCategories();
-//        categoryCall.enqueue(new Callback<List<Category>>() {
-//            @Override
-//            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
-//                System.out.println("Response size:" + response.body().size());
-//                categories = response.body();
-//                setTabLayout();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Category>> call, Throwable t) {
-//                t.printStackTrace();
-//            }
-//        });
-//    }
-
     public void setPageTitle(String pageTitle) {
         getSupportActionBar().setTitle(pageTitle);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -209,7 +191,7 @@ public class CategoryNewsList extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            id = StaticVariables.ActiveMenuList.list.get(getCurrentPager()).getObjectId();
+            id = StaticVariables.ActiveMenuList.list.get(position).getObjectId();
 //            id = categories.get(selectedPage).getId();
             System.out.println("Current page = "+selectedPage+" -- id "+id);
             // getItem is called to instantiate the fragment for the given page.
