@@ -48,9 +48,9 @@ public class RetrofitSingleton {
 
     private RetrofitSingleton() {
 
-        File httpCacheDirectory = new File(Environment.getDownloadCacheDirectory(), "responses");
-        int cacheSize = 10 * 1024 * 1024; // 10 MiB
-        Cache cache = new Cache(httpCacheDirectory, cacheSize);
+//        File httpCacheDirectory = new File(Environment.getDownloadCacheDirectory(), "responses");
+//        int cacheSize = 10 * 1024 * 1024; // 10 MiB
+//        Cache cache = new Cache(httpCacheDirectory, cacheSize);
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -60,7 +60,6 @@ public class RetrofitSingleton {
                 .connectTimeout(20, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
                 .build();
-//        okHttpClient.networkInterceptors().add(REWRITE_CACHE_CONTROL_INTERCEPTOR);
 
         retrofit = new Retrofit.Builder().
                 baseUrl(CommonMethods.UrlHelper.BASE_URL)

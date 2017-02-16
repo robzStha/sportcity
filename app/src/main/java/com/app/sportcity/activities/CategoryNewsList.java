@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.sportcity.R;
 import com.app.sportcity.fragments.PlaceholderFragment;
@@ -141,7 +142,7 @@ public class CategoryNewsList extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-
+                Toast.makeText(getApplicationContext(), "Current page: "+getCurrentPager(), Toast.LENGTH_LONG).show();
             }
 
             @Override
