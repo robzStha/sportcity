@@ -14,8 +14,10 @@ import com.app.sportcity.R;
 import com.app.sportcity.adapters.CatAdapter;
 import com.app.sportcity.objects.Category;
 import com.app.sportcity.objects.CategorySer;
+import com.app.sportcity.objects.Item;
 import com.app.sportcity.server_protocols.ApiCalls;
 import com.app.sportcity.server_protocols.RetrofitSingleton;
+import com.app.sportcity.statics.StaticVariables;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -108,31 +110,13 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         apiCalls = RetrofitSingleton.getApiCalls();
-        getCategories(view);
+//        getCategories(view);
+        populateMenu(view);
         return view;
     }
 
-    private void getCategories(final View view) {
-        Call<List<Category>> categoryCall = apiCalls.getCategories();
-        categoryCall.enqueue(new Callback<List<Category>>() {
-            @Override
-            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
-                System.out.println("Response size:" + response.body().size());
-                populateCategories(response.body(), view);
-            }
-
-            @Override
-            public void onFailure(Call<List<Category>> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
-    }
-
-    private void populateCategories(List<Category> categories, View view) {
-        for (Category category : categories) {
-            System.out.println("Category Name:- " + category.getName()+" -- category id:- "+category.getId());
-        }
-        CatAdapter catAdapter = new CatAdapter(categories, getContext());
+    private void populateMenu(View view) {
+        CatAdapter catAdapter = new CatAdapter(StaticVariables.ActiveMenuList.list, getContext());
         RecyclerView rvCats = (RecyclerView) view.findViewById(R.id.rv_cats);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 3);
         rvCats.setLayoutManager(mLayoutManager);
@@ -141,6 +125,36 @@ public class HomeFragment extends Fragment {
         rvCats.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
         rvCats.setAdapter(catAdapter);
     }
+
+//    private void getCategories(final View view) {
+//        Call<List<Category>> categoryCall = apiCalls.getCategories();
+//        categoryCall.enqueue(new Callback<List<Category>>() {
+//            @Override
+//            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+//                System.out.println("Response size:" + response.body().size());
+//                populateCategories(response.body(), view);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Category>> call, Throwable t) {
+//                t.printStackTrace();
+//            }
+//        });
+//    }
+//
+//    private void populateCategories(List<Category> categories, View view) {
+//        for (Category category : categories) {
+//            System.out.println("Category Name:- " + category.getName()+" -- category id:- "+category.getId());
+//        }
+//        CatAdapter catAdapter = new CatAdapter(categories, getContext());
+//        RecyclerView rvCats = (RecyclerView) view.findViewById(R.id.rv_cats);
+//        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 3);
+//        rvCats.setLayoutManager(mLayoutManager);
+//
+//        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing);
+//        rvCats.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
+//        rvCats.setAdapter(catAdapter);
+//    }
 
 
     public class SpacesItemDecoration extends RecyclerView.ItemDecoration {

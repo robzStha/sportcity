@@ -6,7 +6,7 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Links implements Serializable{
+public class LinksPost implements Serializable{
 
     @SerializedName("self")
     @Expose

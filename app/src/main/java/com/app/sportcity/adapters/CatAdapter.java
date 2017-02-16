@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.app.sportcity.R;
 import com.app.sportcity.objects.Category;
 import com.app.sportcity.objects.CategorySer;
+import com.app.sportcity.objects.Item;
 import com.app.sportcity.utils.Opener;
 import com.app.sportcity.view_holder.CategoryViewHolder;
 
@@ -22,11 +23,11 @@ import java.util.List;
 
 public class CatAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
 
-    List<Category> categories = new ArrayList<>();
+    List<Item> items = new ArrayList<>();
     Context mContext;
 
-    public CatAdapter(List<Category> categories, Context mContext) {
-        this.categories = categories;
+    public CatAdapter(List<Item> items, Context mContext) {
+        this.items = items;
         this.mContext = mContext;
     }
 
@@ -40,8 +41,8 @@ public class CatAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
     @Override
     public void onBindViewHolder(CategoryViewHolder holder, final int position) {
 
-        final Category category = categories.get(position);
-        holder.tvCatTitle.setText(category.getName());
+        final Item category = items.get(position);
+        holder.tvCatTitle.setText(category.getTitle());
         holder.tvCatTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,6 +54,6 @@ public class CatAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
 
     @Override
     public int getItemCount() {
-        return categories.size();
+        return items.size();
     }
 }

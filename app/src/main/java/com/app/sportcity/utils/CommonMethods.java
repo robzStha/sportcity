@@ -352,8 +352,10 @@ public class CommonMethods {
     public class UrlHelper {
 
 
-        public static final String BASE_URL = "http://imaginationcpl.com/developer/icpl_newsportal/wp-json/wp/v2/";
-//        public static final String BASE_URL = "http://imaginationcpl.com/developer/sportscity/public/api/v1/";
+//        public static final String BASE_URL = "http://imaginationcpl.com/developer/icpl_newsportal/wp-json/wp/v2/";
+        public static final String BASE_URL = "https://sportcity.gr/wp-json/";
+        public static final String DATA = "wp/v2/";
+        public static final String MENU = "wp-api-menus/v2/";
     }
 
     public static boolean hasPermissions(Context context, String... permissions) {

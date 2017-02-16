@@ -26,6 +26,7 @@ import com.app.sportcity.objects.CategorySer;
 import com.app.sportcity.objects.NewsList;
 import com.app.sportcity.server_protocols.ApiCalls;
 import com.app.sportcity.server_protocols.RetrofitSingleton;
+import com.app.sportcity.statics.StaticVariables;
 import com.app.sportcity.utils.DataFeeder;
 import com.app.sportcity.utils.FabInitializer;
 import com.bumptech.glide.Glide;
@@ -100,8 +101,8 @@ public class CategoryNewsList extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        getCategories();
-
+        setTabLayout();
+//        getCategories();
     }
 
     private void setTabLayout() {
@@ -112,12 +113,11 @@ public class CategoryNewsList extends AppCompatActivity {
         if (bundle != null) {
             pos = bundle.getInt("pos");
 //                    Category category = (Category) bundle.getSerializable("category");
-            setPageTitle(categories.get(pos).getName());
+            setPageTitle(StaticVariables.ActiveMenuList.list.get(pos).getTitle());
         }
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         NestedScrollView scrollView = (NestedScrollView) findViewById(R.id.nest_scrollview);
         scrollView.setFillViewport(true);
-
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -135,7 +135,7 @@ public class CategoryNewsList extends AppCompatActivity {
                         .crossFade()
                         .placeholder(R.drawable.images)
                         .into(ivCatFeatImg);
-                setPageTitle(categories.get(position).getName());
+                setPageTitle(StaticVariables.ActiveMenuList.list.get(position).getTitle());
                 selectedPage = position;
             }
 
@@ -160,23 +160,23 @@ public class CategoryNewsList extends AppCompatActivity {
         return mViewPager.getCurrentItem();
     }
 
-    private void getCategories() {
-
-        Call<List<Category>> categoryCall = apiCalls.getCategories();
-        categoryCall.enqueue(new Callback<List<Category>>() {
-            @Override
-            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
-                System.out.println("Response size:" + response.body().size());
-                categories = response.body();
-                setTabLayout();
-            }
-
-            @Override
-            public void onFailure(Call<List<Category>> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
-    }
+//    private void getCategories() {
+//
+//        Call<List<Category>> categoryCall = apiCalls.getCategories();
+//        categoryCall.enqueue(new Callback<List<Category>>() {
+//            @Override
+//            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+//                System.out.println("Response size:" + response.body().size());
+//                categories = response.body();
+//                setTabLayout();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Category>> call, Throwable t) {
+//                t.printStackTrace();
+//            }
+//        });
+//    }
 
     public void setPageTitle(String pageTitle) {
         getSupportActionBar().setTitle(pageTitle);
@@ -192,16 +192,6 @@ public class CategoryNewsList extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -218,7 +208,7 @@ public class CategoryNewsList extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            id = categories.get(getCurrentPager()).getId();
+            id = StaticVariables.ActiveMenuList.list.get(getCurrentPager()).getObjectId();
 //            id = categories.get(selectedPage).getId();
             System.out.println("Current page = "+selectedPage+" -- id "+id);
             // getItem is called to instantiate the fragment for the given page.
@@ -228,12 +218,12 @@ public class CategoryNewsList extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return categories.size();
+            return StaticVariables.ActiveMenuList.list.size();
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return categories.get(position).getName();
+            return StaticVariables.ActiveMenuList.list.get(position).getTitle();
         }
     }
 

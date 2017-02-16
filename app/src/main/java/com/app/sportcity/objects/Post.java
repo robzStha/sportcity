@@ -76,7 +76,7 @@ public class Post implements Serializable{
     private List<Object> tags = null;
     @SerializedName("_links")
     @Expose
-    private Links links;
+    private LinksPost links;
 
     public Integer getId() {
         return id;
@@ -254,11 +254,11 @@ public class Post implements Serializable{
         this.tags = tags;
     }
 
-    public Links getLinks() {
+    public LinksPost getLinks() {
         return links;
     }
 
-    public void setLinks(Links links) {
+    public void setLinks(LinksPost links) {
         this.links = links;
     }
 
