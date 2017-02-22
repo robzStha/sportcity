@@ -70,11 +70,26 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
         mediaCall.enqueue(new Callback<Media>() {
             @Override
             public void onResponse(Call<Media> call, Response<Media> response) {
+                Media media = response.body();
+                String temp="";
+                try {
+                    temp = media.getMediaDetails().getSizes().getMedium().getSourceUrl();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                System.out.println("Image url: "+temp);
+                if(!temp.equals("")) {
                 Glide.with(mContext)
                         .load(response.body().getMediaDetails().getSizes().getMedium().getSourceUrl())
                         .centerCrop()
                         .placeholder(R.drawable.images)
                         .into(imageView);
+                }else{
+                    Glide.with(mContext)
+                            .load(R.drawable.images)
+                            .centerCrop()
+                            .into(imageView);
+                }
             }
 
             @Override
