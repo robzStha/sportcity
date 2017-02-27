@@ -22,6 +22,7 @@ import com.app.sportcity.server_protocols.ApiCalls;
 import com.app.sportcity.server_protocols.RetrofitSingleton;
 import com.app.sportcity.utils.Opener;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.List;
 
@@ -54,13 +55,16 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
     public void onBindViewHolder(NewsViewHolder holder, final int position) {
         holder.tvTitle.setText(Html.fromHtml(newsLists.get(position).getTitle().getRendered()));
         holder.tvDesc.setText(Html.fromHtml(newsLists.get(position).getExcerpt().getRendered()));
-        imageFinder(newsLists.get(position).getFeaturedMedia(), holder.ivFeatImg);
+        holder.ivFeatImg.setVisibility(View.GONE);
+        if (newsLists.get(position).getFeaturedMedia() != 0) {
+            imageFinder(newsLists.get(position).getFeaturedMedia(), holder.ivFeatImg);
+        }
 //        holder.ivFeatImg.setImageBitmap(newsLists.get(position).getFeaturedMedia());
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(mContext, "Clicked on news: " + newsLists.get(position).getNewsTile(), Toast.LENGTH_SHORT).show();
-//                Opener.NewsDetails((Activity)mContext, newsLists.get(position));
+                Toast.makeText(mContext, "Clicked on news: " + newsLists.get(position).getTitle().getRendered(), Toast.LENGTH_SHORT).show();
+                Opener.NewsDetails((Activity)mContext, newsLists.get(position));
             }
         });
     }
@@ -77,19 +81,23 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
                 try {
                     temp = media.getMediaDetails().getSizes().getMedium().getSourceUrl();
                     if (!temp.equals("")) {
+                        imageView.setVisibility(View.VISIBLE);
                         Glide.with(mContext)
                                 .load(response.body().getMediaDetails().getSizes().getMedium().getSourceUrl())
                                 .centerCrop()
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
                                 .placeholder(R.drawable.images)
                                 .into(imageView);
                     } else {
-                        Glide.with(mContext)
-                                .load(R.drawable.images)
-                                .centerCrop()
-                                .into(imageView);
+                        imageView.setVisibility(View.GONE);
+//                        Glide.with(mContext)
+//                                .load(R.drawable.images)
+//                                .centerCrop()
+//                                .into(imageView);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                    imageView.setVisibility(View.GONE);
                 }
                 System.out.println("Image url: " + temp);
             }

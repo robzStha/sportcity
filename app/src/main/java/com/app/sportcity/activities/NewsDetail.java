@@ -12,11 +12,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +27,7 @@ import com.app.sportcity.R;
 import com.app.sportcity.fragments.MyDialogFragment;
 import com.app.sportcity.objects.Img;
 import com.app.sportcity.objects.NewsList;
+import com.app.sportcity.objects.Post;
 import com.app.sportcity.utils.CommonMethods;
 import com.app.sportcity.utils.DataFeeder;
 import com.app.sportcity.utils.FabInitializer;
@@ -37,7 +40,8 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class NewsDetail extends AppCompatActivity {
 
-    TextView tvTitle, tvDate, tvDesc;
+    TextView tvTitle, tvDate;
+    WebView tvDesc;
     ImageView ivFav, ivShare;
     TextView btnBuyImg;
     RecyclerView rvImg;
@@ -58,7 +62,7 @@ public class NewsDetail extends AppCompatActivity {
         init();
 
         if (bundle != null) {
-            NewsList newsDetail = (NewsList) bundle.getSerializable("news_details");
+            Post newsDetail = (Post) bundle.getSerializable("news_details");
             populateNewsDetail(newsDetail);
         }
 
@@ -81,7 +85,7 @@ public class NewsDetail extends AppCompatActivity {
     private void init() {
         tvTitle = (TextView) findViewById(R.id.tv_news_title);
         tvDate = (TextView) findViewById(R.id.tv_news_date);
-        tvDesc = (TextView) findViewById(R.id.tv_news_content);
+        tvDesc = (WebView) findViewById(R.id.tv_news_content);
 
         ivFav = (ImageView) findViewById(R.id.iv_fav);
         ivShare = (ImageView) findViewById(R.id.iv_share);
@@ -118,12 +122,15 @@ public class NewsDetail extends AppCompatActivity {
         }
     };
 
-    private void populateNewsDetail(NewsList newsDetail) {
-        tvTitle.setText(newsDetail.getNewsTile());
+    private void populateNewsDetail(Post newsDetail) {
+        tvTitle.setText(Html.fromHtml(newsDetail.getTitle().getRendered()));
         tvTitle.setVisibility(View.GONE);
-        tvDate.setText(newsDetail.getPublishedDate());
-        tvDesc.setText(newsDetail.getNewsDesc());
-        getSupportActionBar().setTitle(newsDetail.getNewsTile());
+        tvDate.setText(newsDetail.getDate());
+        tvDesc.getSettings().setJavaScriptEnabled(true);
+        String temp = "<Html><Head></Head><Body>"+newsDetail.getContent().getRendered()+"</body></html>";
+        tvDesc.loadData(temp, "text/html; charset=utf-8", "UTF-8");
+//        tvDesc.setText(Html.fromHtml(newsDetail.getContent().getRendered()));
+        getSupportActionBar().setTitle(Html.fromHtml(newsDetail.getTitle().getRendered()));
     }
 
     @Override

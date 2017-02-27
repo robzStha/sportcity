@@ -14,6 +14,7 @@ import com.app.sportcity.activities.RegisterActivity;
 import com.app.sportcity.objects.Category;
 import com.app.sportcity.objects.CategorySer;
 import com.app.sportcity.objects.NewsList;
+import com.app.sportcity.objects.Post;
 
 import java.util.List;
 
@@ -67,7 +68,7 @@ public class Opener {
         activity.startActivity(i);
     }
 
-    public static void NewsDetails(Activity activity, NewsList newsList) {
+    public static void NewsDetails(Activity activity, Post newsList) {
         i = new Intent(activity, NewsDetail.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

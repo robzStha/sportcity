@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.app.sportcity.R;
 import com.app.sportcity.adapters.NewsListAdapter;
@@ -17,6 +18,7 @@ import com.app.sportcity.objects.Post;
 import com.app.sportcity.server_protocols.ApiCalls;
 import com.app.sportcity.server_protocols.RetrofitSingleton;
 import com.app.sportcity.utils.DataFeeder;
+import com.app.sportcity.utils.EndlessRecyclerOnScrollListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -30,6 +32,8 @@ public class PlaceholderFragment extends Fragment {
     private final List<NewsList> newsLists;
     private List<Post> news;
     RecyclerView rvNewsList;
+
+    EndlessRecyclerOnScrollListener scrollListener;
 
     Context mContext;
     /**
@@ -69,6 +73,19 @@ public class PlaceholderFragment extends Fragment {
 
         int catId = getArguments().getInt(ARG_CAT_ID);
         rvNewsList = (RecyclerView) rootView.findViewById(R.id.rv_cats);
+//        rvNewsList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+//                super.onScrollStateChanged(recyclerView, newState);
+//            }
+//
+//            @Override
+//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//                System.out.println("Position: "+ dx+"::"+dy);
+//            }
+//        });
+
         getPostFromCategory(catId);
         return rootView;
     }
@@ -97,7 +114,21 @@ public class PlaceholderFragment extends Fragment {
     }
 
     private void populateNews(List<Post> news) {
-        rvNewsList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        rvNewsList.setLayoutManager(linearLayoutManager);
+        scrollListener = new EndlessRecyclerOnScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int current_page) {
+                System.out.println("Set endless recycler "+current_page);
+                Toast.makeText(getContext(), "Current page: "+ current_page, Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        try {
+            rvNewsList.addOnScrollListener(scrollListener);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         rvNewsList.setAdapter(new NewsListAdapter(mContext, news));
     }
 
