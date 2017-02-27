@@ -1,5 +1,6 @@
 package com.app.sportcity.fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -72,7 +73,9 @@ public class PlaceholderFragment extends Fragment {
         return rootView;
     }
 
-    private void getPostFromCategory(int catId) {
+    private void getPostFromCategory(int catId) {final ProgressDialog pd = new ProgressDialog(mContext);
+        pd.setMessage("Loading news...");
+        pd.show();
         ApiCalls apiCalls = RetrofitSingleton.getApiCalls();
         Call<List<Post>> posts = apiCalls.getPosts(catId);
         posts.enqueue(new Callback<List<Post>>() {
@@ -81,11 +84,13 @@ public class PlaceholderFragment extends Fragment {
                 System.out.println("Response size:" + response.body().size());
 
                 populateNews(response.body());
+                pd.dismiss();
             }
 
             @Override
             public void onFailure(Call<List<Post>> call, Throwable t) {
                 t.printStackTrace();
+                pd.dismiss();
             }
         });
 

@@ -1,6 +1,7 @@
 package com.app.sportcity.adapters;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
@@ -34,6 +35,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
     List<Post> newsLists;
     Context mContext;
     private ApiCalls apiCall;
+    boolean hasNext = false;
 
     public NewsListAdapter(Context context, List<Post> newsLists) {
         this.mContext = context;
@@ -64,48 +66,39 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
     }
 
 
-    private void imageFinder(int featuredImgId, final ImageView imageView){
+    private void imageFinder(int featuredImgId, final ImageView imageView) {
         apiCall = RetrofitSingleton.getApiCalls();
         Call<Media> mediaCall = apiCall.getMedia(featuredImgId);
         mediaCall.enqueue(new Callback<Media>() {
             @Override
             public void onResponse(Call<Media> call, Response<Media> response) {
                 Media media = response.body();
-                String temp="";
+                String temp = "";
                 try {
                     temp = media.getMediaDetails().getSizes().getMedium().getSourceUrl();
-                }catch (Exception e){
+                    if (!temp.equals("")) {
+                        Glide.with(mContext)
+                                .load(response.body().getMediaDetails().getSizes().getMedium().getSourceUrl())
+                                .centerCrop()
+                                .placeholder(R.drawable.images)
+                                .into(imageView);
+                    } else {
+                        Glide.with(mContext)
+                                .load(R.drawable.images)
+                                .centerCrop()
+                                .into(imageView);
+                    }
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-                System.out.println("Image url: "+temp);
-                if(!temp.equals("")) {
-                Glide.with(mContext)
-                        .load(response.body().getMediaDetails().getSizes().getMedium().getSourceUrl())
-                        .centerCrop()
-                        .placeholder(R.drawable.images)
-                        .into(imageView);
-                }else{
-                    Glide.with(mContext)
-                            .load(R.drawable.images)
-                            .centerCrop()
-                            .into(imageView);
-                }
+                System.out.println("Image url: " + temp);
             }
 
             @Override
             public void onFailure(Call<Media> call, Throwable t) {
-
             }
         });
 
-    }
-
-    private class ImageFinder extends AsyncTask<String, Void, String>{
-
-        @Override
-        protected String doInBackground(String... params) {
-            return null;
-        }
     }
 
     @Override
