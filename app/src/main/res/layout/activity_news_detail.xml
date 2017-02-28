@@ -129,10 +129,10 @@
                 android:layout_marginBottom="@dimen/space_16"
                 android:background="@color/lightGrey888888" />
 
-            <TextView
+            <WebView
                 android:id="@+id/tv_news_content"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="descriptions"
                 android:textColor="@color/txt_color_666666"
                 android:textSize="@dimen/txt_10" />

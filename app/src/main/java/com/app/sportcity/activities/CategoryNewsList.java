@@ -31,6 +31,7 @@ import com.app.sportcity.statics.StaticVariables;
 import com.app.sportcity.utils.DataFeeder;
 import com.app.sportcity.utils.FabInitializer;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -135,6 +136,7 @@ public class CategoryNewsList extends AppCompatActivity {
                         .load(imgUrl)
                         .centerCrop()
                         .crossFade()
+                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                         .placeholder(R.drawable.images)
                         .into(ivCatFeatImg);
                 setPageTitle(StaticVariables.ActiveMenuList.list.get(position).getTitle());
@@ -143,12 +145,12 @@ public class CategoryNewsList extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                Toast.makeText(getApplicationContext(), "Current page: "+getCurrentPager(), Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "Current page: "+getCurrentPager(), Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
-                Toast.makeText(getApplicationContext(), "Current page: "+getCurrentPager(), Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "Current page: "+getCurrentPager(), Toast.LENGTH_LONG).show();
             }
         });
 
