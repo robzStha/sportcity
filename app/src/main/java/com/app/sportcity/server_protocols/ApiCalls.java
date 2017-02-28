@@ -42,6 +42,9 @@ public interface ApiCalls {
     @GET(CommonMethods.UrlHelper.DATA+"posts")
     Call<List<Post>> getPosts(@Query("categories") int id);
 
+    @GET(CommonMethods.UrlHelper.DATA+"posts")
+    Call<List<Post>> getPostsNext(@Query("categories") int id, @Query("page") int count);
+
     @GET(CommonMethods.UrlHelper.MENU+"menus")
     Call<List<Menu>> getMenus();
 

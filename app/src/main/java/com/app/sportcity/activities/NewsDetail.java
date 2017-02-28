@@ -94,23 +94,7 @@ public class NewsDetail extends AppCompatActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
         rvImg.setLayoutManager(linearLayoutManager);
-//        FragmentStatePagerAdapter adapter = new FragmentStatePagerAdapter(getSupportFragmentManager()) {
-//            @Override
-//            public Fragment getItem(int position) {
-//                return new PageFragment().create(position);
-//            }
-//
-//            @Override
-//            public int getCount() {
-//                return DataFeeder.ImageFeeder.getImages().size();
-//            }
-//        };
         rvImg.setAdapter(new ImageAdapter());
-
-//        ImagePagerAdapter mCustomPagerAdapter = new ImagePagerAdapter(this, DataFeeder.ImageFeeder.getImages());
-//
-//        rvImg.setAdapter(mCustomPagerAdapter);
-//        rvImg.setPageMargin(64);
         btnBuyImg = (TextView) findViewById(R.id.tv_buy_imgs);
         btnBuyImg.setOnClickListener(buyClickListener);
     }

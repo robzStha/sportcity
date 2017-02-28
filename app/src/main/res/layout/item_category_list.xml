@@ -24,6 +24,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textCapWords"
                 android:text="Title"
+                android:ellipsize="end"
                 android:textColor="@color/darkGrey"
                 android:textSize="@dimen/txt_15" />
 
@@ -33,8 +34,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_10"
                 android:ellipsize="end"
-                android:maxLines="4"
+                android:maxLines="3"
                 android:text="Description of mine and this is very long to describe. Please describe this and be happy. Description of mine and this is very long to describe. Please describe this and be happy. Description of mine and this is very long to describe. Please describe this and be happy."
+                android:textSize="@dimen/txt_12" />
+
+            <TextView
+                android:id="@+id/tv_news_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_4"
+                android:ellipsize="end"
+                android:gravity="right"
                 android:textSize="@dimen/txt_12" />
         </LinearLayout>
 

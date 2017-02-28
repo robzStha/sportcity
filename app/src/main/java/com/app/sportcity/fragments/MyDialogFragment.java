@@ -1,5 +1,6 @@
 package com.app.sportcity.fragments;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -18,8 +19,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.sportcity.R;
+import com.app.sportcity.applications.MyApplication;
 import com.app.sportcity.objects.Img;
 import com.app.sportcity.utils.Cart;
 import com.app.sportcity.utils.CommonMethods;
@@ -30,6 +33,8 @@ import java.util.NoSuchElementException;
 
 public class MyDialogFragment extends DialogFragment implements View.OnClickListener {
     ViewPager vpImages;
+
+    Activity activity;
 
     ImageButton ibtnCross, ibtnFav;
     Button btnAddToCart;
@@ -70,7 +75,9 @@ public class MyDialogFragment extends DialogFragment implements View.OnClickList
         ivItem = (ImageView) v.findViewById(R.id.iv_item);
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
 //        if(CommonMethods.hasConnection(getActivity())) {
-        new BitmapDownloader().execute(img.getImgUrl());
+        if(MyApplication.hasNetwork()) {
+            new BitmapDownloader().execute(img.getImgUrl());
+        }
 
         tvPrice.setText("Price: " + img.getImgPrice());
         if (img.getIsFav().equals("true"))
@@ -126,8 +133,7 @@ public class MyDialogFragment extends DialogFragment implements View.OnClickList
                 MyDialogFragment.this.dismiss();
                 break;
             case R.id.btn_buy:
-                cart.addItemToCart(img);
-//                Toast.makeText(getActivity(), "nos: "+Cart.getInstance().getTotal()+"--"+Cart.getInstance().getItemCount(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Work on progress. You can buy this soon.", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.tv_price:
                 break;
@@ -137,7 +143,7 @@ public class MyDialogFragment extends DialogFragment implements View.OnClickList
 
     private void scaleImage(Bitmap image) throws NoSuchElementException {
         Bitmap bitmap = image;
-        Point point = CommonMethods.getDisplaySize(getActivity());
+        Point point = CommonMethods.getDisplaySize(activity);
 
         int newWidth = point.x - 40;
         int newHeight = CommonMethods.getRatioHeight(point.x, bitmap.getWidth(), bitmap.getHeight());
@@ -154,5 +160,9 @@ public class MyDialogFragment extends DialogFragment implements View.OnClickList
         return bmpWithBorder;
     }
 
-
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        this.activity = activity;
+    }
 }
