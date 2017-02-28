@@ -98,13 +98,13 @@ public class BaseActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        menu.clear();
-        getMenuInflater().inflate(R.menu.base, menu);
-        MenuItem item = menu.findItem(R.id.action_cart);
-        MenuItemCompat.setActionView(item, R.layout.cart_badge_count);
-        View view = MenuItemCompat.getActionView(item);
-        btnCartCount = (Button) view.findViewById(R.id.btnCartCount);
-        btnCartCount.setText(String.valueOf(cartCount));
+//        menu.clear();
+//        getMenuInflater().inflate(R.menu.base, menu);
+//        MenuItem item = menu.findItem(R.id.action_cart);
+//        MenuItemCompat.setActionView(item, R.layout.cart_badge_count);
+//        View view = MenuItemCompat.getActionView(item);
+//        btnCartCount = (Button) view.findViewById(R.id.btnCartCount);
+//        btnCartCount.setText(String.valueOf(cartCount));
         return true;
     }
 
