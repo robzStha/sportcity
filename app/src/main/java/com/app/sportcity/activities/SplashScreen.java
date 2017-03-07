@@ -142,7 +142,8 @@ public class SplashScreen extends AppCompatActivity {
             StaticVariables.ActiveMenuList.reset();
         }
         for (Item item : menuItems) {
-            if (!item.getType().equals("custom")) {
+            if (item.getObject().equals("category")) {
+//            if (!item.getType().equals("custom")) {
                 StaticVariables.ActiveMenuList.list.add(item);
             }
         }
