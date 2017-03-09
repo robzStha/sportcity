@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.app.sportcity.R;
 import com.app.sportcity.fragments.HomeFragment;
+import com.app.sportcity.fragments.HomeNewsFragment;
 import com.app.sportcity.objects.Category;
 import com.app.sportcity.server_protocols.ApiCalls;
 import com.app.sportcity.server_protocols.RetrofitSingleton;
@@ -76,7 +77,7 @@ public class BaseActivity extends AppCompatActivity
         LinearLayout ll = (LinearLayout) findViewById(R.id.ll_nav_menu);
         getAllTextView(ll);
 
-        mFragment = new HomeFragment();
+        mFragment = new HomeNewsFragment();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(llContentBase.getId(), mFragment).commit();
 
