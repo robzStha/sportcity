@@ -5,6 +5,7 @@
     android:layout_marginBottom="@dimen/space_16"
     android:layout_marginLeft="@dimen/space_16"
     android:layout_marginTop="@dimen/space_16"
+    android:id="@+id/ll_nav_menu"
     android:background="@color/darkGrey"
     android:orientation="vertical">
 
@@ -15,6 +16,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:tag="358"
             style="@style/NavMenuTitle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -46,6 +48,7 @@
                     android:src="@drawable/ic_arrow_right" />
 
                 <TextView
+                    android:tag="359"
                     style="@style/NavMenuSubTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -66,6 +69,7 @@
                     android:src="@drawable/ic_arrow_right" />
 
                 <TextView
+                    android:tag="366"
                     style="@style/NavMenuSubTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -86,6 +90,7 @@
                     android:src="@drawable/ic_arrow_right" />
 
                 <TextView
+                    android:tag="373"
                     style="@style/NavMenuSubTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -106,6 +111,7 @@
                     android:src="@drawable/ic_arrow_right" />
 
                 <TextView
+                    android:tag="383"
                     style="@style/NavMenuSubTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -129,6 +135,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:tag="391"
             style="@style/NavMenuTitle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -160,6 +167,7 @@
                     android:src="@drawable/ic_arrow_right" />
 
                 <TextView
+                    android:tag="392"
                     style="@style/NavMenuSubTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -180,6 +188,7 @@
                     android:src="@drawable/ic_arrow_right" />
 
                 <TextView
+                    android:tag="400"
                     style="@style/NavMenuSubTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -200,6 +209,7 @@
                     android:src="@drawable/ic_arrow_right" />
 
                 <TextView
+                    android:tag="396"
                     style="@style/NavMenuSubTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -220,6 +230,7 @@
                     android:src="@drawable/ic_arrow_right" />
 
                 <TextView
+                    android:tag="111"
                     style="@style/NavMenuSubTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -240,6 +251,7 @@
                     android:src="@drawable/ic_arrow_right" />
 
                 <TextView
+                    android:tag="393"
                     style="@style/NavMenuSubTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -260,6 +272,7 @@
                     android:src="@drawable/ic_arrow_right" />
 
                 <TextView
+                    android:tag="394"
                     style="@style/NavMenuSubTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -280,6 +293,7 @@
                     android:src="@drawable/ic_arrow_right" />
 
                 <TextView
+                    android:tag="29"
                     style="@style/NavMenuSubTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -300,6 +314,7 @@
                     android:src="@drawable/ic_arrow_right" />
 
                 <TextView
+                    android:tag="228"
                     style="@style/NavMenuSubTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -323,6 +338,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:tag="319"
             style="@style/NavMenuTitle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -354,6 +370,7 @@
                     android:src="@drawable/ic_arrow_right" />
 
                 <TextView
+                    android:tag="11"
                     style="@style/NavMenuSubTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -374,6 +391,7 @@
                     android:src="@drawable/ic_arrow_right" />
 
                 <TextView
+                    android:tag="229"
                     style="@style/NavMenuSubTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -384,65 +402,65 @@
 
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/darkGrey282828" />
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:background="@color/darkGrey282828" />-->
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/space_16"
-        android:layout_marginTop="@dimen/space_16"
-        android:orientation="vertical">
+    <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="@dimen/space_16"-->
+        <!--android:layout_marginTop="@dimen/space_16"-->
+        <!--android:orientation="vertical">-->
 
-        <TextView
-            style="@style/NavMenuTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/menu_4" />
+        <!--<TextView-->
+            <!--style="@style/NavMenuTitle"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:text="@string/menu_4" />-->
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="3dp"
-            android:background="@color/colorPrimaryDark" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/space_16"
-        android:orientation="vertical">
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:layout_marginTop="3dp"-->
+            <!--android:background="@color/colorPrimaryDark" />-->
+    <!--</LinearLayout>-->
+    <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="@dimen/space_16"-->
+        <!--android:orientation="vertical">-->
 
-        <TextView
-            style="@style/NavMenuTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/menu_5" />
+        <!--<TextView-->
+            <!--style="@style/NavMenuTitle"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:text="@string/menu_5" />-->
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="3dp"
-            android:background="@color/colorPrimaryDark" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/space_16"
-        android:orientation="vertical">
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:layout_marginTop="3dp"-->
+            <!--android:background="@color/colorPrimaryDark" />-->
+    <!--</LinearLayout>-->
+    <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="@dimen/space_16"-->
+        <!--android:orientation="vertical">-->
 
-        <TextView
-            style="@style/NavMenuTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/menu_6" />
+        <!--<TextView-->
+            <!--style="@style/NavMenuTitle"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:text="@string/menu_6" />-->
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="3dp"
-            android:background="@color/colorPrimaryDark" />
-    </LinearLayout>
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:layout_marginTop="3dp"-->
+            <!--android:background="@color/colorPrimaryDark" />-->
+    <!--</LinearLayout>-->
 
 </LinearLayout>

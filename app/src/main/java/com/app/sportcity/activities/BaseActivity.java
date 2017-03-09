@@ -11,18 +11,25 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.sportcity.R;
 import com.app.sportcity.fragments.HomeFragment;
 import com.app.sportcity.objects.Category;
 import com.app.sportcity.server_protocols.ApiCalls;
 import com.app.sportcity.server_protocols.RetrofitSingleton;
+import com.app.sportcity.utils.Opener;
 
 import java.util.List;
 
@@ -65,6 +72,9 @@ public class BaseActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        LinearLayout ll = (LinearLayout) findViewById(R.id.ll_nav_menu);
+        getAllTextView(ll);
 
         mFragment = new HomeFragment();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -128,6 +138,8 @@ public class BaseActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+
+        Toast.makeText(BaseActivity.this, "Item id: " + id, Toast.LENGTH_SHORT).show();
 //
 //        if (id == R.id.nav_camera) {
 //            // Handle the camera action
@@ -156,6 +168,34 @@ public class BaseActivity extends AppCompatActivity
     private void setNotifCount(int count) {
         cartCount = count;
         invalidateOptionsMenu();
+    }
+
+    private void getAllTextView(ViewGroup viewGroup) {
+
+        SparseArray<EditText> array = new SparseArray<>();
+//    private void findAllEdittexts() {
+
+        int count = viewGroup.getChildCount();
+        for (int i = 0; i < count; i++) {
+            View view = viewGroup.getChildAt(i);
+            if (view instanceof ViewGroup)
+                getAllTextView((ViewGroup) view);
+            else if (view instanceof TextView) {
+                final TextView edittext = (TextView) view;
+                if (edittext.getTag() != null) {
+                    edittext.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Opener.NewsList(BaseActivity.this, Integer.parseInt(v.getTag().toString()), edittext.getText().toString());
+                            Toast.makeText(BaseActivity.this, "Testing testing: " + v.getTag(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+//                    array.put(edittext.getId(), edittext);
+            }
+        }
+
+
     }
 
 }

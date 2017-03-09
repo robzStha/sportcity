@@ -76,4 +76,14 @@ public class Opener {
         i.putExtra("news_details", newsList);
         activity.startActivity(i);
     }
+
+    public static void NewsList(Activity activity, int catId, String title) {
+        i = new Intent(activity, com.app.sportcity.activities.NewsList.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.putExtra("catId", catId);
+        i.putExtra("catTitle", title);
+        activity.startActivity(i);
+    }
 }

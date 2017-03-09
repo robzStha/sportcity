@@ -18,10 +18,10 @@ import android.view.ViewGroup;
 
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.app.sportcity.R;
 import com.app.sportcity.fragments.PlaceholderFragment;
+import com.app.sportcity.fragments.WebViewHolderFragment;
 import com.app.sportcity.objects.Category;
 import com.app.sportcity.objects.CategorySer;
 import com.app.sportcity.objects.NewsList;
@@ -42,9 +42,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 import uk.co.chrisjenx.calligraphy.CalligraphyUtils;
 
@@ -198,7 +195,12 @@ public class CategoryNewsList extends AppCompatActivity {
             System.out.println("Current page = "+selectedPage+" -- id "+id);
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(id);
+
+            if(id!=1190 && id!=156) {
+                return PlaceholderFragment.newInstance(id);
+            }else{
+                return WebViewHolderFragment.newInstance(id);
+            }
         }
 
         @Override
