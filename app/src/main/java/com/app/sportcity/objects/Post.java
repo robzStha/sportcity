@@ -78,6 +78,10 @@ public class Post implements Serializable{
     @Expose
     private LinksPost links;
 
+
+    private String catName;
+    private String imgUrl;
+
     public Integer getId() {
         return id;
     }
@@ -262,4 +266,19 @@ public class Post implements Serializable{
         this.links = links;
     }
 
+    public String getCatName() {
+        return catName;
+    }
+
+    public void setCatName(String catName) {
+        this.catName = catName;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
 }

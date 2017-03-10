@@ -16,11 +16,13 @@ import android.widget.Toast;
 
 import com.app.sportcity.R;
 import com.app.sportcity.activities.CategoryNewsList;
+import com.app.sportcity.objects.Category;
 import com.app.sportcity.objects.Media;
 import com.app.sportcity.objects.NewsList;
 import com.app.sportcity.objects.Post;
 import com.app.sportcity.server_protocols.ApiCalls;
 import com.app.sportcity.server_protocols.RetrofitSingleton;
+import com.app.sportcity.statics.StaticVariables;
 import com.app.sportcity.utils.Opener;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -33,7 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsViewHolder> {
+public class NewsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     LayoutInflater inflater;
 
     List<Post> newsLists;
@@ -47,23 +49,91 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
     }
 
     @Override
-    public NewsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         inflater = (LayoutInflater) mContext.getSystemService
                 (Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.item_category_list, parent, false);
-        return new NewsViewHolder(view);
+
+        System.out.println("VIewType: " + viewType);
+        View view;
+        if (viewType == 0) {
+            view = inflater.inflate(R.layout.item_category_list, parent, false);
+            return new NewsViewHolder(view);
+        } else {
+            view = inflater.inflate(R.layout.item_cat_list_1, parent, false);
+            return new NewsViewHolder1(view);
+        }
     }
 
     @Override
-    public void onBindViewHolder(NewsViewHolder holder, final int position) {
-        holder.tvTitle.setText(Html.fromHtml(newsLists.get(position).getTitle().getRendered()));
-        holder.tvDesc.setText(Html.fromHtml(newsLists.get(position).getExcerpt().getRendered()));
-        holder.tvDate.setText(newsLists.get(position).getDate());
-        holder.ivFeatImg.setVisibility(View.GONE);
-        if (newsLists.get(position).getFeaturedMedia() != 0) {
-//            imageFinder(newsLists.get(position).getFeaturedMedia(), holder.ivFeatImg);
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+
+        switch (holder.getItemViewType()) {
+            case 0:
+                bindNewsViewHolder((NewsViewHolder) holder, position);
+                break;
+            case 1:
+                bindNewsView1Holder((NewsViewHolder1) holder, position);
+                break;
         }
-        holder.mView.setOnClickListener(new View.OnClickListener() {
+
+
+    }
+
+    private void bindNewsViewHolder(NewsViewHolder holder, final int position) {
+        NewsViewHolder newsViewHolder = holder;
+        newsViewHolder.tvTitle.setText(Html.fromHtml(newsLists.get(position).getTitle().getRendered()));
+        newsViewHolder.tvDesc.setText(Html.fromHtml(newsLists.get(position).getExcerpt().getRendered()));
+        newsViewHolder.tvDate.setText(newsLists.get(position).getDate());
+
+        if (newsLists.get(position).getImgUrl() != null) {
+            newsViewHolder.ivFeatImg.setVisibility(View.VISIBLE);
+            Glide.with(mContext)
+                    .load(newsLists.get(position).getImgUrl())
+                    .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(holder.ivFeatImg);
+//            imageFinder(newsLists.get(position).getImgUrl(), holder.ivFeatImg);
+        } else
+            newsViewHolder.ivFeatImg.setVisibility(View.GONE);
+
+        newsViewHolder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Opener.NewsDetails((Activity) mContext, newsLists.get(position));
+            }
+        });
+    }
+
+    private String getImageUrlFromPost(String rendered) {
+
+        String[] temp = rendered.split("src=\"");
+        if (temp.length > 1) {
+            String href = temp[1];
+            System.out.println("Rabin is testingssss: " + href);
+        }
+
+        return null;
+    }
+
+    private void bindNewsView1Holder(NewsViewHolder1 holder, final int position) {
+        NewsViewHolder1 newsViewHolder = holder;
+        if (newsLists.get(position).getCatName() != null) {
+            newsViewHolder.tvCatTitle.setText(newsLists.get(position).getCatName());
+        } else
+            newsViewHolder.tvCatTitle.setText(newsLists.get(position).getCategories().get(0) + "");
+        newsViewHolder.tvNewsTitle.setText(Html.fromHtml(newsLists.get(position).getTitle().getRendered()));
+        newsViewHolder.tvDate.setText(newsLists.get(position).getDate());
+        newsViewHolder.ivFeatImg.setVisibility(View.VISIBLE);
+        if (newsLists.get(position).getImgUrl() != null) {
+            newsViewHolder.ivFeatImg.setVisibility(View.VISIBLE);
+            Glide.with(mContext)
+                    .load(newsLists.get(position).getImgUrl())
+                    .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(holder.ivFeatImg);
+        } else
+            newsViewHolder.ivFeatImg.setVisibility(View.GONE);
+        newsViewHolder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Opener.NewsDetails((Activity) mContext, newsLists.get(position));
@@ -106,6 +176,21 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
     }
 
     @Override
+    public int getItemViewType(int position) {
+        int viewType;
+        if (position % 3 == 0) {
+            if(newsLists.get(position).getImgUrl()!=null) {
+                viewType = 1;
+            }else{
+                viewType = 0;
+            }
+        } else
+            viewType = 0;
+
+        return viewType;
+    }
+
+    @Override
     public int getItemCount() {
         return newsLists.size();
     }
@@ -126,10 +211,57 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
         }
     }
 
+    public class NewsViewHolder1 extends RecyclerView.ViewHolder {
+
+        TextView tvCatTitle, tvDate, tvNewsTitle;
+        ImageView ivFeatImg;
+        View mView;
+
+        public NewsViewHolder1(View itemView) {
+            super(itemView);
+            tvCatTitle = (TextView) itemView.findViewById(R.id.tv_cat_title);
+            tvDate = (TextView) itemView.findViewById(R.id.tv_news_date);
+            tvNewsTitle = (TextView) itemView.findViewById(R.id.tv_news_title);
+            ivFeatImg = (ImageView) itemView.findViewById(R.id.iv_feat_img);
+            mView = itemView.findViewById(R.id.ll_cat_list_1);
+        }
+    }
+
     public void appendNewNews(List<Post> news) {
         newsLists.addAll(news);
+        updateFeaturedImage();
+        updateCategoryInPost();
         notifyDataSetChanged();
-        Log.d("Next link : news size ", newsLists.size()+"");
+        Log.d("Next link : news size ", newsLists.size() + "");
+    }
+
+    private void updateFeaturedImage() {
+
+        for (int i = 0; i < newsLists.size(); i++) {
+            if (newsLists.get(i).getImgUrl() == null) {
+                String content = newsLists.get(i).getContent().getRendered();
+                String[] temp = content.split("src=\"");
+                if (temp.length > 1) {
+                    String temp1 = temp[1].split("\"")[0];
+                    newsLists.get(i).setImgUrl(temp1);
+                    System.out.println("Rabin is testing: " + temp1);
+                }
+            }
+        }
+    }
+
+    private void updateCategoryInPost() {
+
+        for (int i = 0; i < newsLists.size(); i++) {
+            if (newsLists.get(i).getCatName() == null) {
+                int catId = newsLists.get(i).getCategories().get(0);
+                for (int j = 0; j < StaticVariables.categories.size(); j++) {
+                    if (StaticVariables.categories.get(j).getId() == catId) {
+                        newsLists.get(i).setCatName(StaticVariables.categories.get(j).getName());
+                    }
+                }
+            }
+        }
     }
 
 }

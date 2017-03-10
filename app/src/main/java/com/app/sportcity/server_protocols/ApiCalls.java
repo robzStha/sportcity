@@ -39,6 +39,9 @@ public interface ApiCalls {
     @GET(CommonMethods.UrlHelper.DATA+"categories?parent=0&per_page=15")
     Call<List<Category>> getCategories();
 
+    @GET(CommonMethods.UrlHelper.DATA+"categories?per_page=100")
+    Call<List<Category>> getAllCategories();
+
     @GET(CommonMethods.UrlHelper.DATA+"posts")
     Call<List<Post>> getPosts(@Query("categories") int id);
 

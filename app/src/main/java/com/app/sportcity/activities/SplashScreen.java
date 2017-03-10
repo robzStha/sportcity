@@ -1,5 +1,6 @@
 package com.app.sportcity.activities;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
@@ -10,15 +11,19 @@ import android.widget.Toast;
 
 import com.app.sportcity.R;
 import com.app.sportcity.objects.ActiveMenuList;
+import com.app.sportcity.objects.Category;
 import com.app.sportcity.objects.Item;
 import com.app.sportcity.objects.Menu;
+import com.app.sportcity.objects.Post;
 import com.app.sportcity.server_protocols.ApiCalls;
 import com.app.sportcity.server_protocols.RetrofitSingleton;
 import com.app.sportcity.statics.StaticVariables;
 import com.app.sportcity.utils.Opener;
 
+import java.io.IOException;
 import java.util.List;
 
+import okhttp3.Headers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,7 +46,8 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
-        getMenu();
+//        getMenu();
+        getLatestPost();
 
         new Thread(new Runnable() {
             @Override
@@ -68,15 +74,16 @@ public class SplashScreen extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-                
-                if(hasError){
+
+                if (hasError) {
+
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             AlertDialog.Builder builder = new AlertDialog.Builder(SplashScreen.this);
                             builder.setTitle("Error")
                                     .setCancelable(false)
-                                    .setMessage(errorMsg+"\nMay be internet connection issue. Please check if device is connected to internet.")
+                                    .setMessage(errorMsg)
                                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
@@ -88,7 +95,7 @@ public class SplashScreen extends AppCompatActivity {
                             dialog.show();
                         }
                     });
-                }else {
+                } else {
                     Opener.BaseActivity(SplashScreen.this);
                     finish();
                 }
@@ -109,7 +116,12 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<Menu>> call, Throwable t) {
                 hasError = true;
-                errorMsg = t.getMessage();
+
+                if (t instanceof IOException) {
+                    errorMsg = "No network or internet connection. Please check your connection and try again.";
+                } else {
+                    errorMsg = t.getMessage();
+                }
             }
         });
 
@@ -153,6 +165,80 @@ public class SplashScreen extends AppCompatActivity {
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    private void getLatestPost() {
+        apiCall = RetrofitSingleton.getApiCalls();
+        Call<List<Post>> posts = apiCall.getLatestPosts();
+        posts.enqueue(new Callback<List<Post>>() {
+            @Override
+            public void onResponse(Call<List<Post>> call, final Response<List<Post>> response) {
+                System.out.println("Response size:" + response.body().size());
+                StaticVariables.news = response.body();
+
+                updateFeaturedImage();
+
+                Call<List<Category>> categories = apiCall.getAllCategories();
+                categories.enqueue(new Callback<List<Category>>() {
+                    @Override
+                    public void onResponse(Call<List<Category>> call, Response<List<Category>> catResponse) {
+                        StaticVariables.categories = catResponse.body();
+                        updateCategoryInPost(response.body(), catResponse.body());
+                        isCompleted = true;
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Category>> call, Throwable t) {
+                        hasError = true;
+
+                        if (t instanceof IOException) {
+                            errorMsg = "No network or internet connection. Please check your connection and try again.";
+                        } else {
+                            errorMsg = t.getMessage();
+                        }
+                    }
+                });
+
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Post>> call, Throwable t) {
+                t.printStackTrace();
+                hasError = true;
+
+                if (t instanceof IOException) {
+                    errorMsg = "No network or internet connection. Please check your connection and try again.";
+                } else {
+                    errorMsg = t.getMessage();
+                }
+            }
+        });
+    }
+
+    private void updateFeaturedImage() {
+
+        for(int i=0; i<StaticVariables.news.size(); i++) {
+            String content = StaticVariables.news.get(i).getContent().getRendered();
+            String[] temp = content.split("src=\"");
+            if(temp.length>1){
+                String temp1 = temp[1].split("\"")[0];
+                StaticVariables.news.get(i).setImgUrl(temp1);
+                System.out.println("Rabin is testing: "+ temp1);
+            }
+        }
+    }
+
+    private void updateCategoryInPost(List<Post> response, List<Category> catResponse) {
+
+        for (int i = 0; i < response.size(); i++) {
+            int catId = response.get(i).getCategories().get(0);
+            for(int j = 0; j<catResponse.size(); j++){
+                if(catResponse.get(j).getId()==catId){
+                    StaticVariables.news.get(i).setCatName(catResponse.get(j).getName());
+                }
+            }
+        }
     }
 
 }

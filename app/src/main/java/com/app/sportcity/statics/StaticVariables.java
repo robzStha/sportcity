@@ -1,6 +1,8 @@
 package com.app.sportcity.statics;
 
+import com.app.sportcity.objects.Category;
 import com.app.sportcity.objects.Item;
+import com.app.sportcity.objects.Post;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +12,12 @@ import java.util.List;
  */
 
 public class StaticVariables {
+
+    public static List<Category> categories;
+
+    public static void resetCat() {
+        categories = new ArrayList<>();
+    }
 
     /**
      * Is the active and showing menu items
@@ -21,5 +29,12 @@ public class StaticVariables {
             list = new ArrayList<>();
         }
     }
+
+    public static List<Post> news = new ArrayList<>();
+
+    public static void reset() {
+        news = new ArrayList<>();
+    }
+
 
 }

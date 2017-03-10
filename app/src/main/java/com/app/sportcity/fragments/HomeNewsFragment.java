@@ -16,6 +16,7 @@ import com.app.sportcity.adapters.NewsListAdapter;
 import com.app.sportcity.objects.Post;
 import com.app.sportcity.server_protocols.ApiCalls;
 import com.app.sportcity.server_protocols.RetrofitSingleton;
+import com.app.sportcity.statics.StaticVariables;
 import com.app.sportcity.utils.EndlessRecyclerOnScrollListener;
 
 import java.util.List;
@@ -73,46 +74,48 @@ public class HomeNewsFragment extends Fragment {
     }
 
     private void getLatestPost() {
-        final ProgressDialog pd = new ProgressDialog(mContext);
-        pd.setMessage("Loading news...");
-        pd.show();
-        apiCalls = RetrofitSingleton.getApiCalls();
-        Call<List<Post>> posts = apiCalls.getLatestPosts();
-        posts.enqueue(new Callback<List<Post>>() {
-            @Override
-            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
-                System.out.println("Response size:" + response.body().size());
-                newsTemp = response.body();
-                Headers headers = response.headers();
-                String temp = headers.get("Link").replace("<", "");
-                temp = temp.replace(">", "");
-                String string[] = temp.split(" ");
-                String nextLink = "";
-                System.out.println("Next linkss : " + temp + " Split: " + string[0] + " : " + string[1]);
-                if (string[1].equals("rel=\"next\"")) {
-                    System.out.println("Next linkss : next: " + string[1]);
-                    nextLink = string[0];
-                }
-//                    nextLink = string[0];
-                populateNews(response.body(), nextLink);
-                pd.dismiss();
-            }
 
-            @Override
-            public void onFailure(Call<List<Post>> call, Throwable t) {
-                t.printStackTrace();
-                pd.dismiss();
-            }
-        });
+        apiCalls = RetrofitSingleton.getApiCalls();
+        if(StaticVariables.news.size()>0){
+            newsTemp = StaticVariables.news;
+            populateNews(newsTemp);
+            StaticVariables.reset();
+        }else {
+
+            final ProgressDialog pd = new ProgressDialog(mContext);
+            pd.setMessage("Loading news...");
+            pd.show();
+            Call<List<Post>> posts = apiCalls.getLatestPosts();
+            posts.enqueue(new Callback<List<Post>>() {
+                @Override
+                public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                    System.out.println("Response size:" + response.body().size());
+                    newsTemp = response.body();
+                    Headers headers = response.headers();
+                    String temp = headers.get("Link").replace("<", "");
+                    temp = temp.replace(">", "");
+                    String string[] = temp.split(" ");
+                    String nextLink = "";
+                    System.out.println("Next linkss : " + temp + " Split: " + string[0] + " : " + string[1]);
+                    if (string[1].equals("rel=\"next\"")) {
+                        System.out.println("Next linkss : next: " + string[1]);
+                        nextLink = string[0];
+                    }
+                    populateNews(response.body());
+                    pd.dismiss();
+                }
+
+                @Override
+                public void onFailure(Call<List<Post>> call, Throwable t) {
+                    t.printStackTrace();
+                    pd.dismiss();
+                }
+            });
+        }
 
     }
 
-    private void populateNews(final List<Post> news, final String nextLink) {
-        System.out.println("Next link : " + nextLink);
-        if (!nextLink.equals("")) {
-            String temp = nextLink.substring(nextLink.indexOf("="));
-            String tempArray[] = temp.split("&");
-//            nextCatId = Integer.parseInt(tempArray[0].substring(1));
+    private void populateNews(final List<Post> news) {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
             rvNewsList.setLayoutManager(linearLayoutManager);
             newsListAdapter = new NewsListAdapter(mContext, news);
@@ -128,7 +131,7 @@ public class HomeNewsFragment extends Fragment {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
+//        }
         rvNewsList.setAdapter(newsListAdapter);
     }
 
@@ -146,7 +149,6 @@ public class HomeNewsFragment extends Fragment {
                 String temp = headers.get("Link").replace("<", "");
                 temp = temp.replace(">", "");
                 String string[] = temp.split(" ");
-//                String nextLink = "";
                 System.out.println("Next linkss : " + temp + " Split: " + string[0] + " : " + string[1]);
                 if (string.length == 2) {
                     if (string[1].equals("rel=\"next\"")) {

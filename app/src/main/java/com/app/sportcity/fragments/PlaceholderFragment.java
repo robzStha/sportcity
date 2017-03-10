@@ -15,10 +15,12 @@ import android.widget.Toast;
 
 import com.app.sportcity.R;
 import com.app.sportcity.adapters.NewsListAdapter;
+import com.app.sportcity.objects.Category;
 import com.app.sportcity.objects.NewsList;
 import com.app.sportcity.objects.Post;
 import com.app.sportcity.server_protocols.ApiCalls;
 import com.app.sportcity.server_protocols.RetrofitSingleton;
+import com.app.sportcity.statics.StaticVariables;
 import com.app.sportcity.utils.DataFeeder;
 import com.app.sportcity.utils.EndlessRecyclerOnScrollListener;
 import com.google.gson.Gson;
@@ -158,7 +160,6 @@ public class PlaceholderFragment extends Fragment {
                 String temp = headers.get("Link").replace("<", "");
                 temp = temp.replace(">", "");
                 String string[] = temp.split(" ");
-//                String nextLink = "";
                 System.out.println("Next linkss : " + temp + " Split: " + string[0] + " : " + string[1]);
                 if (string.length == 2) {
                     if (string[1].equals("rel=\"next\"")) {

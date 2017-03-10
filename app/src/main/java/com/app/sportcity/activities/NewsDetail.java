@@ -115,13 +115,14 @@ public class NewsDetail extends AppCompatActivity {
 
     private void populateNewsDetail(Post newsDetail) {
         tvTitle.setText(Html.fromHtml(newsDetail.getTitle().getRendered()));
-        tvTitle.setVisibility(View.GONE);
+//        tvTitle.setVisibility(View.GONE);
         tvDate.setText(newsDetail.getDate());
         tvDesc.getSettings().setJavaScriptEnabled(true);
-        String temp = "<Html><Head></Head><Body>"+newsDetail.getContent().getRendered()+"</body></html>";
+        String temp = "<Html><Head><style>img{display: inline;height: auto;max-width: 100%;}</style></Head><Body>"+newsDetail.getContent().getRendered()+"</body></html>";
         tvDesc.loadData(temp, "text/html; charset=utf-8", "UTF-8");
+//        tvDesc.loadDataWithBaseURL(null, "<style>img{display: inline;height: auto;max-width: 100%;}</style>" + post.getContent(), "text/html", "UTF-8", null);
 //        tvDesc.setText(Html.fromHtml(newsDetail.getContent().getRendered()));
-        getSupportActionBar().setTitle(Html.fromHtml(newsDetail.getTitle().getRendered()));
+//        getSupportActionBar().setTitle(Html.fromHtml(newsDetail.getTitle().getRendered()));
     }
 
     @Override

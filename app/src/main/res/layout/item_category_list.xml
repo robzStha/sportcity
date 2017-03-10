@@ -22,10 +22,10 @@
                 android:id="@+id/tv_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textCapWords"
-                android:text="Title"
-                android:ellipsize="end"
                 android:textColor="@color/darkGrey"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="this is a text message t o tes the ellipse for the text of mine"
                 android:textSize="@dimen/txt_15" />
 
             <TextView
@@ -44,8 +44,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_4"
                 android:ellipsize="end"
-                android:gravity="right"
-                android:textSize="@dimen/txt_12" />
+                android:gravity="left"
+                android:text="test"
+                android:textSize="@dimen/txt_8" />
         </LinearLayout>
 
         <ImageView
