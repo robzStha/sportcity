@@ -177,6 +177,4 @@ public class HomeNewsFragment extends Fragment {
         this.mContext = context;
     }
 
-
-
 }
