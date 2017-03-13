@@ -31,6 +31,7 @@ import com.app.sportcity.objects.Post;
 import com.app.sportcity.utils.CommonMethods;
 import com.app.sportcity.utils.DataFeeder;
 import com.app.sportcity.utils.FabInitializer;
+import com.app.sportcity.utils.Opener;
 import com.bumptech.glide.Glide;
 
 import java.io.IOException;
@@ -62,8 +63,15 @@ public class NewsDetail extends AppCompatActivity {
         init();
 
         if (bundle != null) {
-            Post newsDetail = (Post) bundle.getSerializable("news_details");
+            final Post newsDetail = (Post) bundle.getSerializable("news_details");
             populateNewsDetail(newsDetail);
+
+            ivShare.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Opener.OpenShareSheet(NewsDetail.this, "I found this news interesting. Please read this link.\n"+newsDetail.getGuid().getRendered());
+                }
+            });
         }
 
         new FabInitializer(this);
@@ -97,6 +105,7 @@ public class NewsDetail extends AppCompatActivity {
         ivFav = (ImageView) findViewById(R.id.iv_fav);
         ivShare = (ImageView) findViewById(R.id.iv_share);
 
+
         rvImg = (RecyclerView) findViewById(R.id.rv_images);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -116,7 +125,9 @@ public class NewsDetail extends AppCompatActivity {
     private void populateNewsDetail(Post newsDetail) {
         tvTitle.setText(Html.fromHtml(newsDetail.getTitle().getRendered()));
 //        tvTitle.setVisibility(View.GONE);
-        tvDate.setText(newsDetail.getDate());
+        String elapsedTime = CommonMethods.timeElapsed(newsDetail.getDate().replace("T", " "));
+//        newsViewHolder.tvDate.setText(elapsedTime);
+        tvDate.setText(elapsedTime);
         tvDesc.getSettings().setJavaScriptEnabled(true);
         String temp = "<Html><Head><style>img{display: inline;height: auto;max-width: 100%;}</style></Head><Body>"+newsDetail.getContent().getRendered()+"</body></html>";
         tvDesc.loadData(temp, "text/html; charset=utf-8", "UTF-8");

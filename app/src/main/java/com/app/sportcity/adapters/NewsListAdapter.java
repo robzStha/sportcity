@@ -23,6 +23,7 @@ import com.app.sportcity.objects.Post;
 import com.app.sportcity.server_protocols.ApiCalls;
 import com.app.sportcity.server_protocols.RetrofitSingleton;
 import com.app.sportcity.statics.StaticVariables;
+import com.app.sportcity.utils.CommonMethods;
 import com.app.sportcity.utils.Opener;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -88,9 +89,9 @@ public class NewsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         newsViewHolder.tvTitle.setText(Html.fromHtml(newsLists.get(position).getTitle().getRendered()));
         newsViewHolder.tvDesc.setText(Html.fromHtml(newsLists.get(position).getExcerpt().getRendered()));
 
-        convertTime(position, newsViewHolder.tvDate);
-
-//        newsViewHolder.tvDate.setText(str);
+//        convertTime(position);
+        String elapsedTime = CommonMethods.timeElapsed(newsLists.get(position).getDate().replace("T", " "));
+        newsViewHolder.tvDate.setText(elapsedTime);
 
         if (newsLists.get(position).getImgUrl() != null) {
             newsViewHolder.ivFeatImg.setVisibility(View.VISIBLE);
@@ -111,82 +112,11 @@ public class NewsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         });
     }
 
-    private String convertTime(int position, TextView tv) {
-        String sDate = newsLists.get(position).getDate().replace("T", " ");
-        String inputPattern = "yyyy-MM-dd HH:mm:ss";
-        String outputPattern = "dd-MM-yyyy HH:mm a";
-        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
-        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+//    private String convertTime(int position) {
+//        String sDate = newsLists.get(position).getDate().replace("T", " ");
+//        return timeElapsed(sDate);
+//    }
 
-        Date date = null;
-        String str = "";
-
-        try {
-            date = inputFormat.parse(sDate);
-            str = outputFormat.format(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        if (str != "") {
-            Date d1 = new Date();
-            Date d2;
-            String currentDateTimeString = outputFormat.format(d1);
-            try {
-                d1 = outputFormat.parse(currentDateTimeString);
-                d2 = outputFormat.parse(str);
-                printDifference(d2, d1, tv);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            System.out.println(currentDateTimeString + " Current date time");
-        }
-        return str;
-    }
-
-    public void printDifference(Date startDate, Date endDate, TextView tv){
-
-        //milliseconds
-        long different = endDate.getTime() - startDate.getTime();
-
-        System.out.println("startDate : " + startDate);
-        System.out.println("endDate : "+ endDate);
-        System.out.println("different : " + different);
-
-        long secondsInMilli = 1000;
-        long minutesInMilli = secondsInMilli * 60;
-        long hoursInMilli = minutesInMilli * 60;
-        long daysInMilli = hoursInMilli * 24;
-
-        long elapsedDays = different / daysInMilli;
-        different = different % daysInMilli;
-
-        long elapsedHours = different / hoursInMilli;
-        different = different % hoursInMilli;
-
-        long elapsedMinutes = different / minutesInMilli;
-        different = different % minutesInMilli;
-
-        long elapsedSeconds = different / secondsInMilli;
-
-        if(elapsedDays>0){
-            if(elapsedDays>1){
-                tv.setText(elapsedDays+" days ago");
-            }else tv.setText(elapsedDays+" day ago");
-        }else if(elapsedHours>1){
-            tv.setText(elapsedHours+" hrs ago");
-        }else if(elapsedHours==1){
-            tv.setText(elapsedHours+" hr ago");
-        }else{
-            tv.setText(elapsedHours+" min ago");
-        }
-
-        System.out.printf(
-                "%d days, %d hours, %d minutes, %d seconds%n",
-                elapsedDays,
-                elapsedHours, elapsedMinutes, elapsedSeconds);
-
-    }
 
     private String getImageUrlFromPost(String rendered) {
 
@@ -206,8 +136,9 @@ public class NewsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         } else
             newsViewHolder.tvCatTitle.setText(newsLists.get(position).getCategories().get(0) + "");
         newsViewHolder.tvNewsTitle.setText(Html.fromHtml(newsLists.get(position).getTitle().getRendered()));
-        convertTime(position, newsViewHolder.tvDate);
-//        newsViewHolder.tvDate.setText(time);
+//        convertTime(position, newsViewHolder.tvDate);
+        String elapsedTime = CommonMethods.timeElapsed(newsLists.get(position).getDate().replace("T", " "));
+        newsViewHolder.tvDate.setText(elapsedTime);
         newsViewHolder.ivFeatImg.setVisibility(View.VISIBLE);
         if (newsLists.get(position).getImgUrl() != null) {
             newsViewHolder.ivFeatImg.setVisibility(View.VISIBLE);

@@ -30,19 +30,25 @@ import android.view.animation.Interpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
 import java.net.InetAddress;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by Rabin on 9/7/2015.
  */
 public class CommonMethods {
+
+    public static String FIREBASE_TOKEN;
 
     public static Intent getPickImageChooserIntent(Activity activity) {
 
@@ -427,6 +433,85 @@ public class CommonMethods {
             return false;
         }
 
+    }
+
+    public static String printDifference(Date startDate, Date endDate){
+
+        //milliseconds
+        long different = endDate.getTime() - startDate.getTime();
+
+        System.out.println("startDate : " + startDate);
+        System.out.println("endDate : "+ endDate);
+        System.out.println("different : " + different);
+
+        long secondsInMilli = 1000;
+        long minutesInMilli = secondsInMilli * 60;
+        long hoursInMilli = minutesInMilli * 60;
+        long daysInMilli = hoursInMilli * 24;
+
+        long elapsedDays = different / daysInMilli;
+        different = different % daysInMilli;
+
+        long elapsedHours = different / hoursInMilli;
+        different = different % hoursInMilli;
+
+        long elapsedMinutes = different / minutesInMilli;
+        different = different % minutesInMilli;
+
+        long elapsedSeconds = different / secondsInMilli;
+
+        String temp;
+        if(elapsedDays>0){
+            if(elapsedDays>1){
+                temp = elapsedDays+" days ago";
+//                tv.setText(elapsedDays+" days ago");
+            }else temp = elapsedDays+" day ago";
+        }else if(elapsedHours>1){
+            temp = elapsedHours+" hrs ago";
+        }else if(elapsedHours==1){
+            temp = elapsedHours+" hr ago";
+        }else{
+            temp = elapsedHours+" min ago";
+        }
+
+        System.out.printf(
+                "%d days, %d hours, %d minutes, %d seconds%n",
+                elapsedDays,
+                elapsedHours, elapsedMinutes, elapsedSeconds);
+        return temp;
+
+    }
+
+    public static String timeElapsed(String sDate) {
+        String inputPattern = "yyyy-MM-dd HH:mm:ss";
+        String outputPattern = "dd-MM-yyyy HH:mm a";
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+
+        Date date = null;
+        String str = "";
+
+        try {
+            date = inputFormat.parse(sDate);
+            str = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if (str != "") {
+            Date d1 = new Date();
+            Date d2;
+            String currentDateTimeString = outputFormat.format(d1);
+            try {
+                d1 = outputFormat.parse(currentDateTimeString);
+                d2 = outputFormat.parse(str);
+                str = CommonMethods.printDifference(d2, d1);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            System.out.println(currentDateTimeString + " Current date time");
+        }
+        return str;
     }
 
 }

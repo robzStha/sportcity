@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.app.sportcity.R;
 import com.app.sportcity.adapters.NewsListAdapter;
@@ -42,6 +43,7 @@ public class HomeNewsFragment extends Fragment {
 //    private int catId;
     private boolean hasNext;
     private List<Post> newsTemp;
+    ProgressBar progressBar;
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -68,6 +70,7 @@ public class HomeNewsFragment extends Fragment {
 
 //        catId = getArguments().getInt(ARG_CAT_ID);
         rvNewsList = (RecyclerView) rootView.findViewById(R.id.rv_cats);
+        progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
 
         getLatestPost();
         return rootView;
@@ -136,10 +139,11 @@ public class HomeNewsFragment extends Fragment {
     }
 
     private void loadMoreFromAPI(int current_page) {
-        final ProgressDialog progressDialog = new ProgressDialog(mContext);
-        progressDialog.setMessage("Loading more news");
-        progressDialog.show();
-        progressDialog.setCancelable(false);
+        progressBar.setVisibility(View.VISIBLE);
+//        final ProgressDialog progressDialog = new ProgressDialog(mContext);
+//        progressDialog.setMessage("Loading more news");
+//        progressDialog.show();
+//        progressDialog.setCancelable(false);
         Call<List<Post>> posts = apiCalls.getLatestPostsNext(current_page);
         posts.enqueue(new Callback<List<Post>>() {
             @Override
@@ -160,13 +164,15 @@ public class HomeNewsFragment extends Fragment {
                     } else hasNext = false;
                 }
                 newsListAdapter.appendNewNews(response.body());
-                progressDialog.dismiss();
+//                progressDialog.dismiss();
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailure(Call<List<Post>> call, Throwable t) {
                 t.printStackTrace();
-                progressDialog.dismiss();
+                progressBar.setVisibility(View.GONE);
+//                progressDialog.dismiss();
             }
         });
     }

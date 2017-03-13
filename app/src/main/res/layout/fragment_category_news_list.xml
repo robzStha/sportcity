@@ -11,8 +11,18 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_cats"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_above="@id/progressBar"
+        android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
+
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/progressBar"
+        android:layout_marginTop="@dimen/space_10"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>

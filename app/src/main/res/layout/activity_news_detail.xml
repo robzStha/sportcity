@@ -51,9 +51,10 @@
                 android:textSize="@dimen/txt_8" />
 
             <LinearLayout
+                android:layout_marginTop="-30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="right|center_vertical"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -63,12 +64,12 @@
                     android:padding="@dimen/space_16"
                     android:src="@drawable/ic_share_black_48dp" />
 
-                <ImageView
-                    android:id="@+id/iv_fav"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/space_16"
-                    android:src="@drawable/ic_fav_grey" />
+                <!--<ImageView-->
+                    <!--android:id="@+id/iv_fav"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:padding="@dimen/space_16"-->
+                    <!--android:src="@drawable/ic_fav_grey" />-->
 
             </LinearLayout>
 
@@ -126,6 +127,8 @@
 
     </ScrollView>
 
-    <include layout="@layout/fab_layout" android:visibility="gone" />
+    <include
+        layout="@layout/fab_layout"
+        android:visibility="gone" />
 
 </android.support.design.widget.CoordinatorLayout>

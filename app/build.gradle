@@ -44,4 +44,8 @@ dependencies {
     compile 'com.pixplicity.multiviewpager:library:1.0'
     compile 'com.android.support:support-v4:23.4.0'
     testCompile 'junit:junit:4.12'
+    compile 'com.google.firebase:firebase-core:10.2.0'
+    compile 'com.google.firebase:firebase-messaging:10.2.0'
+
 }
+apply plugin: 'com.google.gms.google-services'

@@ -86,4 +86,12 @@ public class Opener {
         i.putExtra("catTitle", title);
         activity.startActivity(i);
     }
+
+    public static void OpenShareSheet(Activity activity, String msg){
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, msg); // Simple text and URL to share
+        sendIntent.setType("text/plain");
+        activity.startActivity(sendIntent);
+    }
 }
