@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.app.sportcity.R;
@@ -38,6 +39,7 @@ public class PlaceholderFragment extends Fragment {
     RecyclerView rvNewsList;
     NewsListAdapter newsListAdapter;
     EndlessRecyclerOnScrollListener scrollListener;
+    LinearLayout llProgressBar;
 
     Context mContext;
     /**
@@ -81,6 +83,7 @@ public class PlaceholderFragment extends Fragment {
 
         catId = getArguments().getInt(ARG_CAT_ID);
         rvNewsList = (RecyclerView) rootView.findViewById(R.id.rv_cats);
+        llProgressBar = (LinearLayout) rootView.findViewById(R.id.ll_progressbar);
 
         getPostFromCategory(catId);
         return rootView;
@@ -90,6 +93,7 @@ public class PlaceholderFragment extends Fragment {
         final ProgressDialog pd = new ProgressDialog(mContext);
         pd.setMessage("Loading news...");
         pd.show();
+        pd.setCanceledOnTouchOutside(false);
         apiCalls = RetrofitSingleton.getApiCalls();
         Call<List<Post>> posts = apiCalls.getPosts(catId);
         posts.enqueue(new Callback<List<Post>>() {
@@ -147,10 +151,12 @@ public class PlaceholderFragment extends Fragment {
     }
 
     private void loadMoreFromAPI(int current_page) {
-        final ProgressDialog progressDialog = new ProgressDialog(mContext);
-        progressDialog.setMessage("Loading more news");
-        progressDialog.show();
-        progressDialog.setCancelable(false);
+
+        llProgressBar.setVisibility(View.VISIBLE);
+//        final ProgressDialog progressDialog = new ProgressDialog(mContext);
+//        progressDialog.setMessage("Loading more news");
+//        progressDialog.show();
+//        progressDialog.setCancelable(false);
         Call<List<Post>> posts = apiCalls.getPostsNext(catId, current_page);
         posts.enqueue(new Callback<List<Post>>() {
             @Override
@@ -171,13 +177,16 @@ public class PlaceholderFragment extends Fragment {
                     } else hasNext = false;
                 }
                 newsListAdapter.appendNewNews(response.body());
-                progressDialog.dismiss();
+//                progressDialog.dismiss();
+
+                llProgressBar.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailure(Call<List<Post>> call, Throwable t) {
                 t.printStackTrace();
-                progressDialog.dismiss();
+                llProgressBar.setVisibility(View.GONE);
+//                progressDialog.dismiss();
             }
         });
     }

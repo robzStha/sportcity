@@ -61,8 +61,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.NewsDetail"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:screenOrientation="portrait" />
         <activity android:name=".activities.NewsList"></activity>
         //region Firebase notification
         <service android:name=".pushnotification.MyFirebaseMessagingService">

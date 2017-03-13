@@ -2,7 +2,6 @@ package com.app.sportcity.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.app.sportcity.R;
@@ -43,7 +43,7 @@ public class HomeNewsFragment extends Fragment {
 //    private int catId;
     private boolean hasNext;
     private List<Post> newsTemp;
-    ProgressBar progressBar;
+    LinearLayout llProgressBar;
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -70,7 +70,7 @@ public class HomeNewsFragment extends Fragment {
 
 //        catId = getArguments().getInt(ARG_CAT_ID);
         rvNewsList = (RecyclerView) rootView.findViewById(R.id.rv_cats);
-        progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
+        llProgressBar = (LinearLayout) rootView.findViewById(R.id.ll_progressbar);
 
         getLatestPost();
         return rootView;
@@ -139,7 +139,7 @@ public class HomeNewsFragment extends Fragment {
     }
 
     private void loadMoreFromAPI(int current_page) {
-        progressBar.setVisibility(View.VISIBLE);
+        llProgressBar.setVisibility(View.VISIBLE);
 //        final ProgressDialog progressDialog = new ProgressDialog(mContext);
 //        progressDialog.setMessage("Loading more news");
 //        progressDialog.show();
@@ -165,13 +165,13 @@ public class HomeNewsFragment extends Fragment {
                 }
                 newsListAdapter.appendNewNews(response.body());
 //                progressDialog.dismiss();
-                progressBar.setVisibility(View.GONE);
+                llProgressBar.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailure(Call<List<Post>> call, Throwable t) {
                 t.printStackTrace();
-                progressBar.setVisibility(View.GONE);
+                llProgressBar.setVisibility(View.GONE);
 //                progressDialog.dismiss();
             }
         });

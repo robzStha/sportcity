@@ -188,7 +188,7 @@ public class BaseActivity extends AppCompatActivity
                         @Override
                         public void onClick(View v) {
                             Opener.NewsList(BaseActivity.this, Integer.parseInt(v.getTag().toString()), edittext.getText().toString());
-                            Toast.makeText(BaseActivity.this, "Testing testing: " + v.getTag(), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(BaseActivity.this, "Testing testing: " + v.getTag(), Toast.LENGTH_SHORT).show();
                         }
                     });
                 }

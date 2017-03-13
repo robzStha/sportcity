@@ -5,11 +5,14 @@ import com.google.gson.annotations.SerializedName;
 
 public class ResponseToken {
 
-    @SerializedName("code")
+    @SerializedName("isError")
     @Expose
-    public String code;
-    @SerializedName("msg")
+    public String isError;
+    @SerializedName("error")
     @Expose
-    public String msg;
+    public String error;
+    @SerializedName("SuccessMessage")
+    @Expose
+    public String SuccessMessage;
 
 }

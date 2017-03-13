@@ -362,6 +362,7 @@ public class CommonMethods {
         public static final String BASE_URL = "https://sportcity.gr/wp-json/";
         public static final String DATA = "wp/v2/";
         public static final String MENU = "wp-api-menus/v2/";
+        public static final String NOTIFICATION = "apnwp/";
     }
 
     public static boolean hasPermissions(Context context, String... permissions) {

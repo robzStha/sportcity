@@ -15,6 +15,7 @@ import com.app.sportcity.objects.Category;
 import com.app.sportcity.objects.Item;
 import com.app.sportcity.objects.Menu;
 import com.app.sportcity.objects.Post;
+import com.app.sportcity.pushnotification.RegisterFirebaseToken;
 import com.app.sportcity.server_protocols.ApiCalls;
 import com.app.sportcity.server_protocols.RetrofitSingleton;
 import com.app.sportcity.statics.StaticVariables;
@@ -47,6 +48,10 @@ public class SplashScreen extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
 //        getMenu();
+
+        RegisterFirebaseToken registerFirebaseToken = new RegisterFirebaseToken(SplashScreen.this);
+        registerFirebaseToken.tokenRequestAndRegister();
+
         getLatestPost();
 
         new Thread(new Runnable() {

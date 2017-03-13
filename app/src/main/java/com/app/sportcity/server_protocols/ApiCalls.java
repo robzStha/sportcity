@@ -5,6 +5,7 @@ import com.app.sportcity.objects.Category;
 import com.app.sportcity.objects.Media;
 import com.app.sportcity.objects.Menu;
 import com.app.sportcity.objects.Post;
+import com.app.sportcity.pushnotification.ResponseToken;
 import com.app.sportcity.utils.CommonMethods;
 
 import java.util.List;
@@ -62,5 +63,8 @@ public interface ApiCalls {
 
     @GET(CommonMethods.UrlHelper.DATA+"media/{id}")
     Call<Media> getMedia(@Path("id") int id);
+
+    @GET(CommonMethods.UrlHelper.NOTIFICATION+"register")
+    Call<ResponseToken> setDeviceToken(@Query("os_type") String os_type, @Query("user_email_id") String email_id, @Query("device_token") String token);
 
 }

@@ -59,32 +59,33 @@ public class RegisterFirebaseToken {
         @Override
         protected String doInBackground(Void... param) {
             ApiCalls apiService = RetrofitSingleton.getApiCalls();
-//            Call<ResponseToken> call = apiService.set_device_token(prefs.getStringValues(CommonDef.SharedPreferences.AUTH_KEY), notificationToken);
-//            call.enqueue(new Callback<ResponseToken>() {
-//                @Override
-//                public void onResponse(Call<ResponseToken> call, Response<ResponseToken> response) {
-//                    try {
-//                        if (response.isSuccessful()) {
+            Call<ResponseToken> call = apiService.setDeviceToken("android", "", prefs.getStringValues(CommonMethods.FIREBASE_TOKEN));
+            call.enqueue(new Callback<ResponseToken>() {
+                @Override
+                public void onResponse(Call<ResponseToken> call, Response<ResponseToken> response) {
+                    try {
+                        if (response.isSuccessful()) {
+                            Log.d(TAG, "TokenRegister " + response.body().SuccessMessage);
 //                            if (response.body().code.equalsIgnoreCase("0001")) {
 //                                Log.d(TAG, "TokenRegister " + response.body().msg);
 //                            } else {
 //                                Log.d(TAG, "TokenRegister " + response.body().msg);
 //                            }
-//                        } else {
-//                            Log.d(TAG, response.message());
-//                        }
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                        Log.d(TAG, e.getMessage());
-//                    }
-//                }
-//
-//                @Override
-//                public void onFailure(Call<ResponseToken> call, Throwable t) {
-//                    t.printStackTrace();
-//                    Log.d(TAG, t.getMessage());
-//                }
-//            });
+                        } else {
+                            Log.d(TAG, response.message());
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.d(TAG, e.getMessage());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseToken> call, Throwable t) {
+                    t.printStackTrace();
+                    Log.d(TAG, t.getMessage());
+                }
+            });
 
             return null;
         }
