@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.app.sportcity.activities.CategoryNewsList;
+import com.app.sportcity.activities.Images;
 import com.app.sportcity.activities.NewsDetail;
 import com.app.sportcity.activities.SplashScreen;
 import com.app.sportcity.activities.BaseActivity;
@@ -34,7 +35,7 @@ public class Opener {
     }
 
     public static void BaseActivity(Activity activity) {
-        startActivity(activity, BaseActivity.class);
+        startActivity(activity, Images.class);
     }
 
     /**

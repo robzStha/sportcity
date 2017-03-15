@@ -29,6 +29,9 @@ dependencies {
     //    compile 'com.github.hotchemi:permissionsdispatcher:2.3.0'
 //    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.3.0'
 
+    
+
+
     compile 'com.squareup.okhttp3:okhttp:3.3.1'
     compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
     compile 'com.google.code.gson:gson:2.7'
@@ -43,9 +46,8 @@ dependencies {
     compile 'com.edmodo:cropper:1.0.1'
     compile 'com.pixplicity.multiviewpager:library:1.0'
     compile 'com.android.support:support-v4:23.4.0'
-    testCompile 'junit:junit:4.12'
     compile 'com.google.firebase:firebase-core:10.2.0'
     compile 'com.google.firebase:firebase-messaging:10.2.0'
-
+    testCompile 'junit:junit:4.12'
 }
 apply plugin: 'com.google.gms.google-services'

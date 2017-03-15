@@ -80,30 +80,33 @@ public class SplashScreen extends AppCompatActivity {
                     }
                 }
 
-                if (hasError) {
+                Opener.BaseActivity(SplashScreen.this);
+                finish();
 
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(SplashScreen.this);
-                            builder.setTitle("Error")
-                                    .setCancelable(false)
-                                    .setMessage(errorMsg)
-                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            dialog.dismiss();
-                                            finish();
-                                        }
-                                    });
-                            AlertDialog dialog = builder.create();
-                            dialog.show();
-                        }
-                    });
-                } else {
-                    Opener.BaseActivity(SplashScreen.this);
-                    finish();
-                }
+//                if (hasError) {
+//
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            AlertDialog.Builder builder = new AlertDialog.Builder(SplashScreen.this);
+//                            builder.setTitle("Error")
+//                                    .setCancelable(false)
+//                                    .setMessage(errorMsg)
+//                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(DialogInterface dialog, int which) {
+//                                            dialog.dismiss();
+//                                            finish();
+//                                        }
+//                                    });
+//                            AlertDialog dialog = builder.create();
+//                            dialog.show();
+//                        }
+//                    });
+//                } else {
+//                    Opener.BaseActivity(SplashScreen.this);
+//                    finish();
+//                }
             }
         }).start();
     }

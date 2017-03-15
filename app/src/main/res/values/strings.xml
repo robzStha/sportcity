@@ -50,5 +50,7 @@
     <string name="buy_img">Buy Images</string>
     <string name="buy_img_desc">You can also buy these images online.</string>
     <string name="add_to_cart">Add to cart</string>
+    <string name="images">Image Gallery</string>
+    <string name="shop">Shop</string>
 
 </resources>
