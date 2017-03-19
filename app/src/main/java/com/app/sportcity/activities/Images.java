@@ -16,11 +16,22 @@ import android.widget.Toast;
 import com.app.sportcity.R;
 import com.app.sportcity.adapters.ImagesAdapter;
 import com.app.sportcity.fragments.SlideshowDialogFragment;
+import com.app.sportcity.objects.ACF;
+import com.app.sportcity.objects.Media;
+import com.app.sportcity.server_protocols.ApiCalls;
+import com.app.sportcity.server_protocols.RetrofitSingleton;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Images extends AppCompatActivity {
 
     RecyclerView recyclerView;
     ImagesAdapter imgAdapter;
+    private ApiCalls apicall;
 
     @Override
 
@@ -31,7 +42,26 @@ public class Images extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         init();
+        loadImages();
 
+    }
+
+    private void loadImages() {
+        apicall = RetrofitSingleton.getApiCalls();
+        Call<List<Media>> mediaList = apicall.getMediaList();
+        mediaList.enqueue(new Callback<List<Media>>() {
+            @Override
+            public void onResponse(Call<List<Media>> call, Response<List<Media>> response) {
+                System.out.println("Response: "+response.body().size());
+                ACF acf = response.body().get(0).getAcf().get(0);
+                System.out.println("Response: "+ acf.getShowInStore()+"--"+acf.getPrice());
+            }
+
+            @Override
+            public void onFailure(Call<List<Media>> call, Throwable t) {
+
+            }
+        });
     }
 
     private void init() {
