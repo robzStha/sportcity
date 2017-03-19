@@ -64,8 +64,8 @@ public interface ApiCalls {
     @GET(CommonMethods.UrlHelper.DATA+"media/{id}")
     Call<Media> getMedia(@Path("id") int id);
 
-    @GET(CommonMethods.UrlHelper.DATA+"media/")
-    Call<List<Media>> getMediaList();
+    @GET(CommonMethods.UrlHelper.DATA+"media")
+    Call<List<Media>> getMediaList(@Query("per_page") int page);
 
     @GET(CommonMethods.UrlHelper.NOTIFICATION+"register")
     Call<ResponseToken> setDeviceToken(@Query("os_type") String os_type, @Query("user_email_id") String email_id, @Query("device_token") String token);

@@ -32,7 +32,7 @@ public class RegisterFirebaseToken {
     }
 
     public void tokenRequestAndRegister() {
-        FirebaseMessaging.getInstance().subscribeToTopic("news");
+//        FirebaseMessaging.getInstance().subscribeToTopic("news");
         notificationToken = FirebaseInstanceId.getInstance().getToken();
         if (notificationToken != null && !notificationToken.isEmpty()) {
             Log.d(TAG, "notificationToken => " + notificationToken);

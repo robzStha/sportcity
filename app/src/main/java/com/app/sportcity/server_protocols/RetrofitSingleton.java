@@ -5,8 +5,11 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.app.sportcity.BuildConfig;
+import com.app.sportcity.adapters.ACFTypeAdapter;
 import com.app.sportcity.applications.MyApplication;
 import com.app.sportcity.utils.CommonMethods;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.File;
 import java.io.IOException;
@@ -72,12 +75,13 @@ public class RetrofitSingleton {
                 .readTimeout(30, TimeUnit.SECONDS)
                 .build();
 
+        Gson gson = new GsonBuilder().registerTypeAdapter(ACFTypeAdapter.ACFs.class, new ACFTypeAdapter()).create();
 
 
         retrofit = new Retrofit.Builder().
                 baseUrl(CommonMethods.UrlHelper.BASE_URL)
                 .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         apiCalls = retrofit.create(ApiCalls.class);
 

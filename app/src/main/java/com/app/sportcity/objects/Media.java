@@ -1,11 +1,12 @@
 package com.app.sportcity.objects;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Media {
+public class Media{
 
     @SerializedName("id")
     @Expose
@@ -54,7 +55,7 @@ public class Media {
     private List<Object> meta = null;
     @SerializedName("acf")
     @Expose
-    private List<ACF> acf = null;
+    private ACF acf;
     @SerializedName("description")
     @Expose
     private Description description;
@@ -203,12 +204,11 @@ public class Media {
         this.meta = meta;
     }
 
-
-    public List<ACF> getAcf() {
+    public ACF getAcf() {
         return acf;
     }
 
-    public void setAcf(List<ACF> acf) {
+    public void setAcf(ACF acf) {
         this.acf = acf;
     }
 

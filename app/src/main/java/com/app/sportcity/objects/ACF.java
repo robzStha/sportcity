@@ -7,29 +7,18 @@ public class ACF {
 
     @SerializedName("show_in_store")
     @Expose
-    private Boolean showInStore;
-//    @SerializedName("image_link")
-//    @Expose
-//    private String imageLink;
+    private String showInStore;
     @SerializedName("price")
     @Expose
     private String price;
 
-    public Boolean getShowInStore() {
+    public String getShowInStore() {
         return showInStore;
     }
 
-    public void setShowInStore(Boolean showInStore) {
+    public void setShowInStore(String showInStore) {
         this.showInStore = showInStore;
     }
-
-//    public String getImageLink() {
-//        return imageLink;
-//    }
-//
-//    public void setImageLink(String imageLink) {
-//        this.imageLink = imageLink;
-//    }
 
     public String getPrice() {
         return price;

@@ -48,18 +48,24 @@ public class Images extends AppCompatActivity {
 
     private void loadImages() {
         apicall = RetrofitSingleton.getApiCalls();
-        Call<List<Media>> mediaList = apicall.getMediaList();
+        Call<List<Media>> mediaList = apicall.getMediaList(10);
         mediaList.enqueue(new Callback<List<Media>>() {
             @Override
             public void onResponse(Call<List<Media>> call, Response<List<Media>> response) {
-                System.out.println("Response: "+response.body().size());
-                ACF acf = response.body().get(0).getAcf().get(0);
-                System.out.println("Response: "+ acf.getShowInStore()+"--"+acf.getPrice());
+//                System.out.println("Response: " + response.body().size());
+//
+//                for (Media media : response.body()) {
+//                    for (ACF acf : (ACF) media.getAcf()) {
+//                        System.out.println("Response: ACF: " + acf.getShowInStore() + " -- " + acf.getPrice());
+//                    }
+//                }
+//                ACF acf = response.body().get(0).getAcf().get(0);
+//                System.out.println("Response: "+ acf.getShowInStore()+" -- "+acf.getPrice()+ "This is very wrong");
             }
 
             @Override
             public void onFailure(Call<List<Media>> call, Throwable t) {
-
+                t.printStackTrace();
             }
         });
     }
@@ -75,7 +81,7 @@ public class Images extends AppCompatActivity {
         recyclerView.addOnItemTouchListener(new ImagesAdapter.RecyclerTouchListener(Images.this, recyclerView, new ImagesAdapter.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Toast.makeText(Images.this, "Position: "+position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(Images.this, "Position: " + position, Toast.LENGTH_SHORT).show();
 
                 Bundle bundle = new Bundle();
 //                bundle.putSerializable("images", images);
@@ -97,10 +103,10 @@ public class Images extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
-            return true;
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
