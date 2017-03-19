@@ -52,6 +52,9 @@ public class Media {
     @SerializedName("meta")
     @Expose
     private List<Object> meta = null;
+    @SerializedName("acf")
+    @Expose
+    private List<ACF> acf = null;
     @SerializedName("description")
     @Expose
     private Description description;
@@ -198,6 +201,15 @@ public class Media {
 
     public void setMeta(List<Object> meta) {
         this.meta = meta;
+    }
+
+
+    public List<ACF> getAcf() {
+        return acf;
+    }
+
+    public void setAcf(List<ACF> acf) {
+        this.acf = acf;
     }
 
     public Description getDescription() {
