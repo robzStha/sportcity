@@ -75,9 +75,7 @@ public class RetrofitSingleton {
                 .readTimeout(30, TimeUnit.SECONDS)
                 .build();
 
-        Gson gson = new GsonBuilder().registerTypeAdapter(ACFTypeAdapter.ACFs.class, new ACFTypeAdapter()).create();
-
-
+        Gson gson = new GsonBuilder().registerTypeAdapterFactory(new ACFTypeAdapter()).create();
         retrofit = new Retrofit.Builder().
                 baseUrl(CommonMethods.UrlHelper.BASE_URL)
                 .client(okHttpClient)

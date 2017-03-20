@@ -48,9 +48,9 @@ public class SplashScreen extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
 //        getMenu();
-
-        RegisterFirebaseToken registerFirebaseToken = new RegisterFirebaseToken(SplashScreen.this);
-        registerFirebaseToken.tokenRequestAndRegister();
+//
+//        RegisterFirebaseToken registerFirebaseToken = new RegisterFirebaseToken(SplashScreen.this);
+//        registerFirebaseToken.tokenRequestAndRegister();
 
         getLatestPost();
 
@@ -184,14 +184,14 @@ public class SplashScreen extends AppCompatActivity {
                 System.out.println("Response size:" + response.body().size());
                 StaticVariables.news = response.body();
 
-                updateFeaturedImage();
+//                updateFeaturedImage();
 
                 Call<List<Category>> categories = apiCall.getAllCategories();
                 categories.enqueue(new Callback<List<Category>>() {
                     @Override
                     public void onResponse(Call<List<Category>> call, Response<List<Category>> catResponse) {
                         StaticVariables.categories = catResponse.body();
-                        updateCategoryInPost(response.body(), catResponse.body());
+//                        updateCategoryInPost(response.body(), catResponse.body());
                         isCompleted = true;
                     }
 
