@@ -39,26 +39,20 @@ public class ACFTypeAdapter implements TypeAdapterFactory {
             @Override
             public T read(JsonReader in) throws IOException {
                 JsonElement jsonElement = elementTypeAdapter.read(in);
-                System.out.println("Json Element: " + jsonElement.toString());
                 if (jsonElement.isJsonObject()) {
                     JsonObject jsonObject = jsonElement.getAsJsonObject();
-                    System.out.println("Json Object: " + jsonObject.toString());
                     if (jsonObject.has("acf")) {
                         jsonElement = jsonObject.get("acf");
                         if (jsonElement.isJsonArray()) {
                             String temp = "{\"show_in_store\": \"No\",\"price\": \"0\"}";
                             jsonElement = new JsonParser().parse(temp);
                         }
-//                        if (!jsonElement.isJsonNull()) {
-//                            jsonElement = jsonObject.getAsJsonObject("acf");
-//                        }
                     }
                 }
+                System.out.println("Json Element: " + jsonElement.toString());
                 return delegate.fromJsonTree(jsonElement);
             }
-        }.
-
-                nullSafe();
+        }.nullSafe();
     }
 
     public class ACFs {

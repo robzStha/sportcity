@@ -52,7 +52,7 @@ public class Images extends AppCompatActivity {
         mediaList.enqueue(new Callback<List<Media>>() {
             @Override
             public void onResponse(Call<List<Media>> call, Response<List<Media>> response) {
-//                System.out.println("Response: " + response.body().size());
+                System.out.println("Response: " + response.body().size());
 //
 //                for (Media media : response.body()) {
 //                    for (ACF acf : (ACF) media.getAcf()) {
