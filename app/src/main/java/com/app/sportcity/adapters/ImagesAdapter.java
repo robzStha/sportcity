@@ -12,6 +12,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.sportcity.R;
+import com.app.sportcity.objects.Media;
+import com.bumptech.glide.Glide;
+
+import java.util.List;
 
 /**
  * Created by rabinshrestha on 3/15/17.
@@ -20,9 +24,11 @@ import com.app.sportcity.R;
 public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImageViewHolder> {
 
     Context context;
+    List<Media> shopItems;
 
-    public ImagesAdapter(Context context) {
+    public ImagesAdapter(Context context, List<Media> shopItems) {
         this.context = context;
+        this.shopItems = shopItems;
     }
 
     @Override
@@ -35,6 +41,12 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImageViewH
 
     @Override
     public void onBindViewHolder(ImageViewHolder holder, final int position) {
+        System.out.println("Image: "+shopItems.get(position).getMediaDetails().getSizes().getThumbnail().getSourceUrl());
+        holder.tvImgTitle.setText(shopItems.get(position).getTitle().getRendered());
+        Glide.with(context)
+                .load(shopItems.get(position).getMediaDetails().getSizes().getThumbnail().getSourceUrl())
+                .centerCrop()
+                .into(holder.ivItem);
 
 //        holder.root.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -48,7 +60,7 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImageViewH
 
     @Override
     public int getItemCount() {
-        return 25;
+        return shopItems.size();
     }
 
     public class ImageViewHolder extends RecyclerView.ViewHolder{

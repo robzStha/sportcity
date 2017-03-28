@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.app.sportcity.R;
+import com.app.sportcity.activities.Images;
+import com.app.sportcity.objects.Media;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
@@ -21,11 +23,9 @@ import java.util.ArrayList;
 
 public class SlideshowDialogFragment extends DialogFragment {
     private String TAG = SlideshowDialogFragment.class.getSimpleName();
-//    private ArrayList<Image> images;
     private ViewPager viewPager;
     private MyViewPagerAdapter myViewPagerAdapter;
-        private TextView lblCount;
-    // , lblTitle, lblDate;
+        private TextView lblCount, lblTitle, lblPrice;
     private int selectedPosition = 0;
 
     public static SlideshowDialogFragment newInstance() {
@@ -39,14 +39,15 @@ public class SlideshowDialogFragment extends DialogFragment {
         View v = inflater.inflate(R.layout.fragment_image_slider, container, false);
         viewPager = (ViewPager) v.findViewById(R.id.viewpager);
         lblCount = (TextView) v.findViewById(R.id.lbl_count);
-//        lblTitle = (TextView) v.findViewById(R.id.title);
+        lblTitle = (TextView) v.findViewById(R.id.title);
+        lblPrice = (TextView) v.findViewById(R.id.price);
 //        lblDate = (TextView) v.findViewById(R.id.date);
 
-//        images = (ArrayList<Image>) getArguments().getSerializable("images");
+
         selectedPosition = getArguments().getInt("position");
 
         Log.e(TAG, "position: " + selectedPosition);
-//        Log.e(TAG, "images size: " + images.size());
+        Log.e(TAG, "images size: " + Images.mediaListShop.size());
 
         myViewPagerAdapter = new MyViewPagerAdapter();
         viewPager.setAdapter(myViewPagerAdapter);
@@ -82,10 +83,11 @@ public class SlideshowDialogFragment extends DialogFragment {
     };
 
     private void displayMetaInfo(int position) {
-        lblCount.setText((position + 1) + " of " + 25);
+        lblCount.setText((position + 1) + " of " + Images.mediaListShop.size());
 //
 //        Image image = images.get(position);
-//        lblTitle.setText(image.getName());
+        lblTitle.setText(Images.mediaListShop.get(position).getTitle().getRendered());
+        lblPrice.setText("$"+Images.mediaListShop.get(position).getAcf().get(0).getPrice());
 //        lblDate.setText(image.getTimestamp());
     }
 
@@ -113,7 +115,7 @@ public class SlideshowDialogFragment extends DialogFragment {
 
 //            Image image = images.get(position);
 
-            Glide.with(getActivity()).load(R.drawable.images)
+            Glide.with(getActivity()).load(Images.mediaListShop.get(position).getMediaDetails().getSizes().getFull().getSourceUrl())
                     .thumbnail(0.5f)
                     .crossFade()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -126,7 +128,7 @@ public class SlideshowDialogFragment extends DialogFragment {
 
         @Override
         public int getCount() {
-            return 25;
+            return Images.mediaListShop.size();
         }
 
         @Override

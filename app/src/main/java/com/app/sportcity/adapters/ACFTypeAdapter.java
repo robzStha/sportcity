@@ -5,6 +5,7 @@ package com.app.sportcity.adapters;
 
 import com.app.sportcity.objects.ACF;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
@@ -20,10 +21,50 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ACFTypeAdapter implements TypeAdapterFactory {
+public class ACFTypeAdapter<T> extends TypeAdapter<List<T>> {
+    private Class<T> adapterClass;
+
+    public ACFTypeAdapter(Class<T> adapterClass){
+        this.adapterClass = adapterClass;
+    }
+
+    @Override
+    public void write(JsonWriter out, List<T> value) throws IOException {
+
+    }
+
+    @Override
+    public List<T> read(JsonReader in) throws IOException {
+
+        List<T> list =  new ArrayList<T>();
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapterFactory(new ACFAdapterFactory())
+                .create();
+
+        if(in.peek()==JsonToken.BEGIN_OBJECT){
+            T inning = (T) gson.fromJson(in, adapterClass);
+            list.add(inning);
+        }else if(in.peek()==JsonToken.BEGIN_ARRAY){
+            in.beginArray();
+            while (in.hasNext()){
+                T inning = (T) gson.fromJson(in, adapterClass);
+                list.add(inning);
+            }
+            in.endArray();
+        }else {
+            in.skipValue();
+        }
+
+        return list;
+    }
+}
+
+
+/*TypeAdapterFactory {
 
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
@@ -54,12 +95,4 @@ public class ACFTypeAdapter implements TypeAdapterFactory {
             }
         }.nullSafe();
     }
-
-    public class ACFs {
-        public List<ACF> monuments;
-
-        public ACFs(ACF... ms) {
-            monuments = Arrays.asList(ms);
-        }
-    }
-}
+}*/

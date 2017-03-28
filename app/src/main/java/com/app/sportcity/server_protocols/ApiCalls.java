@@ -64,7 +64,7 @@ public interface ApiCalls {
     @GET(CommonMethods.UrlHelper.DATA+"media/{id}")
     Call<Media> getMedia(@Path("id") int id);
 
-    @GET(CommonMethods.UrlHelper.DATA+"media")
+    @GET(CommonMethods.UrlHelper.DATA+"media?after=2017-03-28T15:41:44")
     Call<List<Media>> getMediaList(@Query("per_page") int page);
 
     @GET(CommonMethods.UrlHelper.NOTIFICATION+"register")

@@ -6,7 +6,7 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Media{
+public class Media implements Serializable {
 
     @SerializedName("id")
     @Expose
@@ -55,7 +55,7 @@ public class Media{
     private List<Object> meta = null;
     @SerializedName("acf")
     @Expose
-    private ACF acf;
+    private List<ACF> acf;
     @SerializedName("description")
     @Expose
     private Description description;
@@ -204,11 +204,11 @@ public class Media{
         this.meta = meta;
     }
 
-    public ACF getAcf() {
+    public List<ACF> getAcf() {
         return acf;
     }
 
-    public void setAcf(ACF acf) {
+    public void setAcf(List<ACF> acf) {
         this.acf = acf;
     }
 
