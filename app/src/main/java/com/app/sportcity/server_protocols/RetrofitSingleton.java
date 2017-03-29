@@ -1,12 +1,9 @@
 package com.app.sportcity.server_protocols;
 
-import android.app.Application;
-import android.os.Environment;
 import android.util.Log;
 
 import com.app.sportcity.BuildConfig;
 import com.app.sportcity.adapters.ACFAdapterFactory;
-import com.app.sportcity.adapters.ACFTypeAdapter;
 import com.app.sportcity.applications.MyApplication;
 import com.app.sportcity.utils.CommonMethods;
 import com.google.gson.Gson;

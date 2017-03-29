@@ -3,7 +3,9 @@ package com.app.sportcity.utils;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.app.sportcity.objects.CartDetails;
 import com.app.sportcity.objects.Img;
+import com.app.sportcity.objects.ItemsDetail;
 
 import java.util.ArrayList;
 
@@ -14,40 +16,48 @@ import java.util.ArrayList;
 public class MyCart {
 
     Context context;
+    private static MyCart myCartInstance;
+    private static CartDetails cartDetails;
 
-    public MyCart(Context context) {
-        this.context = context;
+    private MyCart(){}
+
+    public MyCart getInstance () {
+        if(myCartInstance==null){
+            myCartInstance = new MyCart();
+        }
+        return myCartInstance;
     }
 
-    private static ArrayList<Img> imgs = new ArrayList<>();
+    public void init(Context context, CartDetails cartDetails){
+        this.cartDetails = cartDetails;
+        this.context = context;
+    }
+    private ArrayList<ItemsDetail> itemsDetails = new ArrayList<>();
 
-    public int addItemToCart(Img item) {
-        if (item.getIsPurchased() == "true" || imgs.contains(item)) {
-            Toast.makeText(context, "This item has already been purchased.", Toast.LENGTH_LONG).show();
-        } else {
-            imgs.add(item);
-        }
+    public int addItemToCart(ItemsDetail item) {
+        cartDetails.addItem(item);
+
         return getItemCount();
     }
 
     private int getItemCount() {
-        return imgs.size();
+        return cartDetails.getItemsDetail().size();
     }
 
-    public int deleteItem(String id) {
-        for (Img img : imgs) {
-            if (img.getImgId().equals(id)) {
-                imgs.remove(img);
-            }
-        }
-        return getItemCount();
-    }
-
-    public ArrayList<Img> getCartItems() {
-        return imgs;
-    }
-
-    public float getTotal() {
-        return 10 * imgs.size();
-    }
+//    public int deleteItem(String id) {
+//        for (Img img : imgs) {
+//            if (img.getImgId().equals(id)) {
+//                imgs.remove(img);
+//            }
+//        }
+//        return getItemCount();
+//    }
+//
+//    public ArrayList<Img> getCartItems() {
+//        return imgs;
+//    }
+//
+//    public float getTotal() {
+//        return 10 * imgs.size();
+//    }
 }

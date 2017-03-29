@@ -11,11 +11,14 @@ import java.util.ArrayList;
  * Created by bugatti on 22/01/17.
  */
 public class Cart {
-    private static Cart ourInstance = new Cart();
+    private static Cart ourInstance;
 
     Context context;
 
     public static Cart getInstance() {
+        if (ourInstance == null) {
+            ourInstance = new Cart();
+        }
         return ourInstance;
     }
 
@@ -23,6 +26,8 @@ public class Cart {
         this.context = context;
     }
 
+
+    // initialization of private constructor so no instance can be made outside the class
     private Cart() {
     }
 
