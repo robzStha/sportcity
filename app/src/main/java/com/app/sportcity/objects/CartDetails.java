@@ -1,5 +1,6 @@
 package com.app.sportcity.objects;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.Expose;
@@ -9,27 +10,27 @@ public class CartDetails {
 
     @SerializedName("total_count")
     @Expose
-    private String totalCount;
+    private int totalCount=0;
     @SerializedName("total_amount")
     @Expose
-    private String totalAmount;
+    private float totalAmount;
     @SerializedName("items_detail")
     @Expose
-    private List<ItemsDetail> itemsDetail = null;
+    private List<ItemsDetail> itemsDetail = new ArrayList<>();
 
-    public String getTotalCount() {
+    public int getTotalCount() {
         return totalCount;
     }
 
-    public void setTotalCount(String totalCount) {
+    public void setTotalCount(int totalCount) {
         this.totalCount = totalCount;
     }
 
-    public String getTotalAmount() {
+    public float getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(String totalAmount) {
+    public void setTotalAmount(float totalAmount) {
         this.totalAmount = totalAmount;
     }
 

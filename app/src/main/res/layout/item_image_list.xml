@@ -36,6 +36,7 @@
         android:layout_marginRight="8dp"
         android:background="@drawable/circle_shape_solid"
         android:elevation="3dp"
+        android:visibility="gone"
         android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/iv_item"
         app:layout_constraintRight_toRightOf="@+id/iv_item"

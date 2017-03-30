@@ -7,25 +7,33 @@ public class ItemsDetail {
 
     @SerializedName("item_id")
     @Expose
-    private String itemId;
+    private int itemId;
     @SerializedName("item_name")
     @Expose
     private String itemName;
     @SerializedName("item_qty")
     @Expose
-    private String itemQty;
+    private int itemQty;
     @SerializedName("item_price")
     @Expose
-    private String itemPrice;
+    private float itemPrice;
     @SerializedName("item_total")
     @Expose
-    private String itemTotal;
+    private float itemTotal;
 
-    public String getItemId() {
+    public void setItemImgUrl(String itemImgUrl) {
+        this.itemImgUrl = itemImgUrl;
+    }
+
+    @SerializedName("item_img_url")
+    @Expose
+    private String itemImgUrl;
+
+    public int getItemId() {
         return itemId;
     }
 
-    public void setItemId(String itemId) {
+    public void setItemId(int itemId) {
         this.itemId = itemId;
     }
 
@@ -37,28 +45,31 @@ public class ItemsDetail {
         this.itemName = itemName;
     }
 
-    public String getItemQty() {
+    public int getItemQty() {
         return itemQty;
     }
 
-    public void setItemQty(String itemQty) {
+    public void setItemQty(int itemQty) {
         this.itemQty = itemQty;
     }
 
-    public String getItemPrice() {
+    public float getItemPrice() {
         return itemPrice;
     }
 
-    public void setItemPrice(String itemPrice) {
+    public void setItemPrice(float itemPrice) {
         this.itemPrice = itemPrice;
     }
 
-    public String getItemTotal() {
+    public float getItemTotal() {
         return itemTotal;
     }
 
-    public void setItemTotal(String itemTotal) {
+    public void setItemTotal(float itemTotal) {
         this.itemTotal = itemTotal;
     }
 
+    public String getImageUrl() {
+        return itemImgUrl;
+    }
 }

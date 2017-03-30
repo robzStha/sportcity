@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.app.sportcity.activities.CartList;
 import com.app.sportcity.activities.CategoryNewsList;
 import com.app.sportcity.activities.Images;
 import com.app.sportcity.activities.NewsDetail;
@@ -35,7 +36,7 @@ public class Opener {
     }
 
     public static void BaseActivity(Activity activity) {
-        startActivity(activity, Images.class);
+        startActivity(activity, BaseActivity.class);
     }
 
     /**
@@ -94,5 +95,12 @@ public class Opener {
         sendIntent.putExtra(Intent.EXTRA_TEXT, msg); // Simple text and URL to share
         sendIntent.setType("text/plain");
         activity.startActivity(sendIntent);
+    }
+
+    public static void CartList(Activity activity) {
+        startActivity(activity, CartList.class);
+    }
+    public static void Shop(Activity activity) {
+        startActivity(activity, Images.class);
     }
 }

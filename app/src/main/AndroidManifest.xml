@@ -82,8 +82,13 @@
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
 
-        <activity android:name=".activities.Images"
-            android:label="@string/images"></activity>
+        <activity
+            android:name=".activities.Images"
+            android:label="@string/images"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.CartList"
+            android:label="@string/cart"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -27,10 +28,14 @@ import android.widget.Toast;
 import com.app.sportcity.R;
 import com.app.sportcity.fragments.HomeFragment;
 import com.app.sportcity.fragments.HomeNewsFragment;
+import com.app.sportcity.objects.CartDetails;
 import com.app.sportcity.objects.Category;
 import com.app.sportcity.server_protocols.ApiCalls;
 import com.app.sportcity.server_protocols.RetrofitSingleton;
+import com.app.sportcity.statics.StaticVariables;
+import com.app.sportcity.utils.MySharedPreference;
 import com.app.sportcity.utils.Opener;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -42,10 +47,11 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class BaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    static Button btnCartCount;
-    static int cartCount = 10;
+    RelativeLayout rlHome;
+    FrameLayout flCart;
 
     private Fragment mFragment;
+    private TextView tvBadge;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +86,17 @@ public class BaseActivity extends AppCompatActivity
         mFragment = new HomeNewsFragment();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(llContentBase.getId(), mFragment).commit();
+
+        rlHome = (RelativeLayout) findViewById(R.id.rl_home);
+        flCart = (FrameLayout) findViewById(R.id.fl_cart);
+
+
+        flCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Opener.CartList(BaseActivity.this);
+            }
+        });
 
 //        ApiCalls apiCalls = RetrofitSingleton.getApiCalls();
 //        Call<List<Category>> categoryCall = apiCalls.getCategories();
@@ -140,7 +157,7 @@ public class BaseActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        Toast.makeText(BaseActivity.this, "Item id: " + id, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(BaseActivity.this, "Item id: " + id, Toast.LENGTH_SHORT).show();
 //
 //        if (id == R.id.nav_camera) {
 //            // Handle the camera action
@@ -166,15 +183,22 @@ public class BaseActivity extends AppCompatActivity
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
-    private void setNotifCount(int count) {
-        cartCount = count;
-        invalidateOptionsMenu();
+//    private void setNotifCount(int count) {
+//        cartCount = count;
+//        invalidateOptionsMenu();
+//    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MySharedPreference prefs = new MySharedPreference(BaseActivity.this);
+        StaticVariables.Cart.cartDetails = new Gson().fromJson(prefs.getStringValues(StaticVariables.CART_ITEM), CartDetails.class);
+        tvBadge = (TextView) findViewById(R.id.tv_badge);
+        tvBadge.setText(StaticVariables.Cart.cartDetails.getTotalCount()+"");
     }
 
     private void getAllTextView(ViewGroup viewGroup) {
-
-        SparseArray<EditText> array = new SparseArray<>();
-//    private void findAllEdittexts() {
 
         int count = viewGroup.getChildCount();
         for (int i = 0; i < count; i++) {
@@ -187,7 +211,11 @@ public class BaseActivity extends AppCompatActivity
                     edittext.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Opener.NewsList(BaseActivity.this, Integer.parseInt(v.getTag().toString()), edittext.getText().toString());
+                            if(edittext.getTag().equals("23")){
+                                Opener.Shop(BaseActivity.this);
+                            }else {
+                                Opener.NewsList(BaseActivity.this, Integer.parseInt(v.getTag().toString()), edittext.getText().toString());
+                            }
 //                            Toast.makeText(BaseActivity.this, "Testing testing: " + v.getTag(), Toast.LENGTH_SHORT).show();
                         }
                     });

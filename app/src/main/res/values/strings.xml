@@ -52,5 +52,6 @@
     <string name="add_to_cart">Add to cart</string>
     <string name="images">Image Gallery</string>
     <string name="shop">Shop</string>
+    <string name="cart">My Cart</string>
 
 </resources>

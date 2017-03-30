@@ -12,10 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.sportcity.R;
 import com.app.sportcity.activities.Images;
+import com.app.sportcity.objects.ItemsDetail;
 import com.app.sportcity.objects.Media;
+import com.app.sportcity.statics.StaticVariables;
+import com.app.sportcity.utils.MyCart;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
@@ -25,7 +29,8 @@ public class SlideshowDialogFragment extends DialogFragment {
     private String TAG = SlideshowDialogFragment.class.getSimpleName();
     private ViewPager viewPager;
     private MyViewPagerAdapter myViewPagerAdapter;
-        private TextView lblCount, lblTitle, lblPrice;
+    private TextView lblCount, lblTitle, lblPrice;
+    ImageView ivAddToCart;
     private int selectedPosition = 0;
 
     public static SlideshowDialogFragment newInstance() {
@@ -41,13 +46,14 @@ public class SlideshowDialogFragment extends DialogFragment {
         lblCount = (TextView) v.findViewById(R.id.lbl_count);
         lblTitle = (TextView) v.findViewById(R.id.title);
         lblPrice = (TextView) v.findViewById(R.id.price);
+        ivAddToCart = (ImageView) v.findViewById(R.id.iv_add_to_cart);
 //        lblDate = (TextView) v.findViewById(R.id.date);
 
 
         selectedPosition = getArguments().getInt("position");
-
-        Log.e(TAG, "position: " + selectedPosition);
-        Log.e(TAG, "images size: " + Images.mediaListShop.size());
+//
+//        Log.e(TAG, "position: " + selectedPosition);
+//        Log.e(TAG, "images size: " + Images.mediaListShop.size());
 
         myViewPagerAdapter = new MyViewPagerAdapter();
         viewPager.setAdapter(myViewPagerAdapter);
@@ -82,12 +88,29 @@ public class SlideshowDialogFragment extends DialogFragment {
         }
     };
 
-    private void displayMetaInfo(int position) {
+    private void displayMetaInfo(final int position) {
         lblCount.setText((position + 1) + " of " + Images.mediaListShop.size());
-//
 //        Image image = images.get(position);
         lblTitle.setText(Images.mediaListShop.get(position).getTitle().getRendered());
-        lblPrice.setText("$"+Images.mediaListShop.get(position).getAcf().get(0).getPrice());
+        lblPrice.setText("$" + Images.mediaListShop.get(position).getAcf().get(0).getPrice());
+        ivAddToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ItemsDetail itemsDetail = new ItemsDetail();
+                itemsDetail.setItemId(Images.mediaListShop.get(position).getId());
+                itemsDetail.setItemName(Images.mediaListShop.get(position).getTitle().getRendered());
+                itemsDetail.setItemPrice(Float.parseFloat(Images.mediaListShop.get(position).getAcf().get(0).getPrice()));
+                itemsDetail.setItemImgUrl(Images.mediaListShop.get(position).getMediaDetails().getSizes().getThumbnail().getSourceUrl());
+                itemsDetail.setItemQty(1);
+                itemsDetail.setItemTotal(itemsDetail.getItemPrice());
+                if(MyCart.getInstance().addItemToCart(itemsDetail)) {
+                    Toast.makeText(getContext(), "Item added to cart", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getContext(), "Item already exist in the cart", Toast.LENGTH_SHORT).show();
+                }
+                System.out.println("Cart info: item - "+StaticVariables.Cart.cartDetails.getTotalCount()+" total - "+StaticVariables.Cart.cartDetails.getTotalAmount());
+            }
+        });
 //        lblDate.setText(image.getTimestamp());
     }
 

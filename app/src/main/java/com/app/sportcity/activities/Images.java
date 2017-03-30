@@ -1,11 +1,13 @@
 package com.app.sportcity.activities;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -14,9 +16,14 @@ import com.app.sportcity.R;
 import com.app.sportcity.adapters.ImagesAdapter;
 import com.app.sportcity.fragments.SlideshowDialogFragment;
 import com.app.sportcity.objects.ACF;
+import com.app.sportcity.objects.CartDetails;
 import com.app.sportcity.objects.Media;
 import com.app.sportcity.server_protocols.ApiCalls;
 import com.app.sportcity.server_protocols.RetrofitSingleton;
+import com.app.sportcity.statics.StaticVariables;
+import com.app.sportcity.utils.MySharedPreference;
+import com.app.sportcity.utils.Opener;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,17 +54,20 @@ public class Images extends AppCompatActivity {
 
     private void loadImages() {
         apicall = RetrofitSingleton.getApiCalls();
+        final ProgressDialog progressDialog = new ProgressDialog(Images.this);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
         final Call<List<Media>> mediaList = apicall.getMediaList(100);
         mediaList.enqueue(new Callback<List<Media>>() {
             @Override
             public void onResponse(Call<List<Media>> call, Response<List<Media>> response) {
                 System.out.println("Responsesssss: " + response.body().size());
 
-//
+                mediaListShop = new ArrayList<Media>();
                 for (Media media : response.body()) {
                     System.out.println("ACF value: " + media.getAcf().toString());
                     List<ACF> acfList = media.getAcf();
-                    if(acfList.size()>0) {
+                    if (acfList.size() > 0) {
                         ACF acf = acfList.get(0);
                         if (acf.getShowInStore().equalsIgnoreCase("yes")) {
                             mediaListShop.add(media);
@@ -69,16 +79,25 @@ public class Images extends AppCompatActivity {
                     imgAdapter = new ImagesAdapter(Images.this, mediaListShop);
                     recyclerView.setAdapter(imgAdapter);
                 }
+                progressDialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<List<Media>> call, Throwable t) {
                 t.printStackTrace();
+                progressDialog.dismiss();
             }
         });
     }
 
+    @Override
+    public void onBackPressed() {
+//        Opener.CartList(Images.this);
+        super.onBackPressed();
+    }
+
     private void init() {
+        prefs = new MySharedPreference(this);
         recyclerView = (RecyclerView) findViewById(R.id.rv_images);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(Images.this, 2);
         recyclerView.setLayoutManager(gridLayoutManager);
@@ -117,6 +136,26 @@ public class Images extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        System.out.println("Pause: " + gson.toJson(StaticVariables.Cart.cartDetails));
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        System.out.println("Stop: " + gson.toJson(StaticVariables.Cart.cartDetails));
+        prefs.setKeyValues(StaticVariables.CART_ITEM, gson.toJson(StaticVariables.Cart.cartDetails) + "");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    Gson gson = new Gson();
+    MySharedPreference prefs;
     @Override
     protected void onDestroy() {
         super.onDestroy();
