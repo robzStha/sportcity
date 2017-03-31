@@ -1,7 +1,9 @@
 package com.app.sportcity.activities;
 
 import android.content.Context;
+import android.graphics.Path;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -20,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -33,6 +36,7 @@ import com.app.sportcity.objects.Category;
 import com.app.sportcity.server_protocols.ApiCalls;
 import com.app.sportcity.server_protocols.RetrofitSingleton;
 import com.app.sportcity.statics.StaticVariables;
+import com.app.sportcity.utils.FabInitializer;
 import com.app.sportcity.utils.MySharedPreference;
 import com.app.sportcity.utils.Opener;
 import com.google.gson.Gson;
@@ -61,13 +65,14 @@ public class BaseActivity extends AppCompatActivity
         toolbar.setTitle(getString(R.string.app_name));
         setSupportActionBar(toolbar);
         LinearLayout llContentBase = (LinearLayout) findViewById(R.id.content_base);
-
+        tvBadge = (TextView) findViewById(R.id.tv_badge);
+        new FabInitializer(this);
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
+////                Snackbar.make(view, "viewReplace with your own action", Snackbar.LENGTH_LONG)
+////                        .setAction("Action", null).show();
 //            }
 //        });
 
@@ -88,15 +93,15 @@ public class BaseActivity extends AppCompatActivity
         ft.add(llContentBase.getId(), mFragment).commit();
 
         rlHome = (RelativeLayout) findViewById(R.id.rl_home);
-        flCart = (FrameLayout) findViewById(R.id.fl_cart);
+//        flCart = (FrameLayout) findViewById(R.id.fl_cart);
 
 
-        flCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Opener.CartList(BaseActivity.this);
-            }
-        });
+//        flCart.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Opener.CartList(BaseActivity.this);
+//            }
+//        });
 
 //        ApiCalls apiCalls = RetrofitSingleton.getApiCalls();
 //        Call<List<Category>> categoryCall = apiCalls.getCategories();
@@ -193,9 +198,17 @@ public class BaseActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
         MySharedPreference prefs = new MySharedPreference(BaseActivity.this);
-        StaticVariables.Cart.cartDetails = new Gson().fromJson(prefs.getStringValues(StaticVariables.CART_ITEM), CartDetails.class);
-        tvBadge = (TextView) findViewById(R.id.tv_badge);
-        tvBadge.setText(StaticVariables.Cart.cartDetails.getTotalCount()+"");
+        if (prefs.getStringValues(StaticVariables.CART_ITEM) != "") {
+            StaticVariables.Cart.cartDetails = new Gson().fromJson(prefs.getStringValues(StaticVariables.CART_ITEM), CartDetails.class);
+
+            try {
+                tvBadge.setText(StaticVariables.Cart.cartDetails.getTotalCount() + "");
+            } catch (Exception e) {
+                e.printStackTrace();
+                tvBadge.setText("0");
+            }
+        }
+//
     }
 
     private void getAllTextView(ViewGroup viewGroup) {
@@ -211,20 +224,26 @@ public class BaseActivity extends AppCompatActivity
                     edittext.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if(edittext.getTag().equals("23")){
+                            if (edittext.getTag().equals("23")) {
                                 Opener.Shop(BaseActivity.this);
-                            }else {
+                            } else if (edittext.getTag().equals("24")) {
+                                Opener.CartList(BaseActivity.this);
+                            } else {
                                 Opener.NewsList(BaseActivity.this, Integer.parseInt(v.getTag().toString()), edittext.getText().toString());
                             }
 //                            Toast.makeText(BaseActivity.this, "Testing testing: " + v.getTag(), Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
-//                    array.put(edittext.getId(), edittext);
+            } else if (view instanceof ImageView) {
+                ImageView iv = (ImageView) view;
+                if (iv.getTag() != null) {
+                    if (iv.getTag().equals("112")) {
+                        Opener.CartList(BaseActivity.this);
+                    }
+                }
             }
         }
-
-
     }
 
 }

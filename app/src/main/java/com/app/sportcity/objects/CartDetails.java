@@ -10,10 +10,10 @@ public class CartDetails {
 
     @SerializedName("total_count")
     @Expose
-    private int totalCount=0;
+    private int totalCount = 0;
     @SerializedName("total_amount")
     @Expose
-    private float totalAmount;
+    private float totalAmount=0;
     @SerializedName("items_detail")
     @Expose
     private List<ItemsDetail> itemsDetail = new ArrayList<>();

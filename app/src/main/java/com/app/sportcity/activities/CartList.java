@@ -13,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -53,10 +54,20 @@ public class CartList extends AppCompatActivity {
         btnProceed = (Button) findViewById(R.id.btn_proceed);
         Intent intent = new Intent(CartList.this, PayPalService.class);
 
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
 
         startService(intent);
         prefs = new MySharedPreference(CartList.this);
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         if (StaticVariables.Cart.cartDetails.getTotalCount() > 0) {
             recyclerView.setLayoutManager(new LinearLayoutManager(CartList.this));
             recyclerView.setAdapter(new CartListAdapter());
@@ -73,7 +84,6 @@ public class CartList extends AppCompatActivity {
 
             btnProceed.setOnClickListener(redirectToShop());
         }
-
     }
 
     private static PayPalConfiguration config = new PayPalConfiguration()
@@ -243,6 +253,16 @@ public class CartList extends AppCompatActivity {
             tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
             tvPrice = (TextView) itemView.findViewById(R.id.tv_price);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_nav_menu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="@dimen/space_16"
     android:layout_marginLeft="@dimen/space_16"
     android:layout_marginTop="@dimen/space_16"
-    android:id="@+id/ll_nav_menu"
     android:background="@color/darkGrey"
     android:orientation="vertical">
 
@@ -16,10 +16,10 @@
         android:orientation="vertical">
 
         <TextView
-            android:tag="358"
             style="@style/NavMenuTitle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:tag="358"
             android:text="@string/menu_1" />
 
         <View
@@ -48,10 +48,10 @@
                     android:src="@drawable/ic_arrow_right" />
 
                 <TextView
-                    android:tag="359"
                     style="@style/NavMenuSubTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:tag="359"
                     android:text="@string/menu1Sub1" />
             </LinearLayout>
 
@@ -69,10 +69,10 @@
                     android:src="@drawable/ic_arrow_right" />
 
                 <TextView
-                    android:tag="366"
                     style="@style/NavMenuSubTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:tag="366"
                     android:text="@string/menu1Sub2" />
             </LinearLayout>
 
@@ -90,10 +90,10 @@
                     android:src="@drawable/ic_arrow_right" />
 
                 <TextView
-                    android:tag="373"
                     style="@style/NavMenuSubTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:tag="373"
                     android:text="@string/menu1Sub3" />
             </LinearLayout>
 
@@ -111,10 +111,10 @@
                     android:src="@drawable/ic_arrow_right" />
 
                 <TextView
-                    android:tag="383"
                     style="@style/NavMenuSubTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:tag="383"
                     android:text="@string/menu1Sub4" />
             </LinearLayout>
 
@@ -135,10 +135,10 @@
         android:orientation="vertical">
 
         <TextView
-            android:tag="391"
             style="@style/NavMenuTitle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:tag="391"
             android:text="@string/menu_2" />
 
         <View
@@ -167,10 +167,10 @@
                     android:src="@drawable/ic_arrow_right" />
 
                 <TextView
-                    android:tag="392"
                     style="@style/NavMenuSubTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:tag="392"
                     android:text="@string/menu2Sub1" />
             </LinearLayout>
 
@@ -188,10 +188,10 @@
                     android:src="@drawable/ic_arrow_right" />
 
                 <TextView
-                    android:tag="400"
                     style="@style/NavMenuSubTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:tag="400"
                     android:text="@string/menu2Sub2" />
             </LinearLayout>
 
@@ -209,10 +209,10 @@
                     android:src="@drawable/ic_arrow_right" />
 
                 <TextView
-                    android:tag="396"
                     style="@style/NavMenuSubTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:tag="396"
                     android:text="@string/menu2Sub3" />
             </LinearLayout>
 
@@ -230,10 +230,10 @@
                     android:src="@drawable/ic_arrow_right" />
 
                 <TextView
-                    android:tag="111"
                     style="@style/NavMenuSubTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:tag="111"
                     android:text="@string/menu2Sub4" />
             </LinearLayout>
 
@@ -251,10 +251,10 @@
                     android:src="@drawable/ic_arrow_right" />
 
                 <TextView
-                    android:tag="393"
                     style="@style/NavMenuSubTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:tag="393"
                     android:text="@string/menu2Sub5" />
             </LinearLayout>
 
@@ -272,10 +272,10 @@
                     android:src="@drawable/ic_arrow_right" />
 
                 <TextView
-                    android:tag="394"
                     style="@style/NavMenuSubTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:tag="394"
                     android:text="@string/menu2Sub6" />
             </LinearLayout>
 
@@ -293,10 +293,10 @@
                     android:src="@drawable/ic_arrow_right" />
 
                 <TextView
-                    android:tag="29"
                     style="@style/NavMenuSubTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:tag="29"
                     android:text="@string/menu2Sub7" />
             </LinearLayout>
 
@@ -314,10 +314,10 @@
                     android:src="@drawable/ic_arrow_right" />
 
                 <TextView
-                    android:tag="228"
                     style="@style/NavMenuSubTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:tag="228"
                     android:text="@string/menu2Sub8" />
             </LinearLayout>
 
@@ -338,10 +338,10 @@
         android:orientation="vertical">
 
         <TextView
-            android:tag="319"
             style="@style/NavMenuTitle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:tag="319"
             android:text="@string/menu_3" />
 
         <View
@@ -370,10 +370,10 @@
                     android:src="@drawable/ic_arrow_right" />
 
                 <TextView
-                    android:tag="11"
                     style="@style/NavMenuSubTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:tag="11"
                     android:text="@string/menu3Sub1" />
             </LinearLayout>
 
@@ -391,10 +391,10 @@
                     android:src="@drawable/ic_arrow_right" />
 
                 <TextView
-                    android:tag="229"
                     style="@style/NavMenuSubTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:tag="229"
                     android:text="@string/menu3Sub2" />
             </LinearLayout>
 
@@ -410,17 +410,64 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/space_16"
         android:layout_marginTop="@dimen/space_16"
         android:orientation="vertical">
 
         <TextView
-            android:tag="23"
             style="@style/NavMenuTitle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:drawableLeft="@drawable/ic_shopping_cart_white_24dp"
+            android:drawablePadding="@dimen/space_10"
+            android:gravity="center_vertical"
             android:padding="10dp"
+            android:tag="23"
             android:text="@string/shop" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/colorPrimaryDark" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/space_16"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_cart"
+                style="@style/NavMenuTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawablePadding="@dimen/space_10"
+                android:drawableLeft="@drawable/ic_add_shopping_cart_white_24dp"
+                android:gravity="center_vertical"
+                android:tag="24"
+                android:text="@string/my_cart" />
+
+            <TextView
+                android:id="@+id/tv_badge"
+                android:minWidth="@dimen/space_18"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/space_18"
+                android:padding="@dimen/space_3"
+                android:text="0"
+                android:textSize="@dimen/txt_10"
+                android:layout_marginLeft="@dimen/space_10"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:background="@drawable/circle_shape_solid"/>
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"

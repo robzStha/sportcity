@@ -71,7 +71,6 @@ public class HomeNewsFragment extends Fragment {
 //        catId = getArguments().getInt(ARG_CAT_ID);
         rvNewsList = (RecyclerView) rootView.findViewById(R.id.rv_cats);
         llProgressBar = (LinearLayout) rootView.findViewById(R.id.ll_progressbar);
-
         getLatestPost();
         return rootView;
     }

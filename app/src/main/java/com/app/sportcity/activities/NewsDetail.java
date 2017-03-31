@@ -118,7 +118,8 @@ public class NewsDetail extends AppCompatActivity {
     private View.OnClickListener buyClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Toast.makeText(NewsDetail.this, "Lets buy some images", Toast.LENGTH_SHORT).show();
+            Opener.Shop(NewsDetail.this);
+//            Toast.makeText(NewsDetail.this, "Lets buy some images", Toast.LENGTH_SHORT).show();
         }
     };
 

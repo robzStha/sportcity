@@ -16,7 +16,7 @@ import java.util.List;
 public class StaticVariables {
 
     public static String CART_ITEM = "cart_item";
-    public static List<Category> categories;
+    public static List<Category> categories=new ArrayList<>();
 
     public static void resetCat() {
         categories = new ArrayList<>();
@@ -56,10 +56,12 @@ public class StaticVariables {
         }
 
         private static boolean isItemInCart(ItemsDetail item){
-            for(int i=0; i<cartDetails.getItemsDetail().size(); i++){
-                ItemsDetail tempItem = cartDetails.getItemsDetail().get(i);
-                if(tempItem.getItemId()==item.getItemId()){
-                    return true;
+            if(cartDetails!=null && cartDetails.getItemsDetail()!=null) {
+                for (int i = 0; i < cartDetails.getItemsDetail().size(); i++) {
+                    ItemsDetail tempItem = cartDetails.getItemsDetail().get(i);
+                    if (tempItem.getItemId() == item.getItemId()) {
+                        return true;
+                    }
                 }
             }
             return false;

@@ -137,21 +137,10 @@ public class Images extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        System.out.println("Pause: " + gson.toJson(StaticVariables.Cart.cartDetails));
-    }
-
-    @Override
     protected void onStop() {
         super.onStop();
         System.out.println("Stop: " + gson.toJson(StaticVariables.Cart.cartDetails));
         prefs.setKeyValues(StaticVariables.CART_ITEM, gson.toJson(StaticVariables.Cart.cartDetails) + "");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 
     Gson gson = new Gson();
@@ -159,6 +148,6 @@ public class Images extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mediaListShop = null;
+//        mediaListShop = new ArrayList<>();
     }
 }

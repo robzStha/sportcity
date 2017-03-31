@@ -29,9 +29,6 @@ public class MyCart {
         }
         return myCartInstance;
     }
-//    public void init(Context context){
-//        this.context = context;
-//    }
 
     public boolean addItemToCart(ItemsDetail item) {
         return StaticVariables.Cart.addItem(item);
@@ -41,20 +38,4 @@ public class MyCart {
         return StaticVariables.Cart.cartDetails.getTotalCount();
     }
 
-//    public int deleteItem(String id) {
-//        for (Img img : imgs) {
-//            if (img.getImgId().equals(id)) {
-//                imgs.remove(img);
-//            }
-//        }
-//        return getItemCount();
-//    }
-//
-//    public ArrayList<Img> getCartItems() {
-//        return imgs;
-//    }
-//
-//    public float getTotal() {
-//        return 10 * imgs.size();
-//    }
 }

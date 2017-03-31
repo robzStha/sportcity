@@ -53,5 +53,7 @@
     <string name="images">Image Gallery</string>
     <string name="shop">Shop</string>
     <string name="cart">My Cart</string>
+    <string name="img_gallery">Image Gallery</string>
+    <string name="my_cart">My Cart</string>
 
 </resources>

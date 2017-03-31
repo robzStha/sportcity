@@ -85,11 +85,18 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/space_20"
-                android:text="@string/buy_img"
-                android:textColor="@color/colorPrimary"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:text="@string/img_gallery"
+                android:gravity="center"
+                android:background="@drawable/btn_img_gallery"
+                android:textColor="@android:color/white"
+                android:drawableLeft="@drawable/ic_add_shopping_cart_white_24dp"
+                android:drawablePadding="@dimen/space_16"
                 android:textSize="@dimen/txt_15" />
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tv_buy_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -100,6 +107,7 @@
                 android:textSize="@dimen/txt_8" />
 
             <android.support.v7.widget.RecyclerView
+                android:visibility="gone"
                 android:id="@+id/rv_images"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
