@@ -1,5 +1,7 @@
 package com.app.sportcity.activities;
 
+import android.app.FragmentManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Path;
 import android.os.Bundle;
@@ -12,6 +14,8 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseArray;
 import android.view.Menu;
@@ -29,13 +33,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.sportcity.R;
+import com.app.sportcity.adapters.NewsListAdapter;
 import com.app.sportcity.fragments.HomeFragment;
 import com.app.sportcity.fragments.HomeNewsFragment;
 import com.app.sportcity.objects.CartDetails;
 import com.app.sportcity.objects.Category;
+import com.app.sportcity.objects.Post;
 import com.app.sportcity.server_protocols.ApiCalls;
 import com.app.sportcity.server_protocols.RetrofitSingleton;
 import com.app.sportcity.statics.StaticVariables;
+import com.app.sportcity.utils.EndlessRecyclerOnScrollListener;
 import com.app.sportcity.utils.FabInitializer;
 import com.app.sportcity.utils.MySharedPreference;
 import com.app.sportcity.utils.Opener;
@@ -43,6 +50,7 @@ import com.google.gson.Gson;
 
 import java.util.List;
 
+import okhttp3.Headers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -57,6 +65,16 @@ public class BaseActivity extends AppCompatActivity
     private Fragment mFragment;
     private TextView tvBadge;
 
+
+    RecyclerView rvNewsList;
+    NewsListAdapter newsListAdapter;
+    EndlessRecyclerOnScrollListener scrollListener;
+    private ApiCalls apiCalls;
+    private List<Post> newsTemp;
+    LinearLayout llProgressBar;
+    private boolean hasNext;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,14 +85,6 @@ public class BaseActivity extends AppCompatActivity
         LinearLayout llContentBase = (LinearLayout) findViewById(R.id.content_base);
         tvBadge = (TextView) findViewById(R.id.tv_badge);
         new FabInitializer(this);
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                Snackbar.make(view, "viewReplace with your own action", Snackbar.LENGTH_LONG)
-////                        .setAction("Action", null).show();
-//            }
-//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -88,34 +98,17 @@ public class BaseActivity extends AppCompatActivity
         LinearLayout ll = (LinearLayout) findViewById(R.id.ll_nav_menu);
         getAllTextView(ll);
 
-        mFragment = new HomeNewsFragment();
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.add(llContentBase.getId(), mFragment).commit();
+        View view = getLayoutInflater().inflate(R.layout.fragment_category_news_list, null, false);
+        llContentBase.addView(view);
 
+        rvNewsList = (RecyclerView) findViewById(R.id.rv_cats);
+        llProgressBar = (LinearLayout) findViewById(R.id.ll_progressbar);
+
+//        mFragment = new HomeNewsFragment();
+//        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//        ft.add(llContentBase.getId(), mFragment).commit();
+        getLatestPost();
         rlHome = (RelativeLayout) findViewById(R.id.rl_home);
-//        flCart = (FrameLayout) findViewById(R.id.fl_cart);
-
-
-//        flCart.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Opener.CartList(BaseActivity.this);
-//            }
-//        });
-
-//        ApiCalls apiCalls = RetrofitSingleton.getApiCalls();
-//        Call<List<Category>> categoryCall = apiCalls.getCategories();
-//        categoryCall.enqueue(new Callback<List<Category>>() {
-//            @Override
-//            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
-//                System.out.println("Response size:" + response.body().size());
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Category>> call, Throwable t) {
-//                t.printStackTrace();
-//            }
-//        });
     }
 
     @Override
@@ -197,6 +190,8 @@ public class BaseActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
+        FragmentManager manager =getFragmentManager();
+        manager.popBackStack();
         MySharedPreference prefs = new MySharedPreference(BaseActivity.this);
         if (prefs.getStringValues(StaticVariables.CART_ITEM) != "") {
             StaticVariables.Cart.cartDetails = new Gson().fromJson(prefs.getStringValues(StaticVariables.CART_ITEM), CartDetails.class);
@@ -245,5 +240,108 @@ public class BaseActivity extends AppCompatActivity
             }
         }
     }
+
+
+
+
+
+    private void getLatestPost() {
+        apiCalls = RetrofitSingleton.getApiCalls();
+        if (StaticVariables.news.size() > 0) {
+            newsTemp = StaticVariables.news;
+            populateNews(newsTemp);
+            StaticVariables.reset();
+        } else {
+
+            final ProgressDialog pd = new ProgressDialog(BaseActivity.this);
+            pd.setMessage("Loading news...");
+            pd.show();
+            Call<List<Post>> posts = apiCalls.getLatestPosts();
+            posts.enqueue(new Callback<List<Post>>() {
+                @Override
+                public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                    System.out.println("Response size:" + response.body().size());
+                    newsTemp = response.body();
+                    Headers headers = response.headers();
+                    String temp = headers.get("Link").replace("<", "");
+                    temp = temp.replace(">", "");
+                    String string[] = temp.split(" ");
+                    String nextLink = "";
+                    System.out.println("Next linkss : " + temp + " Split: " + string[0] + " : " + string[1]);
+                    if (string[1].equals("rel=\"next\"")) {
+                        System.out.println("Next linkss : next: " + string[1]);
+                        nextLink = string[0];
+                    }
+                    populateNews(response.body());
+                    pd.dismiss();
+                }
+
+                @Override
+                public void onFailure(Call<List<Post>> call, Throwable t) {
+                    t.printStackTrace();
+                    pd.dismiss();
+                }
+            });
+        }
+
+    }
+
+    private void populateNews(final List<Post> news) {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        rvNewsList.setLayoutManager(linearLayoutManager);
+        newsListAdapter = new NewsListAdapter(BaseActivity.this, news);
+        scrollListener = new EndlessRecyclerOnScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int current_page) {
+                loadMoreFromAPI(current_page);
+            }
+        };
+
+        try {
+            rvNewsList.addOnScrollListener(scrollListener);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+//        }
+        rvNewsList.setAdapter(newsListAdapter);
+    }
+
+    private void loadMoreFromAPI(int current_page) {
+        llProgressBar.setVisibility(View.VISIBLE);
+        Call<List<Post>> posts = apiCalls.getLatestPostsNext(current_page);
+        posts.enqueue(new Callback<List<Post>>() {
+            @Override
+            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                System.out.println("Response size:" + response.body().size());
+                Headers headers = response.headers();
+                String temp = headers.get("Link").replace("<", "");
+                temp = temp.replace(">", "");
+                String string[] = temp.split(" ");
+                System.out.println("Next linkss : " + temp + " Split: " + string[0] + " : " + string[1]);
+                if (string.length == 2) {
+                    if (string[1].equals("rel=\"next\"")) {
+                        hasNext = true;
+                    } else hasNext = false;
+                } else if (string.length == 4) {
+                    if (string[3].equals("rel=\"next\"")) {
+                        hasNext = true;
+                    } else hasNext = false;
+                }
+                newsListAdapter.appendNewNews(response.body());
+//                progressDialog.dismiss();
+                llProgressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Call<List<Post>> call, Throwable t) {
+                t.printStackTrace();
+                llProgressBar.setVisibility(View.GONE);
+//                progressDialog.dismiss();
+            }
+        });
+    }
+
+
+
 
 }

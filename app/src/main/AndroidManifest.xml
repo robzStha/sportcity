@@ -61,6 +61,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.NewsDetail"
+            android:hardwareAccelerated="true"
             android:screenOrientation="portrait" />
         <activity android:name=".activities.NewsList" />
         //region Firebase notification

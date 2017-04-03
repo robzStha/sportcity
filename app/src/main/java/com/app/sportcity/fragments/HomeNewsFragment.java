@@ -39,36 +39,22 @@ public class HomeNewsFragment extends Fragment {
      */
     private static final String ARG_CAT_ID = "cat_id";
     private ApiCalls apiCalls;
-//    private int nextCatId;
+    //    private int nextCatId;
 //    private int catId;
     private boolean hasNext;
     private List<Post> newsTemp;
     LinearLayout llProgressBar;
+    private View rootView;
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
     }
 
-    /**
-     * Returns a new instance of this fragment for the given section
-     * number.
-     */
-//    public static HomeNewsFragment newInstance(int catId) {
-//        HomeNewsFragment fragment = new HomeNewsFragment();
-//        Bundle args = new Bundle();
-//        args.putInt(ARG_CAT_ID, catId);
-//        fragment.setArguments(args);
-//
-//        return fragment;
-//    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_category_news_list, container, false);
-
-//        catId = getArguments().getInt(ARG_CAT_ID);
+        rootView = inflater.inflate(R.layout.fragment_category_news_list, container, false);
         rvNewsList = (RecyclerView) rootView.findViewById(R.id.rv_cats);
         llProgressBar = (LinearLayout) rootView.findViewById(R.id.ll_progressbar);
         getLatestPost();
@@ -78,11 +64,11 @@ public class HomeNewsFragment extends Fragment {
     private void getLatestPost() {
 
         apiCalls = RetrofitSingleton.getApiCalls();
-        if(StaticVariables.news.size()>0){
+        if (StaticVariables.news.size() > 0) {
             newsTemp = StaticVariables.news;
             populateNews(newsTemp);
             StaticVariables.reset();
-        }else {
+        } else {
 
             final ProgressDialog pd = new ProgressDialog(mContext);
             pd.setMessage("Loading news...");
@@ -118,31 +104,27 @@ public class HomeNewsFragment extends Fragment {
     }
 
     private void populateNews(final List<Post> news) {
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-            rvNewsList.setLayoutManager(linearLayoutManager);
-            newsListAdapter = new NewsListAdapter(mContext, news);
-            scrollListener = new EndlessRecyclerOnScrollListener(linearLayoutManager) {
-                @Override
-                public void onLoadMore(int current_page) {
-                    loadMoreFromAPI(current_page);
-                }
-            };
-
-            try {
-                rvNewsList.addOnScrollListener(scrollListener);
-            } catch (Exception e) {
-                e.printStackTrace();
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        rvNewsList.setLayoutManager(linearLayoutManager);
+        newsListAdapter = new NewsListAdapter(mContext, news);
+        scrollListener = new EndlessRecyclerOnScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int current_page) {
+                loadMoreFromAPI(current_page);
             }
+        };
+
+        try {
+            rvNewsList.addOnScrollListener(scrollListener);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 //        }
         rvNewsList.setAdapter(newsListAdapter);
     }
 
     private void loadMoreFromAPI(int current_page) {
         llProgressBar.setVisibility(View.VISIBLE);
-//        final ProgressDialog progressDialog = new ProgressDialog(mContext);
-//        progressDialog.setMessage("Loading more news");
-//        progressDialog.show();
-//        progressDialog.setCancelable(false);
         Call<List<Post>> posts = apiCalls.getLatestPostsNext(current_page);
         posts.enqueue(new Callback<List<Post>>() {
             @Override

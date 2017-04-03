@@ -1,32 +1,24 @@
 package com.app.sportcity.activities;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.app.sportcity.R;
 import com.app.sportcity.fragments.MyDialogFragment;
 import com.app.sportcity.objects.Img;
-import com.app.sportcity.objects.NewsList;
 import com.app.sportcity.objects.Post;
 import com.app.sportcity.utils.CommonMethods;
 import com.app.sportcity.utils.DataFeeder;
@@ -34,15 +26,12 @@ import com.app.sportcity.utils.FabInitializer;
 import com.app.sportcity.utils.Opener;
 import com.bumptech.glide.Glide;
 
-import java.io.IOException;
-import java.net.URL;
-
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class NewsDetail extends AppCompatActivity {
 
     TextView tvTitle, tvDate;
-    WebView tvDesc;
+    WebView wvDesc;
     ImageView ivFav, ivShare;
     TextView btnBuyImg;
     RecyclerView rvImg;
@@ -90,7 +79,8 @@ public class NewsDetail extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
 //                NavUtils.navigateUpFromSameTask(this);
-                onBackPressed();
+//                onBackPressed();
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -100,7 +90,7 @@ public class NewsDetail extends AppCompatActivity {
     private void init() {
         tvTitle = (TextView) findViewById(R.id.tv_news_title);
         tvDate = (TextView) findViewById(R.id.tv_news_date);
-        tvDesc = (WebView) findViewById(R.id.tv_news_content);
+        wvDesc = (WebView) findViewById(R.id.tv_news_content);
 
         ivFav = (ImageView) findViewById(R.id.iv_fav);
         ivShare = (ImageView) findViewById(R.id.iv_share);
@@ -125,16 +115,13 @@ public class NewsDetail extends AppCompatActivity {
 
     private void populateNewsDetail(Post newsDetail) {
         tvTitle.setText(Html.fromHtml(newsDetail.getTitle().getRendered()));
-//        tvTitle.setVisibility(View.GONE);
         String elapsedTime = CommonMethods.timeElapsed(newsDetail.getDate().replace("T", " "));
-//        newsViewHolder.tvDate.setText(elapsedTime);
         tvDate.setText(elapsedTime);
-        tvDesc.getSettings().setJavaScriptEnabled(true);
+        wvDesc.setWebChromeClient(new WebChromeClient(){});
+        wvDesc.getSettings().setJavaScriptEnabled(true);
         String temp = "<Html><Head><style>img{display: inline;height: auto;max-width: 100%;}</style></Head><Body>"+newsDetail.getContent().getRendered()+"</body></html>";
-        tvDesc.loadData(temp, "text/html; charset=utf-8", "UTF-8");
-//        tvDesc.loadDataWithBaseURL(null, "<style>img{display: inline;height: auto;max-width: 100%;}</style>" + post.getContent(), "text/html", "UTF-8", null);
-//        tvDesc.setText(Html.fromHtml(newsDetail.getContent().getRendered()));
-//        getSupportActionBar().setTitle(Html.fromHtml(newsDetail.getTitle().getRendered()));
+        wvDesc.loadData(temp, "text/html; charset=utf-8", "UTF-8");
+        System.out.println("Temp: "+temp);
     }
 
     @Override

@@ -22,7 +22,7 @@
                 android:id="@+id/tv_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/darkGrey"
+                android:textColor="@color/colorPrimary"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="this is a text message t o tes the ellipse for the text of mine"
