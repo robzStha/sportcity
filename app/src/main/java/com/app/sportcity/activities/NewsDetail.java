@@ -42,10 +42,6 @@ public class NewsDetail extends AppCompatActivity {
         setContentView(R.layout.activity_news_detail_new);
 
         Bundle bundle = getIntent().getExtras();
-
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -65,21 +61,12 @@ public class NewsDetail extends AppCompatActivity {
 
         new FabInitializer(this);
 
-//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onBackPressed();
-//            }
-//        });
-
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-//                NavUtils.navigateUpFromSameTask(this);
-//                onBackPressed();
                 finish();
                 return true;
             default:
@@ -109,7 +96,6 @@ public class NewsDetail extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Opener.Shop(NewsDetail.this);
-//            Toast.makeText(NewsDetail.this, "Lets buy some images", Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -120,7 +106,7 @@ public class NewsDetail extends AppCompatActivity {
         wvDesc.setWebChromeClient(new WebChromeClient(){});
         wvDesc.getSettings().setJavaScriptEnabled(true);
         String temp = "<Html><Head><style>img{display: inline;height: auto;max-width: 100%;}</style></Head><Body>"+newsDetail.getContent().getRendered()+"</body></html>";
-        wvDesc.loadData(temp, "text/html; charset=utf-8", "UTF-8");
+        wvDesc.loadData(temp, "text/html; charset=utf-8", "utf-8");
         System.out.println("Temp: "+temp);
     }
 
@@ -149,7 +135,6 @@ public class NewsDetail extends AppCompatActivity {
             View itemView = inflater.inflate(R.layout.item_image, parent, false);
             return new ImageViewHolder(itemView);
         }
-//        Bitmap image = null;
 
         @Override
         public void onBindViewHolder(ImageViewHolder holder, final int position) {
