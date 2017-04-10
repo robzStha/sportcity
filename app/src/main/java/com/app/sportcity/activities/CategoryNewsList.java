@@ -2,6 +2,7 @@ package com.app.sportcity.activities;
 
 import android.content.Context;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -16,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.ViewStructure;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,6 +32,8 @@ import com.app.sportcity.server_protocols.RetrofitSingleton;
 import com.app.sportcity.statics.StaticVariables;
 import com.app.sportcity.utils.DataFeeder;
 import com.app.sportcity.utils.FabInitializer;
+import com.app.sportcity.utils.MyMenuItemStuffListener;
+import com.app.sportcity.utils.Opener;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.gson.Gson;
@@ -38,6 +42,7 @@ import com.google.gson.reflect.TypeToken;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +71,7 @@ public class CategoryNewsList extends AppCompatActivity {
     private List<Category> categories;
     private ApiCalls apiCalls;
     private int selectedPage;
+    private TextView ui_hot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,12 +171,6 @@ public class CategoryNewsList extends AppCompatActivity {
         getSupportActionBar().setTitle(pageTitle);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_category_news_list, menu);
-        return true;
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -229,4 +229,48 @@ public class CategoryNewsList extends AppCompatActivity {
             }
         }
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        menu.clear();
+        getMenuInflater().inflate(R.menu.menu_news_detail, menu);
+        MenuItem item = menu.findItem(R.id.menu_hotlist);
+        MenuItemCompat.setActionView(item, R.layout.action_bar_icon_notification);
+        View menu_hotlist = MenuItemCompat.getActionView(item);
+        ui_hot = (TextView) menu_hotlist.findViewById(R.id.hotlist_hot);
+        updateHotCount(StaticVariables.Cart.cartDetails.getTotalCount());
+        new MyMenuItemStuffListener(menu_hotlist, "Show hot message") {
+            @Override
+            public void onClick(View v) {
+                Opener.CartList(CategoryNewsList.this);
+            }
+        };
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    // call the updating code on the main thread,
+// so we can call this asynchronously
+    public void updateHotCount(final int new_hot_number) {
+//        StaticVariables.Cart.cartDetails.setTotalCount(new_hot_number);
+        if (ui_hot == null) return;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (new_hot_number == 0)
+                    ui_hot.setVisibility(View.INVISIBLE);
+                else {
+                    ui_hot.setVisibility(View.VISIBLE);
+                    ui_hot.setText(Integer.toString(new_hot_number));
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateHotCount(StaticVariables.Cart.cartDetails.getTotalCount());
+    }
+    
 }

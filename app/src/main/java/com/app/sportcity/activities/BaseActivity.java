@@ -44,6 +44,7 @@ import com.app.sportcity.server_protocols.RetrofitSingleton;
 import com.app.sportcity.statics.StaticVariables;
 import com.app.sportcity.utils.EndlessRecyclerOnScrollListener;
 import com.app.sportcity.utils.FabInitializer;
+import com.app.sportcity.utils.MyMenuItemStuffListener;
 import com.app.sportcity.utils.MySharedPreference;
 import com.app.sportcity.utils.Opener;
 import com.google.gson.Gson;
@@ -73,6 +74,7 @@ public class BaseActivity extends AppCompatActivity
     private List<Post> newsTemp;
     LinearLayout llProgressBar;
     private boolean hasNext;
+    private TextView ui_hot;
 
 
     @Override
@@ -122,19 +124,6 @@ public class BaseActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-//        menu.clear();
-//        getMenuInflater().inflate(R.menu.base, menu);
-//        MenuItem item = menu.findItem(R.id.action_cart);
-//        MenuItemCompat.setActionView(item, R.layout.cart_badge_count);
-//        View view = MenuItemCompat.getActionView(item);
-//        btnCartCount = (Button) view.findViewById(R.id.btnCartCount);
-//        btnCartCount.setText(String.valueOf(cartCount));
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -180,16 +169,48 @@ public class BaseActivity extends AppCompatActivity
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
 
-//    private void setNotifCount(int count) {
-//        cartCount = count;
-//        invalidateOptionsMenu();
-//    }
+        menu.clear();
+        getMenuInflater().inflate(R.menu.menu_news_detail, menu);
+        MenuItem item = menu.findItem(R.id.menu_hotlist);
+        MenuItemCompat.setActionView(item, R.layout.action_bar_icon_notification);
+        View menu_hotlist = MenuItemCompat.getActionView(item);
+        ui_hot = (TextView) menu_hotlist.findViewById(R.id.hotlist_hot);
+        updateHotCount(StaticVariables.Cart.cartDetails.getTotalCount());
+        new MyMenuItemStuffListener(menu_hotlist, "Show hot message") {
+            @Override
+            public void onClick(View v) {
+                Opener.CartList(BaseActivity.this);
+            }
+        };
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    // call the updating code on the main thread,
+// so we can call this asynchronously
+    public void updateHotCount(final int new_hot_number) {
+//        StaticVariables.Cart.cartDetails.setTotalCount(new_hot_number);
+        if (ui_hot == null) return;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (new_hot_number == 0)
+                    ui_hot.setVisibility(View.INVISIBLE);
+                else {
+                    ui_hot.setVisibility(View.VISIBLE);
+                    ui_hot.setText(Integer.toString(new_hot_number));
+                }
+            }
+        });
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
+        updateHotCount(StaticVariables.Cart.cartDetails.getTotalCount());
+
         FragmentManager manager =getFragmentManager();
         manager.popBackStack();
         MySharedPreference prefs = new MySharedPreference(BaseActivity.this);

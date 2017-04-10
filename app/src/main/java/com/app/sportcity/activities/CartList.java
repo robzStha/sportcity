@@ -78,10 +78,6 @@ public class CartList extends AppCompatActivity {
         } else {
             recyclerView.setVisibility(View.GONE);
             btnProceed.setText("Cart Empty !! Shop some");
-
-//            tvMsg = (TextView) findViewById(R.id.tv_msg);
-//            tvMsg.setText("No any items on the cart. Please buy some :)");
-
             btnProceed.setOnClickListener(redirectToShop());
         }
     }
