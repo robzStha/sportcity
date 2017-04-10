@@ -13,6 +13,7 @@ import com.app.sportcity.activities.BaseActivity;
 import com.app.sportcity.activities.ForgotPasswordActivity;
 import com.app.sportcity.activities.LoginActivity;
 import com.app.sportcity.activities.RegisterActivity;
+import com.app.sportcity.activities.TempWebYoutube;
 import com.app.sportcity.objects.Category;
 import com.app.sportcity.objects.CategorySer;
 import com.app.sportcity.objects.NewsList;
@@ -71,6 +72,7 @@ public class Opener {
     }
 
     public static void NewsDetails(Activity activity, Post newsList) {
+//        i = new Intent(activity, TempWebYoutube.class);
         i = new Intent(activity, NewsDetail.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

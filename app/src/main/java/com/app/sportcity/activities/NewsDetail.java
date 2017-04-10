@@ -1,20 +1,27 @@
 package com.app.sportcity.activities;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.sportcity.R;
 import com.app.sportcity.fragments.MyDialogFragment;
@@ -35,6 +42,8 @@ public class NewsDetail extends AppCompatActivity {
     ImageView ivFav, ivShare;
     TextView btnBuyImg;
     RecyclerView rvImg;
+    private TextView ui_hot;
+    private int hot_number=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +86,7 @@ public class NewsDetail extends AppCompatActivity {
     private void init() {
         tvTitle = (TextView) findViewById(R.id.tv_news_title);
         tvDate = (TextView) findViewById(R.id.tv_news_date);
-        wvDesc = (WebView) findViewById(R.id.tv_news_content);
+//        wvDesc = (WebView) findViewById(R.id.tv_news_content);
 
         ivFav = (ImageView) findViewById(R.id.iv_fav);
         ivShare = (ImageView) findViewById(R.id.iv_share);
@@ -103,10 +112,34 @@ public class NewsDetail extends AppCompatActivity {
         tvTitle.setText(Html.fromHtml(newsDetail.getTitle().getRendered()));
         String elapsedTime = CommonMethods.timeElapsed(newsDetail.getDate().replace("T", " "));
         tvDate.setText(elapsedTime);
-        wvDesc.setWebChromeClient(new WebChromeClient(){});
-        wvDesc.getSettings().setJavaScriptEnabled(true);
-        String temp = "<Html><Head><style>img{display: inline;height: auto;max-width: 100%;}</style></Head><Body>"+newsDetail.getContent().getRendered()+"</body></html>";
-        wvDesc.loadData(temp, "text/html; charset=utf-8", "utf-8");
+
+
+
+
+
+
+//        wvDesc.setWebChromeClient(new WebChromeClient(){});
+//        wvDesc.getSettings().setJavaScriptEnabled(true);
+//        String temp = "<html><body>Video From YouTube<br><iframe width=\"420\" height=\"315\" src=\"https://www.youtube.com/embed/Ry8fFmON_GY?autoplay=0&loop=0&rel=0\" frameborder=\"0\" allowfullscreen></iframe></body></html>";
+        String temp = "<Html><Head><style>img{display: inline;height: auto;max-width: 100%;} iframe{width:100% !important;}</style></Head><Body>"+newsDetail.getContent().getRendered()+"</body></html>";
+//        wvDesc.loadData(temp, "text/html; charset=utf-8", "utf-8");
+
+        temp = temp.replace("'", "\"");
+        temp = temp.replace("//www.youtube.com/", "https://www.youtube.com/");
+
+        WebView displayYoutubeVideo = (WebView) findViewById(R.id.tv_news_content);
+        displayYoutubeVideo.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                return false;
+            }
+        });
+//        displayYoutubeVideo.getSettings().setLoadWithOverviewMode(true);
+//        displayYoutubeVideo.getSettings().setUseWideViewPort(true);
+        WebSettings webSettings = displayYoutubeVideo.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        displayYoutubeVideo.loadData(temp, "text/html; charset=utf-8", "utf-8");
+
         System.out.println("Temp: "+temp);
     }
 
@@ -171,4 +204,72 @@ public class NewsDetail extends AppCompatActivity {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_news_detail, menu);
+        View menu_hotlist = menu.findItem(R.id.menu_hotlist).getActionView();
+        ui_hot = (TextView) menu_hotlist.findViewById(R.id.hotlist_hot);
+        updateHotCount(hot_number);
+        new MyMenuItemStuffListener(menu_hotlist, "Show hot message") {
+            @Override
+            public void onClick(View v) {
+//                onHotlistSelected();
+            }
+        };
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    // call the updating code on the main thread,
+// so we can call this asynchronously
+    public void updateHotCount(final int new_hot_number) {
+        hot_number = new_hot_number;
+        if (ui_hot == null) return;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (new_hot_number == 0)
+                    ui_hot.setVisibility(View.INVISIBLE);
+                else {
+                    ui_hot.setVisibility(View.VISIBLE);
+                    ui_hot.setText(Integer.toString(new_hot_number));
+                }
+            }
+        });
+    }
+
+    static abstract class MyMenuItemStuffListener implements View.OnClickListener, View.OnLongClickListener {
+        private String hint;
+        private View view;
+
+        MyMenuItemStuffListener(View view, String hint) {
+            this.view = view;
+            this.hint = hint;
+            view.setOnClickListener(this);
+            view.setOnLongClickListener(this);
+        }
+
+        @Override abstract public void onClick(View v);
+
+        @Override public boolean onLongClick(View v) {
+            final int[] screenPos = new int[2];
+            final Rect displayFrame = new Rect();
+            view.getLocationOnScreen(screenPos);
+            view.getWindowVisibleDisplayFrame(displayFrame);
+            final Context context = view.getContext();
+            final int width = view.getWidth();
+            final int height = view.getHeight();
+            final int midy = screenPos[1] + height / 2;
+            final int screenWidth = context.getResources().getDisplayMetrics().widthPixels;
+            Toast cheatSheet = Toast.makeText(context, hint, Toast.LENGTH_SHORT);
+            if (midy < displayFrame.height()) {
+                cheatSheet.setGravity(Gravity.TOP | Gravity.RIGHT,
+                        screenWidth - screenPos[0] - width / 2, height);
+            } else {
+                cheatSheet.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, height);
+            }
+            cheatSheet.show();
+            return true;
+        }
+    }
 }
