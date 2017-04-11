@@ -69,6 +69,7 @@ public class CartList extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if (StaticVariables.Cart.cartDetails.getTotalCount() > 0) {
+            recyclerView.setVisibility(View.VISIBLE);
             recyclerView.setLayoutManager(new LinearLayoutManager(CartList.this));
             recyclerView.setAdapter(new CartListAdapter());
 

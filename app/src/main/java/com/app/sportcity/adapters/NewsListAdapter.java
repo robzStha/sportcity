@@ -86,7 +86,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private void bindNewsViewHolder(NewsViewHolder holder, final int position) {
         NewsViewHolder newsViewHolder = holder;
-        newsViewHolder.tvTitle.setText(Html.fromHtml(newsLists.get(position).getTitle().getRendered()));
+        newsViewHolder.tvTitle.setText(Html.fromHtml("<b>"+newsLists.get(position).getTitle().getRendered()+"</b>"));
         newsViewHolder.tvDesc.setText(Html.fromHtml(newsLists.get(position).getExcerpt().getRendered()));
 
 //        convertTime(position);
@@ -193,15 +193,15 @@ public class NewsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemViewType(int position) {
-        int viewType;
-        if (position % 3 == 0) {
-            if (newsLists.get(position).getImgUrl() != null) {
-                viewType = 1;
-            } else {
-                viewType = 0;
-            }
-        } else
-            viewType = 0;
+        int viewType = 0;
+//        if (position % 3 == 0) {
+//            if (newsLists.get(position).getImgUrl() != null) {
+//                viewType = 1;
+//            } else {
+//                viewType = 0;
+//            }
+//        } else
+//            viewType = 0;
 
         return viewType;
     }

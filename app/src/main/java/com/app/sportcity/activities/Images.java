@@ -107,7 +107,7 @@ public class Images extends AppCompatActivity {
         recyclerView.addOnItemTouchListener(new ImagesAdapter.RecyclerTouchListener(Images.this, recyclerView, new ImagesAdapter.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Toast.makeText(Images.this, "Position: " + position, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(Images.this, "Position: " + position, Toast.LENGTH_SHORT).show();
 
                 Bundle bundle = new Bundle();
                 bundle.putInt("position", position);
@@ -139,7 +139,7 @@ public class Images extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        System.out.println("Stop: " + gson.toJson(StaticVariables.Cart.cartDetails));
+//        System.out.println("Stop: " + gson.toJson(StaticVariables.Cart.cartDetails));
         prefs.setKeyValues(StaticVariables.CART_ITEM, gson.toJson(StaticVariables.Cart.cartDetails) + "");
     }
 

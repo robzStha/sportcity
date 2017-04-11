@@ -80,6 +80,7 @@
                 android:textSize="@dimen/txt_10" />
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tv_buy_imgs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

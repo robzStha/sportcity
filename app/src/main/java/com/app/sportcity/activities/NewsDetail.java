@@ -111,7 +111,7 @@ public class NewsDetail extends AppCompatActivity {
     };
 
     private void populateNewsDetail(Post newsDetail) {
-        tvTitle.setText(Html.fromHtml(newsDetail.getTitle().getRendered()));
+        tvTitle.setText(Html.fromHtml("<b>"+newsDetail.getTitle().getRendered()+"</b>"));
         String elapsedTime = CommonMethods.timeElapsed(newsDetail.getDate().replace("T", " "));
         tvDate.setText(elapsedTime);
 

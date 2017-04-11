@@ -13,7 +13,8 @@
         <LinearLayout
             android:layout_toLeftOf="@+id/iv_feat_img"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/space_100"
+            android:minHeight="@dimen/space_100"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_16"
             android:layout_marginRight="@dimen/space_16"
             android:orientation="vertical">
@@ -22,9 +23,9 @@
                 android:id="@+id/tv_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/darkGrey"
+                android:textStyle="bold"
                 android:ellipsize="end"
-                android:maxLines="1"
                 android:text="this is a text message t o tes the ellipse for the text of mine"
                 android:textSize="@dimen/txt_15" />
 
