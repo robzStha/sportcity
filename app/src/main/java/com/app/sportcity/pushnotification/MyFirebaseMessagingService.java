@@ -22,35 +22,38 @@ import java.util.Random;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = MyFirebaseMessagingService.class.getSimpleName();
     private Random ran;
-    private String type, alertCount, jobAlertId;
+    private String title, msg;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         try {
             Log.d(TAG, "From: " + remoteMessage.getFrom());
-            Log.d(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
+//            remoteMessage.getData()
+//            remoteMessage.getNotification().getTitle();
+//            Log.d(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
 
             for (Map.Entry<String, String> entry : remoteMessage.getData().entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue();
-                Log.d(TAG, "fcm_Key, " + key + " fcm_Value " + value);
-                if (key.equalsIgnoreCase("type")){
-                    type = value;
-                } else if (key.equalsIgnoreCase("alertCount")){
-                    alertCount = value;
-                } else if (key.equalsIgnoreCase("JobAlertId")){
-                    jobAlertId = value;
+//                Log.d(TAG, "fcm_Key, " + key + " fcm_Value " + value);
+                if (key.equalsIgnoreCase("title")){
+                    title = value;
+                } else if (key.equalsIgnoreCase("message")){
+                    msg = value;
+//                } else if (key.equalsIgnoreCase("JobAlertId")){
+//                    jobAlertId = value;
                 }
             }
+//            remoteMessage.get
 
             //Calling method to generate notification
-            sendNotification(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());
+            sendNotification();
         } catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    private void sendNotification(String title, String messageBody) {
+    private void sendNotification() {
         Intent intent = null;
         PendingIntent pendingIntent;
         ran = new Random();
@@ -58,8 +61,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 //        if (type.equalsIgnoreCase("JobAlerts")) {
             intent = new Intent(this, BaseActivity.class);
-            intent.putExtra("alertsCount", alertCount);
-            intent.putExtra("jobAlertId", jobAlertId);
 //        }
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         pendingIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), intent, PendingIntent.FLAG_ONE_SHOT);
@@ -70,7 +71,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             notificationBuilder
                     .setSmallIcon(R.mipmap.ic_launcher)
                     .setContentTitle(title)
-                    .setContentText(messageBody)
+                    .setContentText(msg)
                     .setAutoCancel(true)
                     .setSound(defaultSoundUri)
                     .setContentIntent(pendingIntent);
@@ -80,7 +81,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     .setSmallIcon(R.drawable.logo_sports)
                     .setColor(getResources().getColor(R.color.colorAccent))
                     .setContentTitle(title)
-                    .setContentText(messageBody)
+                    .setContentText(msg)
                     .setAutoCancel(true)
                     .setSound(defaultSoundUri)
                     .setContentIntent(pendingIntent);

@@ -20,7 +20,7 @@ import retrofit2.Response;
  */
 
 public class RegisterFirebaseToken {
-    private static final String TAG = RegisterFirebaseToken.class.getSimpleName();
+    private static final String TAG = "Rabin is testing";// = RegisterFirebaseToken.class.getSimpleName();
     private Context mContext;
     private String notificationToken;
     private MySharedPreference prefs;
@@ -32,17 +32,19 @@ public class RegisterFirebaseToken {
     }
 
     public void tokenRequestAndRegister() {
-        FirebaseMessaging.getInstance().subscribeToTopic("news");
+//        FirebaseMessaging.getInstance().subscribeToTopic("news");
         notificationToken = FirebaseInstanceId.getInstance().getToken();
         if (notificationToken != null && !notificationToken.isEmpty()) {
             Log.d(TAG, "notificationToken => " + notificationToken);
-            prefs.setKeyValues(CommonMethods.FIREBASE_TOKEN, notificationToken);
+            String temp = prefs.getStringValues(CommonMethods.FIREBASE_TOKEN);
+            if(!temp.equals(notificationToken)) {
+                prefs.setKeyValues(CommonMethods.FIREBASE_TOKEN, notificationToken);
+                new registerFirebaseTokenToServer().execute();
+            }
 
-            new registerFirebaseTokenToServer().execute();
-
-        } else {
-            tokenRequestAndRegister();
-        }
+        } //else {
+//            tokenRequestAndRegister();
+//        }
     }
 
     public class registerFirebaseTokenToServer extends AsyncTask<Void, Void, String> {
@@ -59,13 +61,14 @@ public class RegisterFirebaseToken {
         @Override
         protected String doInBackground(Void... param) {
             ApiCalls apiService = RetrofitSingleton.getApiCalls();
-            Call<ResponseToken> call = apiService.setDeviceToken("android", "", prefs.getStringValues(CommonMethods.FIREBASE_TOKEN));
+            Call<ResponseToken> call = apiService.setDeviceToken("android", "lorem@ipsum.com", prefs.getStringValues(CommonMethods.FIREBASE_TOKEN));
             call.enqueue(new Callback<ResponseToken>() {
                 @Override
                 public void onResponse(Call<ResponseToken> call, Response<ResponseToken> response) {
                     try {
                         if (response.isSuccessful()) {
                             Log.d(TAG, "TokenRegister " + response.body().SuccessMessage);
+                            System.out.println("Token register; "+ response.body().toString());
 //                            if (response.body().code.equalsIgnoreCase("0001")) {
 //                                Log.d(TAG, "TokenRegister " + response.body().msg);
 //                            } else {

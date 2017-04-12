@@ -2,6 +2,7 @@ package com.app.sportcity.pushnotification;
 
 import android.util.Log;
 
+import com.app.sportcity.activities.SplashScreen;
 import com.app.sportcity.utils.CommonMethods;
 import com.app.sportcity.utils.MySharedPreference;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -15,11 +16,14 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
     @Override
     public void onTokenRefresh() {
         try {
+
             //Getting registration token
             String refreshedToken = FirebaseInstanceId.getInstance().getToken();
             Log.d(TAG, "notificationToken => "+refreshedToken);
             prefs = new MySharedPreference(getApplicationContext());
             prefs.setKeyValues(CommonMethods.FIREBASE_TOKEN, refreshedToken);
+            RegisterFirebaseToken registerFirebaseToken = new RegisterFirebaseToken(getApplicationContext());
+            registerFirebaseToken.tokenRequestAndRegister();
         } catch (Exception e){
             e.printStackTrace();
         }

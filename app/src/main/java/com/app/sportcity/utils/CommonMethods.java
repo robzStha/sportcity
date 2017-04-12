@@ -48,7 +48,7 @@ import java.util.List;
  */
 public class CommonMethods {
 
-    public static String FIREBASE_TOKEN;
+    public static String FIREBASE_TOKEN="firebase_token";
 
     public static Intent getPickImageChooserIntent(Activity activity) {
 

@@ -48,9 +48,6 @@ public class SplashScreen extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
 //        getMenu();
-//
-//        RegisterFirebaseToken registerFirebaseToken = new RegisterFirebaseToken(SplashScreen.this);
-//        registerFirebaseToken.tokenRequestAndRegister();
 
         getLatestPost();
 
