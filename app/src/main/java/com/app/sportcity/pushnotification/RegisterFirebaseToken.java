@@ -35,12 +35,12 @@ public class RegisterFirebaseToken {
 //        FirebaseMessaging.getInstance().subscribeToTopic("news");
         notificationToken = FirebaseInstanceId.getInstance().getToken();
         if (notificationToken != null && !notificationToken.isEmpty()) {
-            Log.d(TAG, "notificationToken => " + notificationToken);
+            Log.d(TAG, "notificationTokenReadyToRegister => " + notificationToken);
             String temp = prefs.getStringValues(CommonMethods.FIREBASE_TOKEN);
-            if(!temp.equals(notificationToken)) {
-                prefs.setKeyValues(CommonMethods.FIREBASE_TOKEN, notificationToken);
-                new registerFirebaseTokenToServer().execute();
-            }
+//            if(!temp.equals(notificationToken)) {
+            prefs.setKeyValues(CommonMethods.FIREBASE_TOKEN, notificationToken);
+            new registerFirebaseTokenToServer().execute();
+//            }
 
         } //else {
 //            tokenRequestAndRegister();
@@ -61,14 +61,22 @@ public class RegisterFirebaseToken {
         @Override
         protected String doInBackground(Void... param) {
             ApiCalls apiService = RetrofitSingleton.getApiCalls();
-            Call<ResponseToken> call = apiService.setDeviceToken("android", "lorem@ipsum.com", prefs.getStringValues(CommonMethods.FIREBASE_TOKEN));
+            String randomMail;
+            if (!prefs.getStringValues(CommonMethods.TEMP_MAIL).equals("")) {
+                randomMail = prefs.getStringValues(CommonMethods.TEMP_MAIL);
+            } else {
+                randomMail = CommonMethods.getRandomMail();
+                prefs.setKeyValues(CommonMethods.TEMP_MAIL, randomMail);
+            }
+            System.out.println("Random mail: "+randomMail);
+            Call<ResponseToken> call = apiService.setDeviceToken("android", randomMail, prefs.getStringValues(CommonMethods.FIREBASE_TOKEN));
             call.enqueue(new Callback<ResponseToken>() {
                 @Override
                 public void onResponse(Call<ResponseToken> call, Response<ResponseToken> response) {
                     try {
                         if (response.isSuccessful()) {
                             Log.d(TAG, "TokenRegister " + response.body().SuccessMessage);
-                            System.out.println("Token register; "+ response.body().toString());
+                            System.out.println("Token is registered; " + response.body().toString());
 //                            if (response.body().code.equalsIgnoreCase("0001")) {
 //                                Log.d(TAG, "TokenRegister " + response.body().msg);
 //                            } else {

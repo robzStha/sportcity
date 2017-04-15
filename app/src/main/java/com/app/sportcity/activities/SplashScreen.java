@@ -19,6 +19,8 @@ import com.app.sportcity.pushnotification.RegisterFirebaseToken;
 import com.app.sportcity.server_protocols.ApiCalls;
 import com.app.sportcity.server_protocols.RetrofitSingleton;
 import com.app.sportcity.statics.StaticVariables;
+import com.app.sportcity.utils.CommonMethods;
+import com.app.sportcity.utils.MySharedPreference;
 import com.app.sportcity.utils.Opener;
 
 import java.io.IOException;
@@ -40,12 +42,22 @@ public class SplashScreen extends AppCompatActivity {
     boolean isCompleted = false;
     boolean hasError = false;
     String errorMsg;
+    private MySharedPreference prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+        prefs = new MySharedPreference(getApplicationContext());
+        if(prefs.getStringValues(CommonMethods.TEMP_MAIL)==""){
+            prefs.setKeyValues(CommonMethods.TEMP_MAIL, CommonMethods.getRandomMail());
+        }
+//        if(prefs.getStringValues(CommonMethods.FIREBASE_TOKEN)=="") {
+//            RegisterFirebaseToken registerFirebaseToken = new RegisterFirebaseToken(getApplicationContext());
+//            registerFirebaseToken.tokenRequestAndRegister();
+//        }
 
 //        getMenu();
 

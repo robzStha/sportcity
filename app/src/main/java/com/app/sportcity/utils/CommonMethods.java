@@ -42,12 +42,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Rabin on 9/7/2015.
  */
 public class CommonMethods {
 
+    public static final String TEMP_MAIL = "temp_mail";
     public static String FIREBASE_TOKEN="firebase_token";
 
     public static Intent getPickImageChooserIntent(Activity activity) {
@@ -513,6 +515,22 @@ public class CommonMethods {
             System.out.println(currentDateTimeString + " Current date time");
         }
         return str;
+    }
+
+    public static String random(int max_len) {
+        Random generator = new Random();
+        StringBuilder randomStringBuilder = new StringBuilder();
+        int randomLength = generator.nextInt(max_len);
+        char tempChar;
+        for (int i = 0; i < randomLength; i++){
+            tempChar = (char) (generator.nextInt(96) + 32);
+            randomStringBuilder.append(tempChar);
+        }
+        return randomStringBuilder.toString();
+    }
+
+    public static String getRandomMail(){
+        return CommonMethods.random(5)+System.currentTimeMillis()+"@sportcitytemp.com";
     }
 
 }

@@ -105,10 +105,6 @@ public class BaseActivity extends AppCompatActivity
 
         rvNewsList = (RecyclerView) findViewById(R.id.rv_cats);
         llProgressBar = (LinearLayout) findViewById(R.id.ll_progressbar);
-
-//        mFragment = new HomeNewsFragment();
-//        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//        ft.add(llContentBase.getId(), mFragment).commit();
         getLatestPost();
         rlHome = (RelativeLayout) findViewById(R.id.rl_home);
     }
