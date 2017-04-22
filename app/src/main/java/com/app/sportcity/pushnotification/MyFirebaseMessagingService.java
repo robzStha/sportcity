@@ -69,7 +69,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this);
         if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             notificationBuilder
-                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setSmallIcon(R.drawable.ic_notification)
                     .setContentTitle(title)
                     .setContentText(msg)
                     .setAutoCancel(true)
@@ -78,7 +78,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         } else {
             // Lollipop and greater specific setColor method goes here.
             notificationBuilder
-                    .setSmallIcon(R.drawable.logo_sports)
+                    .setSmallIcon(R.drawable.ic_notification)
                     .setColor(getResources().getColor(R.color.colorAccent))
                     .setContentTitle(title)
                     .setContentText(msg)

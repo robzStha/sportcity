@@ -1,16 +1,7 @@
 package com.app.sportcity.utils;
 
-import android.content.Context;
-import android.widget.Toast;
-
-import com.app.sportcity.objects.CartDetails;
-import com.app.sportcity.objects.Img;
-import com.app.sportcity.objects.ItemsDetail;
+import com.app.sportcity.objects.ItemDetail;
 import com.app.sportcity.statics.StaticVariables;
-
-import java.util.ArrayList;
-
-import static com.app.sportcity.statics.StaticVariables.Cart.cartDetails;
 
 /**
  * Created by bugatti on 22/01/17.
@@ -30,12 +21,12 @@ public class MyCart {
         return myCartInstance;
     }
 
-    public boolean addItemToCart(ItemsDetail item) {
+    public boolean addItemToCart(ItemDetail item) {
         return StaticVariables.Cart.addItem(item);
     }
 
     private int getItemCount() {
-        return StaticVariables.Cart.cartDetails.getTotalCount();
+        return StaticVariables.cartDetails.getTotalCount();
     }
 
 }

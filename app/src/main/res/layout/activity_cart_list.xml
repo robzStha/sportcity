@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -16,37 +16,54 @@
         <!--tools:layout_editor_absoluteY="0dp"-->
         <!--tools:layout_editor_absoluteX="8dp" />-->
 
-    <Button
-        android:id="@+id/btn_proceed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Proceed"
-        android:textColor="@android:color/white"
-        android:background="@drawable/button_shape"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.527"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rv_cart_items"
-        app:layout_constraintVertical_bias="0.363"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_cart_items"
-        android:layout_width="0dp"
-        android:layout_height="428dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="8dp"
-        app:layout_constraintHorizontal_bias="0.533"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
-</android.support.constraint.ConstraintLayout>
+        android:layout_marginRight="8dp"
+        android:layout_above="@+id/separator"/>
+
+
+
+    <View
+        android:id="@+id/separator"
+        android:layout_above="@+id/ll_action_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/lightGrey"/>
+    <LinearLayout
+        android:gravity="center"
+        android:id="@+id/ll_action_buttons"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:weightSum="2">
+        <Button
+            android:id="@+id/btn_shop_more"
+            android:layout_weight="1"
+            android:layout_marginTop="@dimen/space_8"
+            android:layout_marginLeft="@dimen/space_8"
+            android:layout_marginRight="@dimen/space_4"
+            android:layout_marginBottom="@dimen/space_8"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/button_shape_orange"
+            android:text="@string/shop_more"
+            android:textColor="@android:color/white"/>
+        <Button
+            android:layout_marginTop="@dimen/space_8"
+            android:layout_marginLeft="@dimen/space_4"
+            android:layout_marginRight="@dimen/space_8"
+            android:layout_marginBottom="@dimen/space_8"
+            android:id="@+id/btn_proceed"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/button_shape"
+            android:text="@string/proceed"
+            android:layout_weight="1"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+</RelativeLayout>

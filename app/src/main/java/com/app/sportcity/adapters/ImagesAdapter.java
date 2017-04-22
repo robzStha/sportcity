@@ -63,6 +63,11 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImageViewH
         return shopItems.size();
     }
 
+    public void appendNewImages(List<Media> body) {
+        shopItems.addAll(body);
+        notifyDataSetChanged();
+    }
+
     public class ImageViewHolder extends RecyclerView.ViewHolder{
 
         View root;

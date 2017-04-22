@@ -165,6 +165,7 @@ public class BaseActivity extends AppCompatActivity
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -174,8 +175,8 @@ public class BaseActivity extends AppCompatActivity
         MenuItemCompat.setActionView(item, R.layout.action_bar_icon_notification);
         View menu_hotlist = MenuItemCompat.getActionView(item);
         ui_hot = (TextView) menu_hotlist.findViewById(R.id.hotlist_hot);
-        updateHotCount(StaticVariables.Cart.cartDetails.getTotalCount());
-        new MyMenuItemStuffListener(menu_hotlist, "Show hot message") {
+        updateHotCount(StaticVariables.cartDetails.getTotalCount());
+        new MyMenuItemStuffListener(menu_hotlist, "ΤΟ ΚΑΛΑΘΙ ΜΟΥ") {
             @Override
             public void onClick(View v) {
                 Opener.CartList(BaseActivity.this);
@@ -205,16 +206,16 @@ public class BaseActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        updateHotCount(StaticVariables.Cart.cartDetails.getTotalCount());
+        updateHotCount(StaticVariables.cartDetails.getTotalCount());
 
-        FragmentManager manager =getFragmentManager();
+        FragmentManager manager = getFragmentManager();
         manager.popBackStack();
         MySharedPreference prefs = new MySharedPreference(BaseActivity.this);
         if (prefs.getStringValues(StaticVariables.CART_ITEM) != "") {
-            StaticVariables.Cart.cartDetails = new Gson().fromJson(prefs.getStringValues(StaticVariables.CART_ITEM), CartDetails.class);
+            StaticVariables.cartDetails = new Gson().fromJson(prefs.getStringValues(StaticVariables.CART_ITEM), CartDetails.class);
 
             try {
-                tvBadge.setText(StaticVariables.Cart.cartDetails.getTotalCount() + "");
+                tvBadge.setText(StaticVariables.cartDetails.getTotalCount() + "");
             } catch (Exception e) {
                 e.printStackTrace();
                 tvBadge.setText("0");
@@ -236,6 +237,9 @@ public class BaseActivity extends AppCompatActivity
                     edittext.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                            if (drawer.isDrawerOpen(GravityCompat.START))
+                                drawer.closeDrawer(GravityCompat.START);
                             if (edittext.getTag().equals("23")) {
                                 Opener.Shop(BaseActivity.this);
                             } else if (edittext.getTag().equals("24")) {
@@ -257,9 +261,6 @@ public class BaseActivity extends AppCompatActivity
             }
         }
     }
-
-
-
 
 
     private void getLatestPost() {
@@ -357,8 +358,6 @@ public class BaseActivity extends AppCompatActivity
             }
         });
     }
-
-
 
 
 }

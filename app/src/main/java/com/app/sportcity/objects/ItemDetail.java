@@ -3,7 +3,7 @@ package com.app.sportcity.objects;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ItemsDetail {
+public class ItemDetail {
 
     @SerializedName("item_id")
     @Expose
@@ -28,6 +28,22 @@ public class ItemsDetail {
     @SerializedName("item_img_url")
     @Expose
     private String itemImgUrl;
+
+    @SerializedName("item_org_img_url")
+    @Expose
+    private String itemOrgImgUrl;
+
+    public String getItemImgUrl() {
+        return itemImgUrl;
+    }
+
+    public String getItemOrgImgUrl() {
+        return itemOrgImgUrl;
+    }
+
+    public void setItemOrgImgUrl(String itemOrgImgUrl) {
+        this.itemOrgImgUrl = itemOrgImgUrl;
+    }
 
     public int getItemId() {
         return itemId;

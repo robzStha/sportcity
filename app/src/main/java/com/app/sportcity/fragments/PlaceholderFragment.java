@@ -53,9 +53,6 @@ public class PlaceholderFragment extends Fragment {
     private boolean hasNext;
 
     public PlaceholderFragment() {
-//        Gson gson = new Gsonson();
-//        newsLists = gson.fromJson(DataFeeder.Categories.getNewsList(), new TypeToken<List<NewsList>>() {
-//        }.getType());
     }
 
     @Override
@@ -111,7 +108,6 @@ public class PlaceholderFragment extends Fragment {
                     System.out.println("Next linkss : next: " + string[1]);
                     nextLink = string[0];
                 }
-//                    nextLink = string[0];
                 populateNews(response.body(), nextLink);
                 pd.dismiss();
             }
@@ -151,12 +147,7 @@ public class PlaceholderFragment extends Fragment {
     }
 
     private void loadMoreFromAPI(int current_page) {
-
         llProgressBar.setVisibility(View.VISIBLE);
-//        final ProgressDialog progressDialog = new ProgressDialog(mContext);
-//        progressDialog.setMessage("Loading more news");
-//        progressDialog.show();
-//        progressDialog.setCancelable(false);
         Call<List<Post>> posts = apiCalls.getPostsNext(catId, current_page);
         posts.enqueue(new Callback<List<Post>>() {
             @Override
@@ -177,8 +168,6 @@ public class PlaceholderFragment extends Fragment {
                     } else hasNext = false;
                 }
                 newsListAdapter.appendNewNews(response.body());
-//                progressDialog.dismiss();
-
                 llProgressBar.setVisibility(View.GONE);
             }
 
@@ -186,7 +175,6 @@ public class PlaceholderFragment extends Fragment {
             public void onFailure(Call<List<Post>> call, Throwable t) {
                 t.printStackTrace();
                 llProgressBar.setVisibility(View.GONE);
-//                progressDialog.dismiss();
             }
         });
     }

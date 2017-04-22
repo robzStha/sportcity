@@ -211,8 +211,8 @@ public class NewsDetail extends AppCompatActivity {
         MenuItemCompat.setActionView(item, R.layout.action_bar_icon_notification);
         View menu_hotlist = MenuItemCompat.getActionView(item);
         ui_hot = (TextView) menu_hotlist.findViewById(R.id.hotlist_hot);
-        updateHotCount(StaticVariables.Cart.cartDetails.getTotalCount());
-        new MyMenuItemStuffListener(menu_hotlist, "Show hot message") {
+        updateHotCount(StaticVariables.cartDetails.getTotalCount());
+        new MyMenuItemStuffListener(menu_hotlist, getString(R.string.cart)) {
             @Override
             public void onClick(View v) {
                 Opener.CartList(NewsDetail.this);
@@ -224,7 +224,6 @@ public class NewsDetail extends AppCompatActivity {
     // call the updating code on the main thread,
 // so we can call this asynchronously
     public void updateHotCount(final int new_hot_number) {
-//        StaticVariables.Cart.cartDetails.setTotalCount(new_hot_number);
         if (ui_hot == null) return;
         runOnUiThread(new Runnable() {
             @Override
@@ -242,6 +241,6 @@ public class NewsDetail extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        updateHotCount(StaticVariables.Cart.cartDetails.getTotalCount());
+        updateHotCount(StaticVariables.cartDetails.getTotalCount());
     }
 }

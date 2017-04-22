@@ -16,7 +16,7 @@ public class CartDetails {
     private float totalAmount=0;
     @SerializedName("items_detail")
     @Expose
-    private List<ItemsDetail> itemsDetail = new ArrayList<>();
+    private List<ItemDetail> itemDetail = new ArrayList<>();
 
     public int getTotalCount() {
         return totalCount;
@@ -34,11 +34,11 @@ public class CartDetails {
         this.totalAmount = totalAmount;
     }
 
-    public List<ItemsDetail> getItemsDetail() {
-        return itemsDetail;
+    public List<ItemDetail> getItemDetail() {
+        return itemDetail;
     }
 
-    public void setItemsDetail(List<ItemsDetail> itemsDetail) {
-        this.itemsDetail = itemsDetail;
+    public void setItemDetail(List<ItemDetail> itemDetail) {
+        this.itemDetail = itemDetail;
     }
 }

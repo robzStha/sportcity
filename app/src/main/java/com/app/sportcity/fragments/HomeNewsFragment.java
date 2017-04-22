@@ -110,7 +110,8 @@ public class HomeNewsFragment extends Fragment {
         scrollListener = new EndlessRecyclerOnScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int current_page) {
-                loadMoreFromAPI(current_page);
+                if (hasNext)
+                    loadMoreFromAPI(current_page);
             }
         };
 
@@ -119,7 +120,6 @@ public class HomeNewsFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        }
         rvNewsList.setAdapter(newsListAdapter);
     }
 

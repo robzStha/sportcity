@@ -66,8 +66,8 @@ public class NewsList extends AppCompatActivity {
         MenuItemCompat.setActionView(item, R.layout.action_bar_icon_notification);
         View menu_hotlist = MenuItemCompat.getActionView(item);
         ui_hot = (TextView) menu_hotlist.findViewById(R.id.hotlist_hot);
-        updateHotCount(StaticVariables.Cart.cartDetails.getTotalCount());
-        new MyMenuItemStuffListener(menu_hotlist, "Show hot message") {
+        updateHotCount(StaticVariables.cartDetails.getTotalCount());
+        new MyMenuItemStuffListener(menu_hotlist, getString(R.string.cart)) {
             @Override
             public void onClick(View v) {
                 Opener.CartList(NewsList.this);
@@ -97,6 +97,6 @@ public class NewsList extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        updateHotCount(StaticVariables.Cart.cartDetails.getTotalCount());
+        updateHotCount(StaticVariables.cartDetails.getTotalCount());
     }
 }

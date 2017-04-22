@@ -412,7 +412,7 @@ public class DataFeeder {
             for(int i=0; i<8; i++) {
                 Img img = new Img();
                 img.setImgId((i+1)+"");
-                img.setImgPrice("$10");
+                img.setImgPrice("€10");
                 img.setImgUrl("http://imaginationcpl.com/developer/sportscity/images/"+(i+1)+".jpg");
                 img.setIsFav("true");
                 imgs.add(img);

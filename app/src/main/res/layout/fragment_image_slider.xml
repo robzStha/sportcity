@@ -50,7 +50,7 @@
             android:layout_centerVertical="true"
             android:paddingRight="@dimen/space_16"
             android:textSize="22dp"
-            android:text="$20"
+            android:text="€20"
             android:textStyle="bold" />
 
         <ImageView

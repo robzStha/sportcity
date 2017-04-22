@@ -50,10 +50,12 @@
     <string name="buy_img">Buy Images</string>
     <string name="buy_img_desc">You can also buy these images online.</string>
     <string name="add_to_cart">Add to cart</string>
-    <string name="images">Image Gallery</string>
-    <string name="shop">Shop</string>
-    <string name="cart">My Cart</string>
-    <string name="img_gallery">Image Gallery</string>
-    <string name="my_cart">My Cart</string>
+    <string name="images">ΓΚΑΛΕΡΙ</string>
+    <string name="shop">ΓΚΑΛΕΡΙ</string>
+    <string name="cart">ΤΟ ΚΑΛΑΘΙ ΜΟΥ</string>
+    <string name="img_gallery">ΓΚΑΛΕΡΙ</string>
+    <string name="my_cart">ΤΟ ΚΑΛΑΘΙ ΜΟΥ</string>
+    <string name="proceed">ΠΡΟΧΩΡΗΣΤΕ</string>
+    <string name="shop_more">ΑΠΟΚΤΗΣΤΕ ΠΕΡΙΣΣΟΤΕΡΑ</string>
 
 </resources>

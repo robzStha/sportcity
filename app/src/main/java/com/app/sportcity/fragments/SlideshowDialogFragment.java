@@ -1,12 +1,11 @@
 package com.app.sportcity.fragments;
 
 import android.content.Context;
-import android.media.Image;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,14 +15,13 @@ import android.widget.Toast;
 
 import com.app.sportcity.R;
 import com.app.sportcity.activities.Images;
-import com.app.sportcity.objects.ItemsDetail;
-import com.app.sportcity.objects.Media;
+import com.app.sportcity.objects.ItemDetail;
 import com.app.sportcity.statics.StaticVariables;
 import com.app.sportcity.utils.MyCart;
+import com.app.sportcity.utils.MySharedPreference;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-
-import java.util.ArrayList;
+import com.google.gson.Gson;
 
 public class SlideshowDialogFragment extends DialogFragment {
     private String TAG = SlideshowDialogFragment.class.getSimpleName();
@@ -32,15 +30,19 @@ public class SlideshowDialogFragment extends DialogFragment {
     private TextView lblCount, lblTitle, lblPrice;
     ImageView ivAddToCart;
     private int selectedPosition = 0;
+    MySharedPreference prefs;
+    static Images images;
 
-    public static SlideshowDialogFragment newInstance() {
+    public static SlideshowDialogFragment newInstance(Images image) {
         SlideshowDialogFragment f = new SlideshowDialogFragment();
+        images = image;
         return f;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        prefs = new MySharedPreference(getContext());
         View v = inflater.inflate(R.layout.fragment_image_slider, container, false);
         viewPager = (ViewPager) v.findViewById(R.id.viewpager);
         lblCount = (TextView) v.findViewById(R.id.lbl_count);
@@ -88,27 +90,36 @@ public class SlideshowDialogFragment extends DialogFragment {
         }
     };
 
+    @Override
+    public void onCancel(DialogInterface dialog) {
+        super.onCancel(dialog);
+        images.updateHotCount(StaticVariables.cartDetails.getTotalCount());
+        images = null;
+//        Toast.makeText(getContext(), "Cancled", Toast.LENGTH_SHORT).show();
+    }
+
     private void displayMetaInfo(final int position) {
         lblCount.setText((position + 1) + " of " + Images.mediaListShop.size());
 //        Image image = images.get(position);
         lblTitle.setText(Images.mediaListShop.get(position).getTitle().getRendered());
-        lblPrice.setText("$" + Images.mediaListShop.get(position).getAcf().get(0).getPrice());
+        lblPrice.setText("€" + Images.mediaListShop.get(position).getAcf().get(0).getPrice());
         ivAddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ItemsDetail itemsDetail = new ItemsDetail();
-                itemsDetail.setItemId(Images.mediaListShop.get(position).getId());
-                itemsDetail.setItemName(Images.mediaListShop.get(position).getTitle().getRendered());
-                itemsDetail.setItemPrice(Float.parseFloat(Images.mediaListShop.get(position).getAcf().get(0).getPrice()));
-                itemsDetail.setItemImgUrl(Images.mediaListShop.get(position).getMediaDetails().getSizes().getThumbnail().getSourceUrl());
-                itemsDetail.setItemQty(1);
-                itemsDetail.setItemTotal(itemsDetail.getItemPrice());
-                if(MyCart.getInstance().addItemToCart(itemsDetail)) {
-                    Toast.makeText(getContext(), "Item added to cart", Toast.LENGTH_SHORT).show();
+                ItemDetail itemDetail = new ItemDetail();
+                itemDetail.setItemId(Images.mediaListShop.get(position).getId());
+                itemDetail.setItemName(Images.mediaListShop.get(position).getTitle().getRendered());
+                itemDetail.setItemPrice(Float.parseFloat(Images.mediaListShop.get(position).getAcf().get(0).getPrice()));
+                itemDetail.setItemImgUrl(Images.mediaListShop.get(position).getMediaDetails().getSizes().getThumbnail().getSourceUrl());
+                itemDetail.setItemOrgImgUrl(Images.mediaListShop.get(position).getMediaDetails().getSizes().getFull().getSourceUrl());
+                itemDetail.setItemQty(1);
+                itemDetail.setItemTotal(itemDetail.getItemPrice());
+                if(MyCart.getInstance().addItemToCart(itemDetail)) {
+                    Toast.makeText(getContext(), "ΠΡΟΣΤΕΘΗΚΕ ΣΤΟ ΚΑΛΑΘΙ", Toast.LENGTH_SHORT).show();
                 }else {
-                    Toast.makeText(getContext(), "Item already exist in the cart", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "ΥΠΑΡΧΕΙ ΗΔΗ ΣΤΟ ΚΑΛΑΘΙ", Toast.LENGTH_SHORT).show();
                 }
-                System.out.println("Cart info: item - "+StaticVariables.Cart.cartDetails.getTotalCount()+" total - "+StaticVariables.Cart.cartDetails.getTotalAmount());
+                System.out.println("Cart info: item - "+StaticVariables.cartDetails.getTotalCount()+" total - "+StaticVariables.cartDetails.getTotalAmount());
             }
         });
 //        lblDate.setText(image.getTimestamp());
@@ -164,5 +175,12 @@ public class SlideshowDialogFragment extends DialogFragment {
         public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView((View) object);
         }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Gson gson = new Gson();
+        prefs.setKeyValues(StaticVariables.CART_ITEM, gson.toJson(StaticVariables.cartDetails));
     }
 }
