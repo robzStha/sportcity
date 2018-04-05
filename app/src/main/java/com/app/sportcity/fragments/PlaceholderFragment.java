@@ -122,11 +122,16 @@ public class PlaceholderFragment extends Fragment {
     }
 
     private void populateNews(final List<Post> news, final String nextLink) {
-        System.out.println("Next link : " + nextLink);
+
         if (!nextLink.equals("")) {
             String temp = nextLink.substring(nextLink.indexOf("="));
             String tempArray[] = temp.split("&");
-            nextCatId = Integer.parseInt(tempArray[0].substring(1));
+            System.out.println("ykanello Debug : " + tempArray[0]);
+            tempArray[0] = tempArray[0].replaceAll("[^\\d.]", "");   // strip ; from nextcatID
+            System.out.println("ykanello Debug : " + tempArray[0]);
+	    //apparently the following statement does not remove the ; at the end of the digit. Replaced the ; in the temparray-0 definition above. 
+            //nextCatId = Integer.parseInt(tempArray[0].substring(1));
+            nextCatId = Integer.parseInt(tempArray[0]);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
             rvNewsList.setLayoutManager(linearLayoutManager);
             newsListAdapter = new NewsListAdapter(mContext, news);
