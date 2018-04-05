@@ -285,7 +285,8 @@ public class BaseActivity extends AppCompatActivity
                     temp = temp.replace(">", "");
                     String string[] = temp.split(" ");
                     String nextLink = "";
-                    System.out.println("Next linkss : " + temp + " Split: " + string[0] + " : " + string[1]);
+                   // System.out.println("Next linkss : " + temp + " Split: " + string[0] + " : " + string[1]);
+                    System.out.println("string 0 is : " + string[0]);
                     if (string[1].equals("rel=\"next\"")) {
                         System.out.println("Next linkss : next: " + string[1]);
                         nextLink = string[0];
